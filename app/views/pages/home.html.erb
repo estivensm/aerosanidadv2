@@ -78,7 +78,46 @@
   </div>        
 <% else %>
 
-  <style type="text/css">
+ 
+
+  <br>
+  <br>
+  <br>
+  <%= form_tag sessions_path, :method =>
+  :post do %>
+    <div class="container">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: "alert alert-danger" %>
+      <% end %>
+
+      <div class="card card-container"  style="border-radius: 4px;">
+        <div class="row">
+          <div class="col-xs-6 col-md-6 col-sm-6">
+            <%= link_to  image_tag('Logo/logo.png', :size =>
+            "125x80"), :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link logo'%>
+          </div>
+          <div class="col-xs-6 col-md-6 col-sm-6"> 
+            <img src="/assets/9-128.png" width="60%" alt="">
+          </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+
+        <%= text_field_tag :nombre_usuario, nil, class: 'form-control', :placeholder => "Nombres" %>
+        <br/>
+        <%= password_field_tag :password, nil, class: 'form-control', :placeholder => "Clave" %>
+        <br/><br/>
+        <%= submit_tag 'Ingresar', class: 'btn btn-lg btn-primary btn-block btn-signin' %>
+        <!-- /form -->
+        <br/>
+      </div>
+
+    </div>
+  <% end %>
+      <style type="text/css">
 
     html,
     body {
@@ -141,45 +180,6 @@
       border: none;
     }
 
-  </style>
-
-  <br>
-  <br>
-  <br>
-  <%= form_tag sessions_path, :method =>
-  :post do %>
-    <div class="container">
-      <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, class: "alert alert-danger" %>
-      <% end %>
-
-      <div class="card card-container"  style="border-radius: 4px;">
-        <div class="row">
-          <div class="col-xs-6 col-md-6 col-sm-6">
-            <%= link_to  image_tag('Logo/logo.png', :size =>
-            "125x80"), :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link logo'%>
-          </div>
-          <div class="col-xs-6 col-md-6 col-sm-6"> 
-            <img src="/assets/9-128.png" width="60%" alt="">
-          </div>
-        </div>
-
-        <br>
-        <br>
-        <br>
-
-
-        <%= text_field_tag :nombre_usuario, nil, class: 'form-control', :placeholder => "Nombres" %>
-        <br/>
-        <%= password_field_tag :password, nil, class: 'form-control', :placeholder => "Clave" %>
-        <br/><br/>
-        <%= submit_tag 'Ingresar', class: 'btn btn-lg btn-primary btn-block btn-signin' %>
-        <!-- /form -->
-        <br/>
-      </div>
-
-    </div>
-  <% end %>
-      
+  </style> 
 
 <% end %>
