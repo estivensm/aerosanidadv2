@@ -1,0 +1,50 @@
+
+<style>
+.ids{
+	color: gray;
+}
+</style>
+
+<tr class="x" id=<%= "rol_#{rol.id}" %>
+	>
+	<td>
+		<%= link_to rol.id, edit_rol_path(rol), :remote =>true, :class => "ids" %></td>
+	<td>
+		<%= rol.nombre.capitalize %></td>
+	<td>
+		<%= rol.descripcion.capitalize %></td>
+
+	<td>
+
+		<style type="text/css" media="screen">
+.icono {
+    font-size: 16px;
+    color: #848484;
+}
+.ver_notas{
+color: #666;
+}
+</style>
+
+		<%= link_to rol, :remote => true, class: "btn btn-link btn-xs", title: "Ver Rol" do %> <i class="glyphicon glyphicon-eye-open icono"></i>
+		<% end %>
+
+		<%= link_to edit_rol_path(rol), :remote => true, class: "btn btn-link btn-xs", title: "Editar Rol" do %> <i class="glyphicon glyphicon-pencil icono"></i>
+		<% end %></td>
+</tr>
+
+<style>
+
+.x td
+{
+padding: 5px 10px !important;
+background-color: #FBFBFB;
+color: #828282;
+}
+.x1 th
+{
+color: #67B0C7!important;
+background: #EFEFEF;
+font-size: 15px;      }
+
+</style>

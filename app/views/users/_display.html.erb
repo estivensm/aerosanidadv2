@@ -1,0 +1,147 @@
+<style type="text/css" media="screen">
+th{
+  font-size: 12px !important;
+}
+
+td{
+  font-size: 12px;
+}
+
+</style>
+
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-lg-12">
+
+      <span  class="btn btn-link btn-xs  pull-left pagination pagination">
+        <h1 class="title">Usuarios</h1>
+      </span>
+
+      <% if current_user.rol_id != 3 %>
+      <span  class="btn btn-link btn-xs pull-right" style="margin-top:18px;">
+        <%= link_to 'Nuevo Usuario', new_user_path, :class =>"btn btn-info color_blanco" %></span>
+      <% end %>
+
+      <div class="row" >
+        <div class="col-lg-12" style="margin-top: -50px;">
+          <%= will_paginate @users, renderer: BootstrapPagination::Rails, :previous_label =>'Atras', :next_label => 'Siguiente' %></div>
+      </div>
+
+      <table class="table table-bordered table-hover">
+
+        <thead>
+          <tr>
+            <th  colspan="6">
+
+              <%= form_tag request.path, :method =>
+              'get', :class => '' do %>
+              <div>
+                <div class="row">
+
+                  <div class="col-lg-5 ">
+
+                    <div class="input-group custom-search-form">
+                      <%= text_field_tag :search, params[:search], :placeholder =>
+                      "Busca por el Nombre", :class => 'form-control' %>
+                      <span class="input-group-btn">
+
+                        <%= button_tag(type: "submit", class: "btn principal") do %>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <% end %></span>
+                    </div>
+                    <!-- /input-group --> </div>
+                </div>
+              </div>
+              <% end %></th>
+
+            <th>
+
+              <%= link_to "PDF", users_path(:format =>
+              "pdf"), target: '_blank',  :rel => "tooltip", :title => "Pdf", :class => 'btn btn-info color_blanco' %>
+            </th>
+
+          </tr>
+
+          <tr class="x1">
+            <th width="3% !important;">Id</th>
+            <th width="18% !important;">Nombres y Apellidos</th>
+            <th width="10% !important;">Aprobado Ingresar</th>
+            <th width="4% !important;">Email</th>
+            <th width="12% !important;">Tipo De Documento</th>
+            <th width="8% !important;">Documento</th>
+            <th width="5% !important;">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% @users.each do |user| %>
+
+          <tr class="x">
+
+            <td>
+              <%= user.id %></td>
+            <td>
+              <%= user.nombres.capitalize %>
+              <%= user.apellidos.capitalize %></td>
+            <% if user.aprobado_login == 'Si' %>
+            <td style= "text-align:center;" class="success">
+              <%= user.aprobado_login %></td>
+            <% elsif user.aprobado_login == 'No' %>
+
+            <td style= "text-align:center;" class="danger">
+              <%= user.aprobado_login %></td>
+            <% end %>
+
+            <td>
+              <%= user.email %></td>
+            <td>
+              <%= user.tipo_documento %></td>
+            <td>
+              <%= user.documento %></td>
+
+            <td>
+
+              <style type="text/css" media="screen">
+.icono {
+    font-size: 16px;
+    color: #848484;
+}
+.ver_notas{
+color: #666;
+}
+</style>
+
+              <%= link_to user, class: "btn btn-link btn-xs", title: "Ver Usuario" do %> <i class="glyphicon glyphicon-eye-open icono"></i>
+              <% end %>
+
+              <%= link_to edit_user_path(user), class: "btn btn-link btn-xs", title: "Editar Usuario" do %> <i class="glyphicon glyphicon-pencil icono"></i>
+              <% end %></td>
+
+          </tr>
+
+          <% end %></table>
+
+      </div>
+      <style type="text/css">
+    @import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+body{margin-top:20px;}
+.fa-fw {width: 2em;}
+</style>
+
+      <style>
+
+.x td
+{
+padding: 5px 10px !important;
+background-color: #FBFBFB;
+color: #828282;
+}
+.x1 th
+{
+color: #67B0C7!important;
+background: #EFEFEF;
+font-size: 15px;      }
+
+</style>

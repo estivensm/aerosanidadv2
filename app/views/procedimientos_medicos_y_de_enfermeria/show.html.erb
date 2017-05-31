@@ -1,0 +1,326 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid">
+  <div id="loginbox" style = "margin-top: 30px;" class="mainbox col-md-12 col-sm-12">
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Roboto);
+      @import url(https://fonts.googleapis.com/css?family=Montserrat);
+      .panel-heading {
+          background-image: none;
+          background-color: #ECECEC;
+          color: #5bc0de;
+          font-family: 'Roboto', sans-serif;
+      }
+      .panel-title{
+          font-size: 30px;   
+      }
+      .pie_form{
+          background-image: none;
+          background-color: #ECECEC;
+          color: white;   
+      }
+      .line1
+      {
+          display: inline-block;
+          width: 30% !important;
+      }
+    </style>
+
+    <div class="container-fluid navbar navbar-default">
+
+      <div>
+
+        <br/>
+        <br/>
+
+        <div class="row">
+          <div class="profile">
+            <div class="col-sm-12">
+              <div class="container-fluid">
+                <div class="row col-md-12  custyle">
+                  <h1 style=" font-size:25px; text-align: left;color: #22BDC8; margin-top: 0px;">
+                    <span style = "margin-right:10px;color: #22BDC8; "class="glyphicon glyphicon-list-alt"></span>
+                    Datos Procedimiento Medico Y De Enfermeria
+                  </h1>
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th width="25%">Procedimiento:</th>
+                        <th width="25%">Usuario:</th>
+                        <th width="25%">Aeropuerto:</th>
+                        <th width="25%">Fecha novedad:</th>
+                    </tr> 
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.id %>
+                      </td>
+
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.user.nombre_usuario %> 
+                      </td>
+
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.aeropuerto.nombre %> 
+                      </td>
+
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.fecha_novedad %> 
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th width="1">Cantidad:</th>
+                      <th>Procedimientos:</th>
+                    </tr> 
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_acompañamiento_a_pacientes_trasladados_en_ambulancia %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Acompañamiento A Pacientes Trasladados En Ambulancia 
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_actividades_de_capacitacion_propias_y_a_otro_personal %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Actividades De Capacitacion Propias Y A Otro Personal
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_atencion_de_consultas_medicas %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Atención De Consultas Medicas 
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_atencion_de_llamadas_de_emergencias_de_aeronaves %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Atención De Llamadas De Emergencias De Aeronaves 
+                      </td>
+                    </tr>
+       
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_atencion_de_llamadas_de_emergencias_de_pasajeros_tripu %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Atención De Llamadas De Emergencias De Pasajeros Y/O Tripulaciones 
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_atencion_de_pacientes_urgentes %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Atención De Pacientes Urgentes 
+                      </td>
+                    </tr>                    
+       
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_atencion_de_pacientes_lesionados_en_el_aeropuerto %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Atención De Pacientes Lesionados En El Aeropuerto  
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_autorizacion_de_organos_componente_anatomico %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Autorización De Organos(Componente Anatomico) 
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_verificacion_de_cadaveres %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Verificación De Cadaveres  
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_ambulancias_externas %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Ambulancias Externas 
+                      </td>
+                    </tr>
+         
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_electrocardiogramas %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Electrocardiogramas
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_glucometria %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Glucometria
+                      </td>
+                    </tr>
+             
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_monitoreo_de_pacientes %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Monitoreo De Pacientes
+                      </td>
+                    </tr>   
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_reunion_de_personal_y_administrativas %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Reunión De Personal Y Administrativas
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_reuniones_administrativas_academicas %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Reuniones Administrativas Y/O Academicas
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_salida_por_llamadas_de_accidentes_externos %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Salida Por Llamadas De Accidentes Externos
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_servicios_de_ambulancias_de_sanidad %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Servicios De Ambulancias De Sanidad
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_servicios_de_silla_de_rueda %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Servicios De Silla De Rueda
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_suminitro_de_medicamentos_iv_im %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Suminitro De Medicamentos iv Y/O Im
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_suminitro_de_medicamentos_vo %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Suminitro De Medicamentos Vo
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_suturas_curaciones_y_lavados %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Suturas Curaciones Y Lavados
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_terapias_respiratorias_y_nebulizaciones %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Terapias Respiratorias Y Nebulizaciones
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= @procedimiento_medico_y_de_enfermeria.cantidad_tomas_y_controles_de_tension_arterial %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Tomas Y Controles De Tensión Arterial
+                      </td>
+                    </tr> 
+
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 text-center">
+              <br/>
+              <div class="col-xs-12 col-sm-4 emphasis">
+                <%= link_to 'Regresar', procedimientos_medicos_y_de_enfermeria_path, :class =>'btn btn-primary color_blanco principal' %>  
+              </div>
+              <div class="col-xs-12 col-sm-4 emphasis">
+                <%= link_to 'Editar Procedimiento',  edit_procedimiento_medico_y_de_enfermeria_path(@procedimiento_medico_y_de_enfermeria), :class => 'btn btn-primary  color_blanco principal'  %>
+              </div>
+              <div class="col-xs-12 col-sm-4 emphasis">
+                <%= link_to 'Nuevo Procedimiento', new_procedimiento_medico_y_de_enfermeria_path(@procedimiento_medico_y_de_enfermeria), :class => 'btn btn-primary  color_blanco principal' %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/><br/>
+      </div>
+    </div>
+  </div>
+</div>

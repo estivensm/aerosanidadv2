@@ -1,0 +1,333 @@
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+  <script>
+    $(function () {
+      $("#fecha_novedad").datepicker();
+    });
+  </script>
+
+  <style type="text/css" media="screen">.lead { font-size: 33px;margin-bottom:0px; }</style>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+  <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+  <script>
+    jQuery.datepicker.regional['eu'] = {
+    closeText: 'Egina',
+    prevText: '<Aur',
+    nextText: 'Hur>',
+    currentText: 'Gaur',
+    monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+    'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+    monthNamesShort: ['Ene','Febr','Mar','Abr','May','Jun',
+    'Jul','Agos','Sept','Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+    dayNamesShort: ['Domin', 'Lun','Mart','Mierc','Juev','Viern','Saba'],
+    dayNamesMin: ['Do', 'Lu','Ma','Mi','Ju','Vi','Sa'],
+    dateFormat: 'yy/mm/dd', firstDay: 1,
+    isRTL: false};
+    $.datepicker.setDefaults($.datepicker.regional['eu']);
+  </script>
+</div>
+
+
+<div class="container-fluid">
+  <div id="loginbox" class="mainbox col-md-12 col-sm-12">
+    <div class="container-fluid navbar navbar-default" style = "margin-bottom:0px!important">
+      <div class="row">
+        <%= simple_form_for(@procedimiento_medico_y_de_enfermeria) do |f| %>
+          <% if @procedimiento_medico_y_de_enfermeria.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@procedimiento_medico_y_de_enfermeria.errors.count, "error") %> prohibited this pet from being saved:</h2>
+
+              <ul>
+              <% @procedimiento_medico_y_de_enfermeria.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="container-fluid">
+            <br/>
+            <%= link_to "Regresar", reportes_path, :class=>"btn btn-info color_blanco mrg" %>
+            <h3 style = "color: #22BDC8;">PROCEDIMIENTO MEDICO Y DE ENFERMERIA</h3>
+            <div class="row">
+              <div class="container-fluid">
+                
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th width="30%">Aeropuerto:</th>
+                        <th width="30%">Fecha Novedad:</th>
+                        <th width="40%"></th>
+                    </tr> 
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <%= f.hidden_field :user_id, :value => current_user.id %>
+                      <td>
+                        <%= f.collection_select :aeropuerto_id, Aeropuerto.all, :id, :nombre, {prompt: "Campo Obligatorio"}, {class: "form-control"} %>
+                      </td>
+                      <td>
+                        <%= f.text_field :fecha_novedad, class: "form-control", id: "fecha_novedad", placeholder: 'Por Favor ingresa la Fecha de incio' %>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th width="1">Cantidad:</th>
+                      <th>Procedimientos:</th>
+                    </tr> 
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_acompañamiento_a_pacientes_trasladados_en_ambulancia, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Acompañamiento A Pacientes Trasladados En Ambulancia 
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_actividades_de_capacitacion_propias_y_a_otro_personal, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Actividades De Capacitacion Propias Y A Otro Personal 
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_atencion_de_consultas_medicas, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Atención De Consultas Medicas 
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_atencion_de_llamadas_de_emergencias_de_aeronaves, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Atención De Llamadas De Emergencias De Aeronaves 
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_atencion_de_llamadas_de_emergencias_de_pasajeros_tripu, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Atención De Llamadas De Emergencias De Pasajeros Y/O Tripulaciones 
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_atencion_de_pacientes_urgentes, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Atención De Pacientes Urgentes 
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_atencion_de_pacientes_lesionados_en_el_aeropuerto, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Atención De Pacientes Lesionados En El Aeropuerto  
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_autorizacion_de_organos_componente_anatomico, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Autorización De Organos(Componente Anatomico) 
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_verificacion_de_cadaveres, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Verificación De Cadaveres  
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_ambulancias_externas, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Ambulancias Externas 
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_electrocardiogramas, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Electrocardiogramas
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_glucometria, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Glucometria
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_monitoreo_de_pacientes, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Monitoreo De Pacientes
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_reunion_de_personal_y_administrativas, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Reunión De Personal Y Administrativas
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_reuniones_administrativas_academicas, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Reuniones Administrativas Y/O Academicas
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_salida_por_llamadas_de_accidentes_externos, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Salida Por Llamadas De Accidentes Externos
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_servicios_de_ambulancias_de_sanidad, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Servicios De Ambulancias De Sanidad
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_servicios_de_silla_de_rueda, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Servicios De Silla De Rueda
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_suminitro_de_medicamentos_iv_im, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Suminitro De Medicamentos iv Y/O Im
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_suminitro_de_medicamentos_vo, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Suminitro De Medicamentos Vo
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_suturas_curaciones_y_lavados, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Suturas Curaciones Y Lavados
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_terapias_respiratorias_y_nebulizaciones, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Terapias Respiratorias Y Nebulizaciones
+                      </td>
+                    </tr>                    
+
+                    <tr>
+                      <td>
+                        <%= f.input :cantidad_tomas_y_controles_de_tension_arterial, label: false, input_html: { min: 0, class: "form-control" }  %>
+                      </td>
+                      <td style="margin-top: 10px;">
+                        Tomas Y Controles De Tensión Arterial
+                      </td>
+                    </tr>    
+
+                  </tbody>
+                </table>
+
+
+                <style>
+                  tbody tr td {
+                    font-size: 16px;
+                  }
+
+                </style>
+
+
+
+
+
+                <div class="well pie_form">
+                  <div class="form-actions"  style = "text-align:center!important">
+                    <%= f.submit "Guardar", :class => 'btn btn btn-info  custom' %>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>      
+
+
+
+
+

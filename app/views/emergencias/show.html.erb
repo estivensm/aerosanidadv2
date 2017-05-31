@@ -1,0 +1,89 @@
+<div class="container-fluid">
+  <div id="loginbox" style = "margin-top: 30px;" class="mainbox col-md-12 col-sm-12">
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Roboto);
+      @import url(https://fonts.googleapis.com/css?family=Montserrat);
+      .panel-heading {
+          background-image: none;
+          background-color: #ECECEC;
+          color: #5bc0de;
+          font-family: 'Roboto', sans-serif;
+      }
+      .panel-title{
+          font-size: 30px;   
+      }
+      .pie_form{
+          background-image: none;
+          background-color: #ECECEC;
+          color: white;   
+      }
+      .line1
+      {
+          display: inline-block;
+          width: 30% !important;
+      }
+    </style>
+
+    <div class="container-fluid navbar navbar-default">
+
+      <div>
+
+        <br/>
+        <br/>
+
+        <div class="row">
+          <div class="profile">
+            <div class="col-sm-12">
+              <div class="container-fluid">
+                <div class="row col-md-12  custyle">
+                  <h1 style=" font-size:25px; text-align: left;color: #22BDC8; margin-top: 0px;">
+                    <span style = "margin-right:10px;color: #22BDC8; "class="glyphicon glyphicon-list-alt"></span>
+                    Datos Emergencia
+                  </h1>
+
+                  <table class="table table-striped custab table-bordered table-hover">
+                    <tr>
+                      <th width="20%">Usuario:</th>
+                      <td  width="30%">
+                        <%= @emergencia.user.nombre_usuario %>
+                        </td>
+                      <th  width="20%">Aeropuerto:</th>
+                      <td  width="30%">
+                        <%= @emergencia.aeropuerto.nombre %></td>
+                    </tr>
+                    <tr>
+                      <th>Fecha novedad:</th>
+                      <td>
+                        <%= @emergencia.fecha_novedad %></td>
+                      <th>Emergencias:</th>
+                      <td>
+                        <%= @emergencia.emergencias.capitalize %></td>
+                    </tr>
+                    <tr>
+                      <th>Notas de la emergencia:</th>
+                      <td colspan="3">
+                        <%= @emergencia.notas_de_la_emergencia.capitalize %></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 text-center">
+              <br/>
+              <div class="col-xs-12 col-sm-4 emphasis">
+                <%= link_to 'Regresar ', emergencias_path, :class =>'btn btn-primary color_blanco principal' %>  
+              </div>
+              <div class="col-xs-12 col-sm-4 emphasis">
+                <%= link_to 'Editar Emergencia',  edit_emergencia_path(@emergencia), :class => 'btn btn-primary  color_blanco principal'  %>
+              </div>
+              <div class="col-xs-12 col-sm-4 emphasis">
+                <%= link_to ' Nueva Emergencia', new_emergencia_path(@emergencia), :class => 'btn btn-primary  color_blanco principal' %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/><br/>
+      </div>
+    </div>
+  </div>
+</div>

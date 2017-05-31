@@ -1,0 +1,88 @@
+<div class="panel panel-default">
+<br/>
+<div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-bordered table-hover dataTable no-footer">
+
+    <tbody>
+        <tr>
+            <th  style="width:1%; " rowspan="3">                                    
+              <img src="http://www.aerosanidadvirtual.com/assets/Logo/logo.png" style="width: 130px;" alt="">
+            </th>
+            <th  style="width:20%; text-align: center;" colspan="2">
+              INFORME DE HISTORIAS CLINICAS POR MEDICO
+            </th>
+        </tr>
+
+          <tr>
+            <th  style="width:10%; text-align: center;">
+            <b>FECHA: </b> 
+              <% t = Time.now %>
+              <%= t.strftime "%d-%m-%Y" %>
+            </th >
+  
+        </tr>
+
+
+          <tr>
+            <th  style="width:10%; text-align: center;">
+            <b>HORA: </b> 
+              <% t = Time.now %>
+              <%= t.strftime("%X %P") %>
+            </th >
+  
+        </tr>
+
+    </tbody>
+
+
+
+    </table>
+    </div>
+</div>
+<div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer">       
+      <tbody>
+          <tr>
+                <th class="info">NOMBRE</th>
+                <th class="info">HISTORIAS CLINICAS</th>
+                
+            </tr>
+          
+              <% @hash1.each do |key, array|%>
+                <tr>
+                <td style="width:70%"><%=key%></td>
+              <td style="width:30%;text-align:center"><%=array%></td>
+      </tr>
+<%end%>
+
+              
+              
+        
+
+            
+
+
+
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+<style type="text/css" media="screen">
+th{
+  font-size: 10px;
+} 
+
+td{
+  font-size: 10px;
+} 
+
+</style>
+
+</div>    
+
+

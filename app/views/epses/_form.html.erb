@@ -1,0 +1,58 @@
+<%= form_for(@eps, html: { multipart: true, :remote =>
+true  }) do |f| %>
+<% if @eps.errors.any? %>
+<div id="error_explanation">
+  <h2>Por Favor Verificar:</h2>
+
+  <ul>
+    <% @eps.errors.full_messages.each do |message| %>
+    <li>
+      <%= message %></li>
+    <% end %></ul>
+</div>
+<% end %>
+
+<div class="user" >
+  <div class="modal-header">
+    <h4 class="modal-title">
+      <h3>Datos Eps</h3>
+    </h4>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-4">Nombre:</div>
+    <div class="col-md-8">
+      <%= f.text_field :nombre, :label =>
+      false, class: "form-control", placeholder: 'Campo Obligatorio' %>
+    </div>
+
+  </div>
+</div>
+<br/>
+<div class="modal-footer">
+  <%= f.submit "Guardar", :class =>
+  'btn btn-info color_blanco custom' %>
+  <a href="#" class="btn btn-default" onclick="$.lazybox.close()">Cerrar</a>
+</div>
+
+<% end %>
+
+<style type="text/css">
+  .modal-header{
+    background-color: #20B4BF !important;
+    color: #FFFFFF;
+  }
+
+  .custom{
+    background-color: #20B4BF !important;
+    color: #FFFFFF;
+  }
+
+  .panel{
+    border-color: #20B4BF;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+  }
+</style>

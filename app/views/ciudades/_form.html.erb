@@ -1,0 +1,79 @@
+<%= form_for(@ciudad, html: { multipart: true, :remote =>
+true  }) do |f| %>
+<% if @ciudad.errors.any? %>
+<div id="error_explanation">
+  <h2>Por Favor Verificar:</h2>
+
+  <ul>
+    <% @ciudad.errors.full_messages.each do |message| %>
+    <li>
+      <%= message %></li>
+    <% end %></ul>
+</div>
+<% end %>
+
+<div class="user" >
+  <div class="modal-header">
+    <h4 class="modal-title">
+      <h3>Datos Ciudad</h3>
+    </h4>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-4">Nombre:</div>
+    <div class="col-md-8">
+      <%= f.text_field :nombre,  placeholder: 'Campo Obligatorio', class: "form-control new_blog", label: false %></div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-md-4">Pais:</div>
+    <div class="col-md-8">
+      <%= f.select :pais_codigo, Pais.all.map { |u| ["#{u.nombre}", u.nombre] }, { include_blank: true },  { class: 'chosen-select', :date =>{:placeholder => 'Choose a Country...'} } %></div>
+  </div>
+
+  <br/>
+
+  <script type="text/javascript">
+  $(function() {
+  return $('.chosen-select').chosen({
+    allow_single_deselect: true,
+    no_results_text: 'No hay resultados',
+    width: '175px',
+    height: '30px'
+  });
+});
+
+</script>
+
+  <script>$( ".chosen-default" ).text( "Selecciona un Pais." );</script>
+
+</div>
+<div class="modal-footer">
+  <%= f.submit "Guardar", :class =>
+  'btn btn-info color_blanco custom' %>
+  <a href="#" class="btn btn-default" onclick="$.lazybox.close()">Cerrar</a>
+</div>
+
+<% end %>
+
+<style type="text/css">
+  .modal-header{
+    background-color: #20B4BF !important;
+    color: #FFFFFF;
+  }
+
+  .custom{
+    background-color: #20B4BF !important;
+    color: #FFFFFF;
+  }
+
+
+  .panel{
+    border-color: #20B4BF;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+  }
+</style>

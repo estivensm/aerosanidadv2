@@ -1,0 +1,48 @@
+<% if @pacientes != nil%>
+  <span class="btn btn-link btn-xs pull-right ">
+    <%= will_paginate @pacientes, renderer: BootstrapPagination::Rails %>
+  </span>  
+  <% @pacientes.each do |paciente| %>
+
+    <table class="table table-striped table-bordered table-hover" style="width:100%;margin-bottom:30px!important;background:white!important;    border: 2px solid #ACD6DD;">
+      <tbody>
+        <tr>
+          <td colspan ="5" style = "text-align:center;padding:20px!important;">
+            <span class = "glyphicon glyphicon-user" style = "font-size:25px!important;text-align:left!important"></span>
+            <br>
+            <span style = "font-size:25px!important;margin-right:10px;">
+              <%= paciente.primer_nombre %>
+              <%= paciente.segundo_nombre %>
+              <%= paciente.primer_apellido %>
+              <br>
+            </span>
+            CC:
+            <%= paciente.documento %>
+            <%= link_to '| Ver Paciente ' , paciente_path(paciente), :class =>
+            "marg" %>
+            <%= link_to '| Ver Historias Clinicas(' + paciente.historias_clinicas.count.to_s + ')' , paciente_historias_clinicas_path(paciente), :class =>
+            "marg" %>
+            <br>
+            <br>
+
+            <% if current_user.rol_id != 3 %>
+              <%= link_to ' Nueva Historia Clinica',  new_paciente_historia_clinica_path(paciente), :class =>
+            "btn principal"  %>
+            <% end %>
+
+            <% if paciente.historias_clinicas.count != 0 %>
+              <% @alejo = paciente.historias_clinicas.last %>
+
+              <%= link_to ' Nueva Nota de Evolucion', new_paciente_historia_clinica_nota_progreso_path(paciente, @alejo.id), :class =>
+              "btn principal" %>
+            <% end %>
+            <br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+  <% end %>
+<% end %>
+
+ 

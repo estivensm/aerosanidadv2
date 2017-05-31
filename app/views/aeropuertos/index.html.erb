@@ -1,0 +1,69 @@
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-lg-12">
+
+      <span  class="btn btn-link btn-xs  pull-left pagination pagination">
+        <h1 class="title">Aeropuertos</h1>
+      </span>
+
+      <% if admin? %>
+      <span  class="pagination pull-right">
+        <%= link_to 'Nuevo Aeropuerto', new_aeropuerto_path, remote: true, :class =>"btn   btn-info color_blanco" %></span>
+      <% end %>
+
+      <table class="table table-bordered table-hover">
+
+        <thead>
+          <tr>
+            <th  colspan="5">
+
+              <%= form_tag request.path, :method =>
+              'get', :class => '' do %>
+              <div>
+                <div class="row">
+
+                  <div class="col-lg-5 ">
+
+                    <div class="input-group custom-search-form">
+                      <%= text_field_tag :search, params[:search], :placeholder =>
+                      "Busca por el Nombre", :class => 'form-control' %>
+                      <span class="input-group-btn">
+
+                        <%= button_tag(type: "submit", class: "btn principal") do %>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <% end %></span>
+                    </div>
+                    <!-- /input-group --> </div>
+                </div>
+              </div>
+              <% end %></th>
+
+          </tr>
+
+          <tr class = "x1">
+            <th width="5% !important;">Id</th>
+            <th width="65% !important;">Nombre</th>
+            <th width="25% !important;">Ciudad</th>
+            <th width="10% !important;">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @aeropuertos %></tbody>
+      </table>
+
+    </div>
+<style>
+  .x td{
+    padding: 5px 10px !important;
+    background-color: #FBFBFB;
+    color: #828282;
+  }
+  .x1 th{
+    color: #67B0C7!important;
+    background: #EFEFEF;
+    font-size: 15px;      
+  }
+
+</style>

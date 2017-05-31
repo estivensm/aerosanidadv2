@@ -1,0 +1,111 @@
+
+<br/>
+<br/>
+
+<style type="text/css" media="screen">
+th{
+  font-size: 12px !important;
+}
+
+td{
+  font-size: 12px;
+}
+
+</style>
+
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-lg-12">
+
+      <span  class="btn btn-link btn-xs  pull-left pagination pagination">
+        <h1 class="title">Emergencias</h1>
+      </span>
+
+      <span  class="btn btn-link btn-xs pull-right" style="margin-top:18px;">
+        </span>
+
+      <div class="row" >
+        <div class="col-lg-12" style="margin-top: -50px;">
+          <%= will_paginate @emergencias, renderer: BootstrapPagination::Rails, :previous_label =>'Atras', :next_label => 'Siguiente' %></div>
+      </div>
+
+
+      <table class="table table-bordered table-hover">
+
+        <thead>
+
+
+          <tr class="x1">
+            <th width="3% !important;">Id</th>
+            <th width="18% !important;">Fecha y Hora</th>
+            <th width="18% !important;">Aeropuerto</th>
+            <th width="18% !important;">Usuario</th>
+            <th width="18% !important;">Rol</th>
+            <th colspan="2" width="18% !important;">Opciones</th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+          <% @emergencias.each do |emergencia| %>
+
+          <tr class="x">
+
+            <td><%= emergencia.id %></td>
+            <td>
+              <%= emergencia.created_at.strftime("%d-%m-%Y") %>
+              <%= emergencia.created_at.strftime("%X")  %></td>
+            <td><%= emergencia.aeropuerto.nombre.capitalize %></td>
+            <td><%= emergencia.user.nombres %></td>
+            <td><%= emergencia.user.rol.nombre %></td>
+            <td>
+              <%= link_to emergencia, class: "btn btn-link btn-xs", title: "Ver Usuario" do %> <i class="glyphicon glyphicon-eye-open icono"></i>
+              <% end %>
+            </td>
+
+            <td>
+              <%= link_to edit_emergencia_path(emergencia), class: "btn btn-link btn-xs", title: "Editar Usuario" do %> <i class="glyphicon glyphicon-pencil icono"></i>
+              <% end %></td>
+
+          </tr>
+
+          <% end %></table>
+
+      </div>
+      <style type="text/css">
+    @import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+body{margin-top:20px;}
+.fa-fw {width: 2em;}
+</style>
+
+      <style>
+
+.x td
+{
+padding: 5px 10px !important;
+background-color: #FBFBFB;
+color: #828282;
+}
+.x1 th
+{
+color: #67B0C7!important;
+background: #EFEFEF;
+font-size: 15px;      }
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

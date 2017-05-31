@@ -1,0 +1,126 @@
+<div class="container-fluid" style="margin: 25px; margin-top: -20px;">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <span  class="btn btn-link btn-xs  pull-left pagination pagination">
+        <h1 class="title">Pacientes</h1>
+      </span>
+
+      <% if current_user.rol_id != 3 %>
+      <span  class="btn btn-link btn-xs pull-right" style="margin-top: 20px !important;">
+        <%= link_to 'Nuevo Paciente', new_paciente_path, :class =>"btn btn-info color_blanco" %>  
+      </span>
+      <% end %>
+
+      <div class="row" >
+        <div class="col-lg-12" style="margin-top: -40px;">
+          <%= will_paginate @roles, renderer: BootstrapPagination::Rails, :previous_label =>'Atras', :next_label => 'Siguiente' %>
+        </div>
+      </div>
+
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th colspan="5">
+              <%= form_tag request.path, :method => 'get', :class => '' do %>
+                <div class="row">
+                  <div class="col-lg-8">
+                    <div class="input-group custom-search-form">
+                      <%= text_field_tag :search, params[:search], :placeholder =>
+                      "Busca por el Nombre", :class => 'form-control' %>
+                      <span class="input-group-btn">
+
+                        <%= button_tag(type: "submit", class: "btn principal") do %>
+                          <span class="glyphicon glyphicon-search"></span>
+                        <% end %>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <a class="btn icon-btn btn-primary" href="#">
+                      <span class="glyphicon btn-glyphicon glyphicon glyphicon-user img-circle text-primary"></span>
+                      Numero de Pacientes registrados
+                      <%= Paciente.count %>
+                    </a>
+                  </div>
+                </div>
+              <% end %>
+            </th>
+          </tr>
+          <tr class ="x1" >
+            <th width="5% !important;">Id</th>
+            <th width="30% !important;">Nombres y Apellidos</th>
+            <th width="15% !important;">Documento</th>
+            <th width="15% !important;">Fecha y Hora</th>
+            <th width="20% !important;">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @pacientes.each do |paciente| %>
+            <tr class ="x">
+              <td><%= paciente.id %></td>
+              <td>
+                <%= paciente.primer_nombre.capitalize %>
+                <%= paciente.segundo_nombre.capitalize %>
+                <%= paciente.primer_apellido.capitalize %>
+                <%= paciente.segundo_apellido.capitalize %>
+              </td>
+              <td><%= paciente.documento %></td>
+              <td>
+                <%= paciente.created_at.strftime "%d-%m-%Y" %>
+                <%= paciente.created_at.strftime("%X") %></td>
+              <td>
+
+                <style type="text/css" media="screen">
+                  .icono {
+                    font-size: 16px;
+                    color: #848484;
+                  }
+                  .ver_notas{
+                  color: #666;
+                  }
+                </style>
+
+                <%= link_to paciente, class: "btn btn-link btn-xs", title: "Ver Paciente" do %> <i class="glyphicon glyphicon-eye-open icono"></i>
+                <% end %>
+
+                <% if current_user.rol_id != 3 %>
+
+                  <%= link_to edit_paciente_path(paciente), class: "btn btn-link btn-xs", title: "Editar Paciente" do %> <i class="glyphicon glyphicon-pencil icono"></i>
+                  <% end %>
+
+                <% end %>
+
+                <%= link_to 'Ver Historias Clinicas(' + paciente.historias_clinicas.count.to_s + ')' , paciente_historias_clinicas_path(paciente), :class =>'btn btn-link btn-xs ver_notas' %>
+
+              </td>
+
+            </tr>
+          <% end %>
+        </tbody>  
+      </table>
+
+    </div>
+  </div>
+</div>
+
+<style>
+
+  .x td{
+    padding: 5px 10px !important;
+    background-color: #FBFBFB;
+    color: #828282;
+  }
+
+  .x1 th{
+    color: #67B0C7!important;
+    background: #EFEFEF;
+    font-size: 15px;      
+  }
+
+</style>
+
+<style type="text/css" media="screen">
+  .btn-glyphicon { padding:8px; background:#ffffff; margin-right:4px; }
+  .icon-btn { padding: 1px 15px 3px 2px; border-radius:50px;}
+</style>

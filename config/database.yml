@@ -1,0 +1,31 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: Aerosanidad_development
+  pool: 5
+  username: postgres 
+  password: Aerosanidad_2015
+  host: localhost
+  port: 5432
+
+
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: Aerosanidad_test
+  pool: 5
+  username: postgres 
+  password: Aerosanidad_2015
+  host: localhost
+  port: 5432
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: Aerosanidad_production
+  pool: 5
+  username: postgres
+  password: Aerosanidad_2015
+  host: localhost
+  port: 5432

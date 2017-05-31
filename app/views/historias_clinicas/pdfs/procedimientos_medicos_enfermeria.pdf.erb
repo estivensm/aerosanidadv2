@@ -1,0 +1,855 @@
+<div class="panel panel-default">
+<br/>
+<div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-bordered table-hover dataTable no-footer">
+    <tbody>
+        <tr>
+            <th  style="width:1%; " rowspan="3">                                    
+              <img src="http://www.aerosanidadvirtual.com/assets/Logo/logo.png" style="width: 130px;" alt="">
+            </th>
+            <th  style="width:20%; text-align: center;" colspan="2">
+              INFORME MENSUAL DE PROCEDIMIENTOS MÉDICOS Y ENFERMERÍA
+            </th>
+        </tr>
+
+          <tr>
+            <th  style="width:10%; text-align: center;">
+            <b>FECHA: </b> 
+              <% t = Time.now %>
+              <%= t.strftime "%d-%m-%Y" %>
+            </th >
+  
+        </tr>
+
+
+          <tr>
+            <th  style="width:10%; text-align: center;">
+            <b>HORA: </b> 
+              <% t = Time.now %>
+              <%= t.strftime("%X %P") %>
+            </th >
+  
+        </tr>
+
+    </tbody>
+
+    </table>
+    </div>
+</div>
+
+
+
+<%
+pacientesTrasladadosHombre = HistoriaClinica.joins(:notas_progreso).where(:notas_progreso => {procedimientos_medicos_y_de_enfermeria:  "Acompañamiento A Pacientes Trasladados En Ambulancia"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+
+pacientesTrasladadosMujer = HistoriaClinica.joins(:notas_progreso).where(:notas_progreso => {procedimientos_medicos_y_de_enfermeria:  "Acompañamiento A Pacientes Trasladados En Ambulancia"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+
+
+totalPacientesTrasladados = pacientesTrasladadosHombre.to_i + pacientesTrasladadosMujer.to_i
+
+totalAcumuladoPacientes = totalPacientesTrasladados.to_i
+
+
+actividadesCapacitacionHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Actividades De Capacitacion Propias Y A Otro Personal"}).where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+
+actividadesCapacitacionMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Actividades De Capacitacion Propias Y A Otro Personal"}).where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+
+totalActividadesCapacitacion = actividadesCapacitacionHombre.to_i + actividadesCapacitacionMujer.to_i
+
+totalAcumuladoActividades = totalAcumuladoPacientes.to_i + totalActividadesCapacitacion.to_i
+
+
+atencionConsultasMedicasHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Atencion De Consultas Medicas"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+
+atencionConsultasMedicasMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Atencion De Consultas Medicas"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalConsultasMedicas = atencionConsultasMedicasHombre.to_i + atencionConsultasMedicasMujer.to_i
+
+totalAcumuladoConsultasMedicas = totalAcumuladoActividades.to_i + totalConsultasMedicas.to_i
+
+
+atencionEmergenciasAeronavesHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Atencion De Llamadas De Emergencias De Aeronaves"}).where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+atencionEmergenciasAeronavesMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Atencion De Llamadas De Emergencias De Aeronaves"}).where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalEmergenciasAeronaves = atencionEmergenciasAeronavesHombre.to_i + atencionEmergenciasAeronavesMujer.to_i
+
+totalAcumuladoEmergenciasAeronaves = totalAcumuladoConsultasMedicas.to_i + totalEmergenciasAeronaves.to_i
+
+
+atencionLlamadaEmergenciaHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Atencion De Llamadas De Emergencias De Pasajeros Y/O Tripulaciones"}).where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+atencionLlamadaEmergenciaMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Atencion De Llamadas De Emergencias De Pasajeros Y/O Tripulaciones"}).where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+
+totalAtencionLlamadaEmergencia = atencionLlamadaEmergenciaHombre.to_i + atencionLlamadaEmergenciaMujer.to_i
+
+totalAcumuladoAtencionLlamadaEmergencia = totalAcumuladoEmergenciasAeronaves.to_i + totalAtencionLlamadaEmergencia.to_i
+
+
+atencionPacientesUrgentesHombre = HistoriaClinica.all.joins(:notas_progreso).where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Atencion De Pacientes Urgentes"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+atencionPacientesUrgentesMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Atencion De Pacientes Urgentes"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalPacientesUrgencias = atencionPacientesUrgentesHombre.to_i + atencionPacientesUrgentesMujer.to_i
+
+totalAcumuladoPacientesUrgencias = totalAcumuladoEmergenciasAeronaves.to_i + totalPacientesUrgencias.to_i
+
+
+atencionPacientesLesionadosHombre = HistoriaClinica.all.joins(:notas_progreso).where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Atencion De Pacientes Lesionados En El Aeropuerto"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+atencionPacientesLesionadosMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Atencion De Pacientes Lesionados En El Aeropuerto"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalPacientesLesionados = atencionPacientesLesionadosHombre.to_i + atencionPacientesLesionadosMujer.to_i
+
+totalAcumuladoPacientesLesionados = totalAcumuladoPacientesUrgencias.to_i + totalPacientesLesionados.to_i
+
+
+autorizacionOrganosHombre = HistoriaClinica.all.joins(:notas_progreso).where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Autorizacion De Organos (Componente Anatomico)"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+autorizacionOrganosMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Autorizacion De Organos (Componente Anatomico)"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalAutorizacionOrganos = autorizacionOrganosHombre.to_i + autorizacionOrganosMujer.to_i
+
+totalAcumuladoAutorizacionOrganos = totalAcumuladoPacientesLesionados.to_i + totalAutorizacionOrganos.to_i
+
+
+verificacionCadaveresHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Verificacion De Cadaveres"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+verificacionCadaveresMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Verificacion De Cadaveres"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalVerificacionCadaveres = verificacionCadaveresHombre.to_i + verificacionCadaveresMujer.to_i
+
+totalAcumuladoVerificacionCadaveres = totalAcumuladoAutorizacionOrganos.to_i + totalVerificacionCadaveres.to_i
+
+
+ambulanciasExternasHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Ambulancias Externas"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+ambulanciasExternasMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Ambulancias Externas"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalAmbulanciasExternas = ambulanciasExternasHombre.to_i + ambulanciasExternasMujer.to_i
+
+totalAcumuladoAmbulanciasExternas = totalAcumuladoVerificacionCadaveres.to_i + totalAmbulanciasExternas.to_i
+
+
+electrocardiogramasHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Electrocardiogramas"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+electrocardiogramasMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Electrocardiogramas"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalElectrocardiogramas = electrocardiogramasHombre.to_i + electrocardiogramasMujer.to_i
+
+totalAcumuladoElectrocardiogramas = totalAcumuladoAmbulanciasExternas.to_i + totalElectrocardiogramas.to_i
+
+
+glucometriaHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Glucometria"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+glucometriaMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Glucometria"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalGlucometrias = glucometriaHombre.to_i + glucometriaMujer.to_i
+
+totalAcumuladoGlucometrias = totalAcumuladoElectrocardiogramas.to_i + totalGlucometrias.to_i
+
+
+monitoreoDePacientesHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Monitoreo De Pacientes"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+monitoreoDePacientesMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Monitoreo De Pacientes"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalMonitoreoDePacientes= monitoreoDePacientesHombre.to_i + monitoreoDePacientesMujer.to_i
+
+totalAcumuladoMonitoreoDePacientes = totalAcumuladoGlucometrias.to_i + totalMonitoreoDePacientes.to_i
+
+
+reunionPersonalHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Reunion De Personal Y Administrativas"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+reunionPersonalMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Reunion De Personal Y Administrativas"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalReunionPersonal = reunionPersonalHombre.to_i + reunionPersonalMujer.to_i
+
+totalAcumuladoReunionPersonal = totalAcumuladoMonitoreoDePacientes.to_i + totalReunionPersonal.to_i
+
+
+reunionesAdministrativasHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Reuniones Administrativas Y/O Academicas"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+reunionesAdministrativasMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Reuniones Administrativas Y/O Academicas"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalReunionesAdministrativas = reunionesAdministrativasHombre.to_i + reunionesAdministrativasMujer.to_i
+
+totalAcumuladoReunionesAdministrativas = totalAcumuladoReunionPersonal.to_i + totalReunionesAdministrativas.to_i
+
+
+llamadasAccidenesHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Salida Por Llamadas De Accidentes Externos"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+llamadasAccidenesMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Salida Por Llamadas De Accidentes Externos"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalLlamadasAccidenes = llamadasAccidenesHombre.to_i + llamadasAccidenesMujer.to_i
+
+totalAcumuladoLlamadasAccidenes = totalAcumuladoReunionesAdministrativas.to_i + totalLlamadasAccidenes.to_i
+
+
+serviciosDeAmbulanciaHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Servicios De Ambulancias De Sanidad"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+serviciosDeAmbulanciaMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Servicios De Ambulancias De Sanidad"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalServiciosDeAmbulancia = serviciosDeAmbulanciaHombre.to_i + serviciosDeAmbulanciaMujer.to_i
+
+totalAcumuladoServiciosDeAmbulancia = totalAcumuladoLlamadasAccidenes.to_i + totalServiciosDeAmbulancia.to_i
+
+
+sillaDeRuedaHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Servicios De Silla De Rueda"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+sillaDeRuedaMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Servicios De Silla De Rueda"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalSillaDeRueda = sillaDeRuedaHombre.to_i + sillaDeRuedaMujer.to_i
+
+totalAcumuladoSillaDeRueda = totalAcumuladoServiciosDeAmbulancia.to_i + totalSillaDeRueda.to_i
+
+
+suministroDeMedicamentosIvHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Suminitro De Medicamentos Iv  Y/O  Im"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+suministroDeMedicamentosIvMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Suminitro De Medicamentos Iv  Y/O  Im"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalSuministroDeMedicamentosIv = suministroDeMedicamentosIvHombre.to_i + suministroDeMedicamentosIvMujer.to_i
+
+totalAcumuladoSuministroDeMedicamentosIv = totalAcumuladoSillaDeRueda.to_i + totalSuministroDeMedicamentosIv.to_i
+
+
+suministroDeMedicamentosVoHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Suminitro De Medicamentos Vo"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+suministroDeMedicamentosVoMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Suminitro De Medicamentos Vo"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalSuministroDeMedicamentosVo = suministroDeMedicamentosVoHombre.to_i + suministroDeMedicamentosVoMujer.to_i
+
+totalAcumuladoSuministroDeMedicamentosVo = totalAcumuladoSuministroDeMedicamentosIv.to_i + totalSuministroDeMedicamentosVo.to_i
+
+
+suturasCuracionesLavadosHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Suturas, Curaciones Y Lavados"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+suturasCuracionesLavadosMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Suturas, Curaciones Y Lavados"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+
+totalSuturasCuracionesLavados = suturasCuracionesLavadosHombre.to_i + suturasCuracionesLavadosMujer.to_i
+
+totalAcumuladoSuturasCuracionesLavados = totalAcumuladoSuministroDeMedicamentosVo.to_i + totalSuturasCuracionesLavados.to_i
+
+
+terapiasRespiratoriasHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Terapias Respiratorias Y Nebulizaciones"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+terapiasRespiratoriasMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Terapias Respiratorias Y Nebulizaciones"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+totalTerapiasRespiratorias = terapiasRespiratoriasHombre.to_i + terapiasRespiratoriasMujer.to_i
+
+totalAcumuladoTerapiasRespiratorias = totalTerapiasRespiratorias.to_i + totalAcumuladoSuturasCuracionesLavados.to_i
+
+
+tomasControlesTensionHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Tomas Y Controles De Tension Arterial"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+
+tomasControlesTensionMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Tomas Y Controles De Tension Arterial"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+
+totalTomasControlesTension = tomasControlesTensionHombre.to_i + tomasControlesTensionMujer.to_i
+
+totalAcumuladoTomasControlesTension = totalTomasControlesTension.to_i + totalAcumuladoTerapiasRespiratorias.to_i
+
+
+
+ningunoHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Ninguno"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+ningunoMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "Ninguno"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+
+totalNinguno = ningunoHombre.to_i + ningunoMujer.to_i
+
+totalAcumuladoNinguno = totalNinguno.to_i + totalAcumuladoTomasControlesTension.to_i
+
+
+
+noAplicaHombre = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "No Aplica"})
+.where(:historias_clinicas => {:p_genero => "Masculino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+noAplicaMujer = HistoriaClinica.all.joins(:notas_progreso)
+.where(:notas_progreso => {:procedimientos_medicos_y_de_enfermeria => "No Aplica"})
+.where(:historias_clinicas => {:p_genero => "Femenino"})
+.where("date(notas_progreso.created_at) >= ?", $varprocedimientos)
+.where("date(notas_progreso.created_at) <= ?", $varprocedimientos2)
+.where(:historias_clinicas => {:aeropuerto_id => $aeropuertoId}).count
+
+
+totalNoAplica = noAplicaHombre.to_i + noAplicaMujer.to_i
+
+totalAcumuladoNoAplica = totalNoAplica.to_i + totalAcumuladoNinguno.to_i
+
+
+total1 = 
+pacientesTrasladadosHombre.to_i + actividadesCapacitacionHombre.to_i + atencionConsultasMedicasHombre.to_i + atencionEmergenciasAeronavesHombre.to_i + atencionLlamadaEmergenciaHombre.to_i + atencionPacientesUrgentesHombre.to_i + atencionPacientesLesionadosHombre.to_i +  autorizacionOrganosHombre.to_i + verificacionCadaveresHombre.to_i + ambulanciasExternasHombre.to_i + electrocardiogramasHombre.to_i + glucometriaHombre.to_i + monitoreoDePacientesHombre.to_i + reunionPersonalHombre.to_i + reunionesAdministrativasHombre.to_i + llamadasAccidenesHombre.to_i + serviciosDeAmbulanciaHombre.to_i + sillaDeRuedaHombre.to_i + suministroDeMedicamentosIvHombre.to_i + suministroDeMedicamentosVoHombre.to_i + suturasCuracionesLavadosHombre.to_i + terapiasRespiratoriasHombre.to_i + tomasControlesTensionHombre.to_i + ningunoHombre.to_i 
+
+total2 =
+pacientesTrasladadosMujer.to_i +  actividadesCapacitacionMujer.to_i + atencionConsultasMedicasMujer.to_i +  atencionEmergenciasAeronavesMujer.to_i + atencionLlamadaEmergenciaMujer.to_i + atencionPacientesUrgentesMujer.to_i + atencionPacientesLesionadosMujer.to_i + autorizacionOrganosMujer.to_i + verificacionCadaveresMujer.to_i + ambulanciasExternasMujer.to_i + electrocardiogramasMujer.to_i + glucometriaMujer.to_i + monitoreoDePacientesMujer.to_i + reunionPersonalMujer.to_i + reunionesAdministrativasMujer.to_i + llamadasAccidenesMujer.to_i + serviciosDeAmbulanciaMujer.to_i + sillaDeRuedaMujer.to_i + suministroDeMedicamentosIvMujer.to_i + suministroDeMedicamentosVoMujer.to_i + suturasCuracionesLavadosMujer.to_i + terapiasRespiratoriasMujer.to_i  + tomasControlesTensionMujer.to_i + ningunoMujer.to_i
+
+
+
+total3 =
+totalPacientesTrasladados.to_i + totalActividadesCapacitacion.to_i + totalConsultasMedicas.to_i + totalEmergenciasAeronaves.to_i + totalAtencionLlamadaEmergencia.to_i + totalPacientesUrgencias.to_i + totalPacientesLesionados.to_i +  totalAutorizacionOrganos.to_i + totalVerificacionCadaveres.to_i + totalAmbulanciasExternas.to_i + totalElectrocardiogramas.to_i + totalGlucometrias.to_i + totalMonitoreoDePacientes.to_i + totalReunionPersonal.to_i + totalReunionesAdministrativas.to_i + totalLlamadasAccidenes.to_i + totalServiciosDeAmbulancia.to_i + totalSillaDeRueda.to_i + totalSuministroDeMedicamentosIv.to_i + totalSuministroDeMedicamentosVo.to_i + totalSuturasCuracionesLavados.to_i + totalTerapiasRespiratorias.to_i + totalTomasControlesTension.to_i + totalAcumuladoNinguno
+
+total4 = totalAcumuladoNinguno
+
+
+ %>
+
+
+<div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-bordered table-hover dataTable no-footer">       
+      <tbody>
+          <tr>
+                <th class="info">Descripción</th>
+                <th class="info">Hombres</th>
+                <th class="info">Mujeres</th>
+                <th class="info">Total</th>
+                <th class="info">Acumulado</th>
+            </tr>
+
+            <tr>
+                <td>Acompañamiento A Pacientes Trasladados En Ambulancia</td>
+                <td><%= pacientesTrasladadosHombre %></td>
+                <td><%= pacientesTrasladadosMujer %></td>
+                <td><%= totalPacientesTrasladados %></td>
+                <td><%= totalAcumuladoPacientes %></td>
+            </tr>
+
+            <tr>
+                <td>Actividades De Capacitación Propias Y A Otro Personal</td>
+                <td><%= actividadesCapacitacionHombre %></td>
+                <td><%= actividadesCapacitacionMujer %></td>
+                <td><%= totalActividadesCapacitacion %></td>
+                <td><%= totalAcumuladoActividades %></td>
+            </tr>
+
+            <tr>
+                <td>Atención De Consultas Médicas</td>
+                <td><%= atencionConsultasMedicasHombre %></td>
+                <td><%= atencionConsultasMedicasMujer%></td>
+                <td><%= totalConsultasMedicas %></td>
+                <td><%= totalAcumuladoConsultasMedicas %></td>
+            </tr>
+
+            <tr>
+                <td>Atención De Llamadas De Emergencias De Aeronaves</td>
+                <td><%= atencionEmergenciasAeronavesHombre %></td>
+                <td><%= atencionEmergenciasAeronavesMujer %></td>
+                <td><%= totalEmergenciasAeronaves %></td>
+                <td><%= totalAcumuladoEmergenciasAeronaves %></td>
+            </tr>
+
+            <tr>
+                <td>Atención De Llamadas De Emergencias De Pasajeros Y/O Tripulaciones</td>
+                <td><%= atencionLlamadaEmergenciaHombre %></td>
+                <td><%= atencionLlamadaEmergenciaMujer %></td>
+                <td><%= totalAtencionLlamadaEmergencia %></td>
+                <td><%= totalAcumuladoAtencionLlamadaEmergencia %></td>
+            </tr>
+
+
+            <tr>
+                <td>Atención De Pacientes Urgentes</td>
+                <td><%= atencionPacientesUrgentesHombre %></td>
+                <td><%= atencionPacientesUrgentesMujer %></td>
+                <td><%= totalPacientesUrgencias %></td>
+                <td><%= totalAcumuladoPacientesUrgencias %></td>
+            </tr>
+
+
+
+            <tr>
+                <td>Atencón De Pacientes Lesionados En El Aeropuerto</td>
+                <td><%= atencionPacientesLesionadosHombre %></td>
+                <td><%= atencionPacientesLesionadosMujer %></td>
+                <td><%= totalPacientesLesionados %></td>
+                <td><%= totalAcumuladoPacientesLesionados %></td>
+            </tr>
+
+
+
+            <tr>
+                <td>Autorización De Órganos (Componente Anatómico)</td>
+                <td><%= autorizacionOrganosHombre %></td>
+                <td><%= autorizacionOrganosMujer %></td>
+                <td><%= totalAutorizacionOrganos %></td>
+                <td><%= totalAcumuladoAutorizacionOrganos %></td>
+            </tr>
+
+
+
+
+
+            <tr>
+                <td>Verificación De Cadáveres</td>
+                <td><%= verificacionCadaveresHombre %></td>
+                <td><%= verificacionCadaveresMujer %></td>
+                <td><%= totalVerificacionCadaveres %></td>
+                <td><%= totalAcumuladoVerificacionCadaveres %></td>
+            </tr>
+
+            
+            <tr>
+                <td>Ambulancias Externas</td>
+                <td><%= ambulanciasExternasHombre %></td>
+                <td><%= ambulanciasExternasMujer %></td>
+                <td><%= totalAmbulanciasExternas %></td>
+                <td><%= totalAcumuladoAmbulanciasExternas %></td>
+            </tr>
+
+
+            <tr>
+                <td>Electrocardiogramas</td>
+                <td><%= electrocardiogramasHombre %></td>
+                <td><%= electrocardiogramasMujer %></td>
+                <td><%= totalElectrocardiogramas %></td>
+                <td><%= totalAcumuladoElectrocardiogramas %></td>
+            </tr>
+
+
+
+            <tr>
+                <td>Glucometría</td>
+                <td><%= glucometriaHombre %></td>
+                <td><%= glucometriaMujer %></td>
+                <td><%= totalGlucometrias %></td>
+                <td><%= totalAcumuladoGlucometrias %></td>
+            </tr>
+            
+
+            <tr>
+                <td>Monitoreo De Pacientes</td>
+                <td><%= monitoreoDePacientesHombre %></td>
+                <td><%= monitoreoDePacientesMujer %></td>
+                <td><%= totalMonitoreoDePacientes %></td>
+                <td><%= totalAcumuladoMonitoreoDePacientes %></td>
+            </tr>
+
+
+            
+
+            <tr>
+                <td>Reunión De Personal Y Administrativas </td>
+                <td><%= reunionPersonalHombre %></td>
+                <td><%= reunionPersonalMujer %></td>
+                <td><%= totalReunionPersonal %></td>
+                <td><%= totalAcumuladoReunionPersonal %></td>
+            </tr>
+           
+
+
+            
+
+            <tr>
+                <td> Reuniones Administrativas Y/O Academicas</td>
+                <td><%= reunionesAdministrativasHombre %></td>
+                <td><%= reunionesAdministrativasMujer %></td>
+                <td><%= totalReunionesAdministrativas %></td>
+                <td><%= totalAcumuladoReunionesAdministrativas %></td>
+            </tr>
+           
+            
+           
+
+            
+
+            <tr>
+                <td> Salida Por Llamadas De Accidentes Externos </td>
+                <td><%= llamadasAccidenesHombre %></td>
+                <td><%= llamadasAccidenesMujer %></td>
+                <td><%= totalLlamadasAccidenes %></td>
+                <td><%= totalAcumuladoLlamadasAccidenes %></td>
+            </tr>
+
+
+
+            
+
+            <tr>
+                <td> Servicios De Ambulancias De Sanidad </td>
+                <td><%= serviciosDeAmbulanciaHombre %></td>
+                <td><%= serviciosDeAmbulanciaMujer %></td>
+                <td><%= totalServiciosDeAmbulancia %></td>
+                <td><%= totalAcumuladoServiciosDeAmbulancia %></td>
+            </tr>
+
+
+
+            
+
+            <tr>
+                <td>Servicios De Silla De Rueda</td>
+                <td><%= sillaDeRuedaHombre %></td>
+                <td><%= sillaDeRuedaMujer %></td>
+                <td><%= totalSillaDeRueda %></td>
+                <td><%= totalAcumuladoSillaDeRueda %></td>
+            </tr>
+
+
+            
+     
+            <tr>
+                <td>Suminitro De Medicamentos Iv  Y/O  Im</td>
+                <td><%= suministroDeMedicamentosIvHombre %></td>
+                <td><%= suministroDeMedicamentosIvMujer %></td>
+                <td><%= totalSuministroDeMedicamentosIv %></td>
+                <td><%= totalAcumuladoSuministroDeMedicamentosIv %></td>
+            </tr>       
+           
+           
+        
+            <tr>
+                <td>Suministro De Medicamentos Vo</td>
+                <td><%= suministroDeMedicamentosVoHombre %></td>
+                <td><%= suministroDeMedicamentosVoMujer %></td>
+                <td><%= totalSuministroDeMedicamentosVo %></td>
+                <td><%= totalAcumuladoSuministroDeMedicamentosVo %></td>
+            </tr>       
+           
+
+
+                     
+        
+            <tr>
+                <td>Suturas, Curaciones Y Lavados</td>
+                <td><%= suturasCuracionesLavadosHombre %></td>
+                <td><%= suturasCuracionesLavadosMujer %></td>
+                <td><%= totalSuturasCuracionesLavados %></td>
+                <td><%= totalAcumuladoSuturasCuracionesLavados %></td>
+            </tr>       
+           
+
+          
+        
+            <tr>
+                <td> Terapias Respiratorias Y Nebulizaciones</td>
+                <td><%= terapiasRespiratoriasHombre %></td>
+                <td><%= terapiasRespiratoriasMujer %></td>
+                <td><%= totalTerapiasRespiratorias %></td>
+                <td><%= totalAcumuladoTerapiasRespiratorias %></td>
+            </tr>       
+           
+
+  
+            <tr>
+                <td>Tomas Y Controles De Tensión Arterial</td>
+                <td><%= tomasControlesTensionHombre %></td>
+                <td><%= tomasControlesTensionMujer %></td>
+                <td><%= totalTomasControlesTension %></td>
+                <td><%= totalAcumuladoTomasControlesTension %></td>
+            </tr>       
+           
+
+           <tr>
+                <td>Ninguno</td>
+                <td><%= ningunoHombre %></td>
+                <td><%= ningunoMujer %></td>
+                <td><%= totalNinguno %></td>
+                <td><%= totalAcumuladoNinguno %></td>
+            </tr>       
+           
+
+
+           <tr>
+                <td>Totales</td>
+                <td><%= total1 %></td>
+                <td><%= total2 %></td>
+                <td><%= total3 %></td>
+                <td><%= total4 %></td>
+            </tr>       
+           
+            
+           
+            
+            
+            
+
+
+        </tbody>
+
+    </table>
+    </div>
+</div>
+
+
+
+
+
+<style type="text/css" media="screen">
+th{
+  font-size: 10px;
+} 
+
+td{
+  font-size: 10px;
+} 
+
+</style>
+
+
+
+</div>
+
+
+
+
+
+<style>
+
+.custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+    }
+.custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+    }
+
+</style>
+
+
+

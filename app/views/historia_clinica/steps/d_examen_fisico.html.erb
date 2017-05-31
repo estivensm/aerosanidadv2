@@ -1,0 +1,1585 @@
+<script type="text/javascript">
+!function(t){"function"==typeof define&&define.amd?define(["jquery"],t):t(jQuery)}(function(t){t.extend(t.fn,{validate:function(e){if(!this.length)return void(e&&e.debug&&window.console&&console.warn("Nothing selected, can't validate, returning nothing."));var i=t.data(this[0],"validator");return i?i:(this.attr("novalidate","novalidate"),i=new t.validator(e,this[0]),t.data(this[0],"validator",i),i.settings.onsubmit&&(this.validateDelegate(":submit","click",function(e){i.settings.submitHandler&&(i.submitButton=e.target),t(e.target).hasClass("cancel")&&(i.cancelSubmit=!0),void 0!==t(e.target).attr("formnovalidate")&&(i.cancelSubmit=!0)}),this.submit(function(e){function s(){var s,r;return i.settings.submitHandler?(i.submitButton&&(s=t("<input type='hidden'/>").attr("name",i.submitButton.name).val(t(i.submitButton).val()).appendTo(i.currentForm)),r=i.settings.submitHandler.call(i,i.currentForm,e),i.submitButton&&s.remove(),void 0!==r?r:!1):!0}return i.settings.debug&&e.preventDefault(),i.cancelSubmit?(i.cancelSubmit=!1,s()):i.form()?i.pendingRequest?(i.formSubmitted=!0,!1):s():(i.focusInvalid(),!1)})),i)},valid:function(){var e,i;return t(this[0]).is("form")?e=this.validate().form():(e=!0,i=t(this[0].form).validate(),this.each(function(){e=i.element(this)&&e})),e},removeAttrs:function(e){var i={},s=this;return t.each(e.split(/\s/),function(t,e){i[e]=s.attr(e),s.removeAttr(e)}),i},rules:function(e,i){var s,r,n,a,o,u,l=this[0];if(e)switch(s=t.data(l.form,"validator").settings,r=s.rules,n=t.validator.staticRules(l),e){case"add":t.extend(n,t.validator.normalizeRule(i)),delete n.messages,r[l.name]=n,i.messages&&(s.messages[l.name]=t.extend(s.messages[l.name],i.messages));break;case"remove":return i?(u={},t.each(i.split(/\s/),function(e,i){u[i]=n[i],delete n[i],"required"===i&&t(l).removeAttr("aria-required")}),u):(delete r[l.name],n)}return a=t.validator.normalizeRules(t.extend({},t.validator.classRules(l),t.validator.attributeRules(l),t.validator.dataRules(l),t.validator.staticRules(l)),l),a.required&&(o=a.required,delete a.required,a=t.extend({required:o},a),t(l).attr("aria-required","true")),a.remote&&(o=a.remote,delete a.remote,a=t.extend(a,{remote:o})),a}}),t.extend(t.expr[":"],{blank:function(e){return!t.trim(""+t(e).val())},filled:function(e){return!!t.trim(""+t(e).val())},unchecked:function(e){return!t(e).prop("checked")}}),t.validator=function(e,i){this.settings=t.extend(!0,{},t.validator.defaults,e),this.currentForm=i,this.init()},t.validator.format=function(e,i){return 1===arguments.length?function(){var i=t.makeArray(arguments);return i.unshift(e),t.validator.format.apply(this,i)}:(arguments.length>2&&i.constructor!==Array&&(i=t.makeArray(arguments).slice(1)),i.constructor!==Array&&(i=[i]),t.each(i,function(t,i){e=e.replace(new RegExp("\\{"+t+"\\}","g"),function(){return i})}),e)},t.extend(t.validator,{defaults:{messages:{},groups:{},rules:{},errorClass:"error",validClass:"valid",errorElement:"label",focusCleanup:!1,focusInvalid:!0,errorContainer:t([]),errorLabelContainer:t([]),onsubmit:!0,ignore:":hidden",ignoreTitle:!1,onfocusin:function(t){this.lastActive=t,this.settings.focusCleanup&&(this.settings.unhighlight&&this.settings.unhighlight.call(this,t,this.settings.errorClass,this.settings.validClass),this.hideThese(this.errorsFor(t)))},onfocusout:function(t){this.checkable(t)||!(t.name in this.submitted)&&this.optional(t)||this.element(t)},onkeyup:function(t,e){(9!==e.which||""!==this.elementValue(t))&&(t.name in this.submitted||t===this.lastElement)&&this.element(t)},onclick:function(t){t.name in this.submitted?this.element(t):t.parentNode.name in this.submitted&&this.element(t.parentNode)},highlight:function(e,i,s){"radio"===e.type?this.findByName(e.name).addClass(i).removeClass(s):t(e).addClass(i).removeClass(s)},unhighlight:function(e,i,s){"radio"===e.type?this.findByName(e.name).removeClass(i).addClass(s):t(e).removeClass(i).addClass(s)}},setDefaults:function(e){t.extend(t.validator.defaults,e)},messages:{required:"This field is required.",remote:"Please fix this field.",email:"Please enter a valid email address.",url:"Please enter a valid URL.",date:"Please enter a valid date.",dateISO:"Please enter a valid date ( ISO ).",number:"Please enter a valid number.",digits:"Please enter only digits.",creditcard:"Please enter a valid credit card number.",equalTo:"Please enter the same value again.",maxlength:t.validator.format("Please enter no more than {0} characters."),minlength:t.validator.format("Please enter at least {0} characters."),rangelength:t.validator.format("Please enter a value between {0} and {1} characters long."),range:t.validator.format("Please enter a value between {0} and {1}."),max:t.validator.format("Please enter a value less than or equal to {0}."),min:t.validator.format("Please enter a value greater than or equal to {0}.")},autoCreateRanges:!1,prototype:{init:function(){function e(e){var i=t.data(this[0].form,"validator"),s="on"+e.type.replace(/^validate/,""),r=i.settings;r[s]&&!this.is(r.ignore)&&r[s].call(i,this[0],e)}this.labelContainer=t(this.settings.errorLabelContainer),this.errorContext=this.labelContainer.length&&this.labelContainer||t(this.currentForm),this.containers=t(this.settings.errorContainer).add(this.settings.errorLabelContainer),this.submitted={},this.valueCache={},this.pendingRequest=0,this.pending={},this.invalid={},this.reset();var i,s=this.groups={};t.each(this.settings.groups,function(e,i){"string"==typeof i&&(i=i.split(/\s/)),t.each(i,function(t,i){s[i]=e})}),i=this.settings.rules,t.each(i,function(e,s){i[e]=t.validator.normalizeRule(s)}),t(this.currentForm).validateDelegate(":text, [type='password'], [type='file'], select, textarea, [type='number'], [type='search'] ,[type='tel'], [type='url'], [type='email'], [type='datetime'], [type='date'], [type='month'], [type='week'], [type='time'], [type='datetime-local'], [type='range'], [type='color'], [type='radio'], [type='checkbox']","focusin focusout keyup",e).validateDelegate("select, option, [type='radio'], [type='checkbox']","click",e),this.settings.invalidHandler&&t(this.currentForm).bind("invalid-form.validate",this.settings.invalidHandler),t(this.currentForm).find("[required], [data-rule-required], .required").attr("aria-required","true")},form:function(){return this.checkForm(),t.extend(this.submitted,this.errorMap),this.invalid=t.extend({},this.errorMap),this.valid()||t(this.currentForm).triggerHandler("invalid-form",[this]),this.showErrors(),this.valid()},checkForm:function(){this.prepareForm();for(var t=0,e=this.currentElements=this.elements();e[t];t++)this.check(e[t]);return this.valid()},element:function(e){var i=this.clean(e),s=this.validationTargetFor(i),r=!0;return this.lastElement=s,void 0===s?delete this.invalid[i.name]:(this.prepareElement(s),this.currentElements=t(s),r=this.check(s)!==!1,r?delete this.invalid[s.name]:this.invalid[s.name]=!0),t(e).attr("aria-invalid",!r),this.numberOfInvalids()||(this.toHide=this.toHide.add(this.containers)),this.showErrors(),r},showErrors:function(e){if(e){t.extend(this.errorMap,e),this.errorList=[];for(var i in e)this.errorList.push({message:e[i],element:this.findByName(i)[0]});this.successList=t.grep(this.successList,function(t){return!(t.name in e)})}this.settings.showErrors?this.settings.showErrors.call(this,this.errorMap,this.errorList):this.defaultShowErrors()},resetForm:function(){t.fn.resetForm&&t(this.currentForm).resetForm(),this.submitted={},this.lastElement=null,this.prepareForm(),this.hideErrors(),this.elements().removeClass(this.settings.errorClass).removeData("previousValue").removeAttr("aria-invalid")},numberOfInvalids:function(){return this.objectLength(this.invalid)},objectLength:function(t){var e,i=0;for(e in t)i++;return i},hideErrors:function(){this.hideThese(this.toHide)},hideThese:function(t){t.not(this.containers).text(""),this.addWrapper(t).hide()},valid:function(){return 0===this.size()},size:function(){return this.errorList.length},focusInvalid:function(){if(this.settings.focusInvalid)try{t(this.findLastActive()||this.errorList.length&&this.errorList[0].element||[]).filter(":visible").focus().trigger("focusin")}catch(e){}},findLastActive:function(){var e=this.lastActive;return e&&1===t.grep(this.errorList,function(t){return t.element.name===e.name}).length&&e},elements:function(){var e=this,i={};return t(this.currentForm).find("input, select, textarea").not(":submit, :reset, :image, [disabled], [readonly]").not(this.settings.ignore).filter(function(){return!this.name&&e.settings.debug&&window.console&&console.error("%o has no name assigned",this),this.name in i||!e.objectLength(t(this).rules())?!1:(i[this.name]=!0,!0)})},clean:function(e){return t(e)[0]},errors:function(){var e=this.settings.errorClass.split(" ").join(".");return t(this.settings.errorElement+"."+e,this.errorContext)},reset:function(){this.successList=[],this.errorList=[],this.errorMap={},this.toShow=t([]),this.toHide=t([]),this.currentElements=t([])},prepareForm:function(){this.reset(),this.toHide=this.errors().add(this.containers)},prepareElement:function(t){this.reset(),this.toHide=this.errorsFor(t)},elementValue:function(e){var i,s=t(e),r=e.type;return"radio"===r||"checkbox"===r?t("input[name='"+e.name+"']:checked").val():"number"===r&&"undefined"!=typeof e.validity?e.validity.badInput?!1:s.val():(i=s.val(),"string"==typeof i?i.replace(/\r/g,""):i)},check:function(e){e=this.validationTargetFor(this.clean(e));var i,s,r,n=t(e).rules(),a=t.map(n,function(t,e){return e}).length,o=!1,u=this.elementValue(e);for(s in n){r={method:s,parameters:n[s]};try{if(i=t.validator.methods[s].call(this,u,e,r.parameters),"dependency-mismatch"===i&&1===a){o=!0;continue}if(o=!1,"pending"===i)return void(this.toHide=this.toHide.not(this.errorsFor(e)));if(!i)return this.formatAndAdd(e,r),!1}catch(l){throw this.settings.debug&&window.console&&console.log("Exception occurred when checking element "+e.id+", check the '"+r.method+"' method.",l),l}}return o?void 0:(this.objectLength(n)&&this.successList.push(e),!0)},customDataMessage:function(e,i){return t(e).data("msg"+i.charAt(0).toUpperCase()+i.substring(1).toLowerCase())||t(e).data("msg")},customMessage:function(t,e){var i=this.settings.messages[t];return i&&(i.constructor===String?i:i[e])},findDefined:function(){for(var t=0;t<arguments.length;t++)if(void 0!==arguments[t])return arguments[t]},defaultMessage:function(e,i){return this.findDefined(this.customMessage(e.name,i),this.customDataMessage(e,i),!this.settings.ignoreTitle&&e.title||void 0,t.validator.messages[i],"<strong>Warning: No message defined for "+e.name+"</strong>")},formatAndAdd:function(e,i){var s=this.defaultMessage(e,i.method),r=/\$?\{(\d+)\}/g;"function"==typeof s?s=s.call(this,i.parameters,e):r.test(s)&&(s=t.validator.format(s.replace(r,"{$1}"),i.parameters)),this.errorList.push({message:s,element:e,method:i.method}),this.errorMap[e.name]=s,this.submitted[e.name]=s},addWrapper:function(t){return this.settings.wrapper&&(t=t.add(t.parent(this.settings.wrapper))),t},defaultShowErrors:function(){var t,e,i;for(t=0;this.errorList[t];t++)i=this.errorList[t],this.settings.highlight&&this.settings.highlight.call(this,i.element,this.settings.errorClass,this.settings.validClass),this.showLabel(i.element,i.message);if(this.errorList.length&&(this.toShow=this.toShow.add(this.containers)),this.settings.success)for(t=0;this.successList[t];t++)this.showLabel(this.successList[t]);if(this.settings.unhighlight)for(t=0,e=this.validElements();e[t];t++)this.settings.unhighlight.call(this,e[t],this.settings.errorClass,this.settings.validClass);this.toHide=this.toHide.not(this.toShow),this.hideErrors(),this.addWrapper(this.toShow).show()},validElements:function(){return this.currentElements.not(this.invalidElements())},invalidElements:function(){return t(this.errorList).map(function(){return this.element})},showLabel:function(e,i){var s,r,n,a=this.errorsFor(e),o=this.idOrName(e),u=t(e).attr("aria-describedby");a.length?(a.removeClass(this.settings.validClass).addClass(this.settings.errorClass),a.html(i)):(a=t("<"+this.settings.errorElement+">").attr("id",o+"-error").addClass(this.settings.errorClass).html(i||""),s=a,this.settings.wrapper&&(s=a.hide().show().wrap("<"+this.settings.wrapper+"/>").parent()),this.labelContainer.length?this.labelContainer.append(s):this.settings.errorPlacement?this.settings.errorPlacement(s,t(e)):s.insertAfter(e),a.is("label")?a.attr("for",o):0===a.parents("label[for='"+o+"']").length&&(n=a.attr("id").replace(/(:|\.|\[|\])/g,"\\$1"),u?u.match(new RegExp("\\b"+n+"\\b"))||(u+=" "+n):u=n,t(e).attr("aria-describedby",u),r=this.groups[e.name],r&&t.each(this.groups,function(e,i){i===r&&t("[name='"+e+"']",this.currentForm).attr("aria-describedby",a.attr("id"))}))),!i&&this.settings.success&&(a.text(""),"string"==typeof this.settings.success?a.addClass(this.settings.success):this.settings.success(a,e)),this.toShow=this.toShow.add(a)},errorsFor:function(e){var i=this.idOrName(e),s=t(e).attr("aria-describedby"),r="label[for='"+i+"'], label[for='"+i+"'] *";return s&&(r=r+", #"+s.replace(/\s+/g,", #")),this.errors().filter(r)},idOrName:function(t){return this.groups[t.name]||(this.checkable(t)?t.name:t.id||t.name)},validationTargetFor:function(e){return this.checkable(e)&&(e=this.findByName(e.name)),t(e).not(this.settings.ignore)[0]},checkable:function(t){return/radio|checkbox/i.test(t.type)},findByName:function(e){return t(this.currentForm).find("[name='"+e+"']")},getLength:function(e,i){switch(i.nodeName.toLowerCase()){case"select":return t("option:selected",i).length;case"input":if(this.checkable(i))return this.findByName(i.name).filter(":checked").length}return e.length},depend:function(t,e){return this.dependTypes[typeof t]?this.dependTypes[typeof t](t,e):!0},dependTypes:{"boolean":function(t){return t},string:function(e,i){return!!t(e,i.form).length},"function":function(t,e){return t(e)}},optional:function(e){var i=this.elementValue(e);return!t.validator.methods.required.call(this,i,e)&&"dependency-mismatch"},startRequest:function(t){this.pending[t.name]||(this.pendingRequest++,this.pending[t.name]=!0)},stopRequest:function(e,i){this.pendingRequest--,this.pendingRequest<0&&(this.pendingRequest=0),delete this.pending[e.name],i&&0===this.pendingRequest&&this.formSubmitted&&this.form()?(t(this.currentForm).submit(),this.formSubmitted=!1):!i&&0===this.pendingRequest&&this.formSubmitted&&(t(this.currentForm).triggerHandler("invalid-form",[this]),this.formSubmitted=!1)},previousValue:function(e){return t.data(e,"previousValue")||t.data(e,"previousValue",{old:null,valid:!0,message:this.defaultMessage(e,"remote")})}},classRuleSettings:{required:{required:!0},email:{email:!0},url:{url:!0},date:{date:!0},dateISO:{dateISO:!0},number:{number:!0},digits:{digits:!0},creditcard:{creditcard:!0}},addClassRules:function(e,i){e.constructor===String?this.classRuleSettings[e]=i:t.extend(this.classRuleSettings,e)},classRules:function(e){var i={},s=t(e).attr("class");return s&&t.each(s.split(" "),function(){this in t.validator.classRuleSettings&&t.extend(i,t.validator.classRuleSettings[this])}),i},attributeRules:function(e){var i,s,r={},n=t(e),a=e.getAttribute("type");for(i in t.validator.methods)"required"===i?(s=e.getAttribute(i),""===s&&(s=!0),s=!!s):s=n.attr(i),/min|max/.test(i)&&(null===a||/number|range|text/.test(a))&&(s=Number(s)),s||0===s?r[i]=s:a===i&&"range"!==a&&(r[i]=!0);return r.maxlength&&/-1|2147483647|524288/.test(r.maxlength)&&delete r.maxlength,r},dataRules:function(e){var i,s,r={},n=t(e);for(i in t.validator.methods)s=n.data("rule"+i.charAt(0).toUpperCase()+i.substring(1).toLowerCase()),void 0!==s&&(r[i]=s);return r},staticRules:function(e){var i={},s=t.data(e.form,"validator");return s.settings.rules&&(i=t.validator.normalizeRule(s.settings.rules[e.name])||{}),i},normalizeRules:function(e,i){return t.each(e,function(s,r){if(r===!1)return void delete e[s];if(r.param||r.depends){var n=!0;switch(typeof r.depends){case"string":n=!!t(r.depends,i.form).length;break;case"function":n=r.depends.call(i,i)}n?e[s]=void 0!==r.param?r.param:!0:delete e[s]}}),t.each(e,function(s,r){e[s]=t.isFunction(r)?r(i):r}),t.each(["minlength","maxlength"],function(){e[this]&&(e[this]=Number(e[this]))}),t.each(["rangelength","range"],function(){var i;e[this]&&(t.isArray(e[this])?e[this]=[Number(e[this][0]),Number(e[this][1])]:"string"==typeof e[this]&&(i=e[this].replace(/[\[\]]/g,"").split(/[\s,]+/),e[this]=[Number(i[0]),Number(i[1])]))}),t.validator.autoCreateRanges&&(null!=e.min&&null!=e.max&&(e.range=[e.min,e.max],delete e.min,delete e.max),null!=e.minlength&&null!=e.maxlength&&(e.rangelength=[e.minlength,e.maxlength],delete e.minlength,delete e.maxlength)),e},normalizeRule:function(e){if("string"==typeof e){var i={};t.each(e.split(/\s/),function(){i[this]=!0}),e=i}return e},addMethod:function(e,i,s){t.validator.methods[e]=i,t.validator.messages[e]=void 0!==s?s:t.validator.messages[e],i.length<3&&t.validator.addClassRules(e,t.validator.normalizeRule(e))},methods:{required:function(e,i,s){if(!this.depend(s,i))return"dependency-mismatch";if("select"===i.nodeName.toLowerCase()){var r=t(i).val();return r&&r.length>0}return this.checkable(i)?this.getLength(e,i)>0:t.trim(e).length>0},email:function(t,e){return this.optional(e)||/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(t)},url:function(t,e){return this.optional(e)||/^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(t)},date:function(t,e){return this.optional(e)||!/Invalid|NaN/.test(new Date(t).toString())},dateISO:function(t,e){return this.optional(e)||/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test(t)},number:function(t,e){return this.optional(e)||/^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(t)},digits:function(t,e){return this.optional(e)||/^\d+$/.test(t)},creditcard:function(t,e){if(this.optional(e))return"dependency-mismatch";if(/[^0-9 \-]+/.test(t))return!1;var i,s,r=0,n=0,a=!1;if(t=t.replace(/\D/g,""),t.length<13||t.length>19)return!1;for(i=t.length-1;i>=0;i--)s=t.charAt(i),n=parseInt(s,10),a&&(n*=2)>9&&(n-=9),r+=n,a=!a;return r%10===0},minlength:function(e,i,s){var r=t.isArray(e)?e.length:this.getLength(e,i);return this.optional(i)||r>=s},maxlength:function(e,i,s){var r=t.isArray(e)?e.length:this.getLength(e,i);return this.optional(i)||s>=r},rangelength:function(e,i,s){var r=t.isArray(e)?e.length:this.getLength(e,i);return this.optional(i)||r>=s[0]&&r<=s[1]},min:function(t,e,i){return this.optional(e)||t>=i},max:function(t,e,i){return this.optional(e)||i>=t},range:function(t,e,i){return this.optional(e)||t>=i[0]&&t<=i[1]},equalTo:function(e,i,s){var r=t(s);return this.settings.onfocusout&&r.unbind(".validate-equalTo").bind("blur.validate-equalTo",function(){t(i).valid()}),e===r.val()},remote:function(e,i,s){if(this.optional(i))return"dependency-mismatch";var r,n,a=this.previousValue(i);return this.settings.messages[i.name]||(this.settings.messages[i.name]={}),a.originalMessage=this.settings.messages[i.name].remote,this.settings.messages[i.name].remote=a.message,s="string"==typeof s&&{url:s}||s,a.old===e?a.valid:(a.old=e,r=this,this.startRequest(i),n={},n[i.name]=e,t.ajax(t.extend(!0,{url:s,mode:"abort",port:"validate"+i.name,dataType:"json",data:n,context:r.currentForm,success:function(s){var n,o,u,l=s===!0||"true"===s;r.settings.messages[i.name].remote=a.originalMessage,l?(u=r.formSubmitted,r.prepareElement(i),r.formSubmitted=u,r.successList.push(i),delete r.invalid[i.name],r.showErrors()):(n={},o=s||r.defaultMessage(i,"remote"),n[i.name]=a.message=t.isFunction(o)?o(e):o,r.invalid[i.name]=!0,r.showErrors(n)),a.valid=l,r.stopRequest(i,l)}},s)),"pending")}}}),t.format=function(){throw"$.format has been deprecated. Please use $.validator.format instead."};var e,i={};t.ajaxPrefilter?t.ajaxPrefilter(function(t,e,s){var r=t.port;"abort"===t.mode&&(i[r]&&i[r].abort(),i[r]=s)}):(e=t.ajax,t.ajax=function(s){var r=("mode"in s?s:t.ajaxSettings).mode,n=("port"in s?s:t.ajaxSettings).port;return"abort"===r?(i[n]&&i[n].abort(),i[n]=e.apply(this,arguments),i[n]):e.apply(this,arguments)}),t.extend(t.fn,{validateDelegate:function(e,i,s){return this.bind(i,function(i){var r=t(i.target);return r.is(e)?s.apply(r,arguments):void 0})}})});
+</script>
+
+<style type="text/css">
+
+
+input {margin-bottom: 10px;}
+#signup label.error {
+  font-size: 0.8em;
+  color: #F00;
+  font-weight: bold;
+  display: block;
+    margin-bottom: 10px;
+}
+#signup  input.error, #signup select.error  {
+  background: #FFA9B8;
+  border: 1px solid red;
+}
+</style>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+ $('#signup').validate({
+
+   rules: {
+     email: {
+        required: true,
+        email: true
+     },
+     password: {
+        required: true,
+        rangelength:[8,16]
+     },
+     confirm_password: {equalTo:'#password'},
+     spam: "required"
+   }, //end rules
+   messages: {
+      email: {
+         required: "Please supply an e-mail address.",
+         email: "This is not a valid email address."
+       },
+      password: {
+        required: 'Please type a password',
+        rangelength: 'Password must be between 8 and 16 characters long.'
+      },
+      confirm_password: {
+        equalTo: 'The two passwords do not match.'
+      }
+   },
+   errorPlacement: function(error, element) {
+       if ( element.is(":radio") || element.is(":checkbox")) {
+          error.appendTo( element.parent());
+        } else {
+          error.insertAfter(element);
+        }
+    }
+
+  }); // end validate
+}); // end ready
+</script>
+
+<% @campo2 = @historia_clinica.s2_validation %>
+<% @campo3 = @historia_clinica.s3_validation %>
+<% @campo4 = @historia_clinica.s4_validation %>
+<% @campo5 = @historia_clinica.s5_validation %>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="panel panel-default modal-dialog">
+			<div class="panel-body">
+
+				<%= link_to "1. Informacion General", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.first), :class=>
+				"btn btn-info color_blanco mrg" %>
+				<% if @campo2 == true %>
+				<%= link_to "2. Antecedentes Personales", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.second), :class=>
+				"btn btn-info color_blanco mrg" %>
+				<% elsif @campo2 == false %>
+				<a class="btn btn-info color_blanco mrg" disabled="disabled">2. Antecedentes Personales</a>
+				<% end %>
+
+				<% if @campo3 == true %>
+				<%= link_to "3. Revisión por Sistemas", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.third), :class=>
+				"btn btn-info color_blanco mrg" %>
+				<% elsif @campo3 == false %>
+				<a class="btn btn-info color_blanco mrg" disabled="disabled">3. Revisión por Sistemas</a>
+
+				<% end %>
+
+				<% if @campo4 == true %>
+				<%= link_to "4. Examen Fisico", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.fourth), :class=>
+				"btn btn-default mrg" %>
+				<% elsif @campo4 == false %>
+				<a class="btn btn-default mrg">4. Examen Fisico</a>
+
+				<% end %>
+
+				<%= link_to "5. Impresión Diagnostica", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.fifth), :class=> "btn btn-info color_blanco mrg" %>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<style>
+.panel-default{width:97%;text-align:center}.btn{border-radius:0;border:0;border-bottom:4px solid #CCC;margin:0;-webkit-box-shadow:0 5px 5px -6px rgba(0,0,0,.3);-moz-box-shadow:0 5px 5px -6px rgba(0,0,0,.3);box-shadow:0 5px 5px -6px rgba(0,0,0,.3)}.btn .btn-block:active,.btn .btn-lg:active{-webkit-box-shadow:inset 0 3px 3px -5px rgba(0,0,0,.3);-moz-box-shadow:inset 0 3px 3px -5px rgba(0,0,0,.3);box-shadow:inset 0 3px 3px -5px rgba(0,0,0,.3)}.btn-default{color:#555;background-color:#f9f9f9;border-color:#cacaca;text-shadow:1px 1px 0 #f5f5f5}.btn-default:hover,.btn-default:focus{background-color:#f4f4f4;border-color:#bebebe}.btn-success{background-color:#80d752;border-color:#61be26;text-shadow:1px 1px 0 #5fdb34}.btn-success:hover,.btn-success:focus{background-color:#75cd53;border-color:#53aa27}.btn-info{background-color:#39b3d7;border-color:#348fd2;text-shadow:1px 1px 0 #238ed5}.btn-info:hover,.btn-info:focus{background-color:#45abcd;border-color:#347abe}.btn-warning{background-color:#FEAF20;border-color:#d79a34;text-shadow:1px 1px 0 #db9e34}.btn-warning:hover,.btn-warning:focus{background-color:#f5a620;border-color:#cd9034}.btn-danger{background-color:#d73814;border-color:#be0000;text-shadow:1px 1px 0 #ac2925}.btn-danger:hover,.btn-danger:focus{background-color:#cd3714;border-color:#a00}.btn-primary{background-color:#4274d7;border-color:#4d5bbe;text-shadow:1px 1px 0 #232bd5}.btn-primary:hover,.btn-primary:focus{background-color:#426acd;border-color:#4f56aa}.btn-magick{color:#fff;background-color:#bb39d7;border-color:#9a00cd;text-shadow:1px 1px 0 #9823d5}.btn-magick:hover,.btn-magick:focus{color:#fff;background-color:#b13acd;border-color:#8600b9}.btn-pressure{position:relative;margin-bottom:0}.btn-pressure:focus{-moz-outline-style:none;outline:medium none}.btn-pressure:active,.btn-pressure.active{top:4px;border:0;position:relative}.btn-sensitive:active,.btn-sensitive.active{top:1px;margin-top:4px}
+</style>
+
+<div class="container-fluid">
+
+	<div id="loginbox" class="mainbox col-md-12 col-sm-12">
+
+		<style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+.panel-heading {
+    background-image: none;
+    background-color: #ECECEC;
+    color: #5bc0de;
+    font-family: 'Roboto', sans-serif;
+}
+
+  .panel-title{
+    font-size: 30px;
+  }
+  .pie_form{
+    background-image: none;
+    background-color: #ECECEC;
+    color: white;
+  }
+  .line1
+  {
+    display: inline-block;
+    width: 30% !important;
+  }
+  .sig
+  {
+
+    text-align: left!important,
+  }
+  .gls
+  {
+
+    width: 75%!important;
+    display: inline-block!important;
+    text-align: right;
+    padding: 0px;
+  }
+  .ult th
+  {
+
+    text-align: left!important;
+  }
+  .btn{
+		border-radius: 5px;
+	}
+</style>
+
+		<div class="container-fluid navbar navbar-default" style = "margin-bottom:0px!importan">
+			<div class="row">
+				<%= simple_form_for([@paciente, @historia_clinica], method: :put, url: wizard_path, :html =>
+				{ :class => 'block multistep pf_form w_normal horizontal_center shadow', :id => "signup" }) do |f| %>
+				<% if @historia_clinica.errors.any? %>
+				<div id="error_explanation">
+					<h2>
+						<%= pluralize(@historia_clinica.errors.count, "error") %>prohibited this pet from being saved:</h2>
+
+					<ul>
+						<% @historia_clinica.errors.full_messages.each do |msg| %>
+						<li>
+							<%= msg %></li>
+						<% end %></ul>
+				</div>
+				<% end %>
+
+				<br/>
+
+				<script type="text/javascript">
+	function edValueKeyPress()
+{
+  var diastole = document.getElementById("diastole");
+  var s = diastole.value;
+  if (s == '.'){
+    $('#diastole').val('N/A');
+  }
+
+
+  var sistole = document.getElementById("sistole");
+  var s = sistole.value;
+  if (s == '.'){
+    $('#sistole').val('N/A');
+  }
+
+
+  var f_cardiaca = document.getElementById("f_cardiaca");
+  var s = f_cardiaca.value;
+  if (s == '.'){
+    $('#f_cardiaca').val('N/A');
+  }
+
+
+  var f_respiratoria = document.getElementById("f_respiratoria");
+  var s = f_respiratoria.value;
+  if (s == '.'){
+    $('#f_respiratoria').val('N/A');
+  }
+
+
+  var talla = document.getElementById("talla");
+  var s = talla.value;
+  if (s == '.'){
+    $('#talla').val('N/A');
+  }
+
+  var sat_ambiente = document.getElementById("sat_ambiente");
+  var s = sat_ambiente.value;
+  if (s == '.'){
+    $('#sat_ambiente').val('N/A');
+  }
+
+  var sat_suplementario = document.getElementById("sat_suplementario");
+  var s = sat_suplementario.value;
+  if (s == '.'){
+    $('#sat_suplementario').val('N/A');
+  }
+
+  var temperatura = document.getElementById("temperatura");
+  var s = temperatura.value;
+  if (s == '.'){
+    $('#temperatura').val('N/A');
+  }
+
+  var peso = document.getElementById("peso");
+  var s = peso.value;
+  if (s == '.'){
+    $('#peso').val('N/A');
+  }
+
+  var glucometria = document.getElementById("glucometria");
+  var s = glucometria.value;
+  if (s == '.'){
+    $('#glucometria').val('N/A');
+  }
+
+
+
+}
+</script>
+
+				<style>
+
+#titulo_td>th {
+    vertical-align: bottom;
+    border-bottom-style:hidden;
+}
+
+</style>
+
+				<div class="container-fluid">
+					<div class="row clearfix">
+						<div class="col-md-12 column">
+							<h3 style = "color: #22BDC8;">VI. EXAMEN FÍSICO</h3>
+							<hr class="featurette-divider"></hr>
+						<table class="table" id="tab_logic">
+							<thead>
+								<tr id="titulo_td">
+									<th class="text-center" colspan="2" style="width:25%">TA mm/HG:</th>
+									<th class="text-center" style="width:25%">Frecuencía Cardiaca/Min:</th>
+									<th class="text-center" style="width:25%">Frecuencía Respiratoria/Min:</th>
+									<th class="text-center" style="width:25%">Talla en Centimetros:</th>
+								</tr>
+
+							</thead>
+							<tbody>
+								<tr id='addr0'>
+									<td>
+
+										<%= f.input :d_ta_mmgh_diastole, placeholder: 'mm', :input_html =>
+										{ :class => 'form-control fs1 required', id: "diastole", :title => "Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()"  }, label: false %>
+									</td>
+									<td>
+										<%= f.input :d_ta_mmgh_sistole,placeholder: 'HG', :input_html =>
+										{ :class => 'form-control fs1 required', id: "sistole", :title => "Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" }, label: false %>
+									</td>
+									<td>
+										<%= f.input :d_frecuencia_cardiaca, :input_html =>
+										{ :class => 'form-control fs1 required', id: "f_cardiaca", :title => "Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" }, label: false %>
+									</td>
+									<td>
+										<%= f.input :d_frecuencia_respiratoria, :input_html =>
+										{ :class => 'form-control fs1 required', id: "f_respiratoria", :title => "Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()"}, label: false %>
+									</td>
+									<td>
+										<%= f.input :d_talla_en_centimetros, :input_html =>
+										{ :class => 'form-control fs1 required', id: "talla", :title => "Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" }, label: false %>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table class="table" id="tab_logic" style="margin-top: -10px;">
+							<thead>
+								<tr  id="titulo_td">
+									<th class="text-center" style="width:25%">% SAT. de O2 Ambiente:</th>
+									<th class="text-center" style="width:25%">% SAT. de 02 Suplementario:</th>
+									<th class="text-center" style="width:25%">Temperatura C°:</th>
+									<th class="text-center" style="width:25%">Peso en Kilogramos:</th>
+								</tr>
+
+							</thead>
+							<tbody>
+								<tr id='addr0'>
+
+									<td>
+										<%= f.input :d_sat_of_o_ambiente, :input_html =>
+										{ :class => 'form-control fs1 required', id: "sat_ambiente", :title => "Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" }, label: false %>
+									</label>
+
+								</td>
+								<td>
+									<%= f.input :d_sat_of_o_suplementario, :input_html =>
+									{ :class => 'form-control fs1 required', id: "sat_suplementario", :title => "Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" }, label: false %>
+								</td>
+								<td>
+									<%= f.input :d_temperatura, :input_html =>
+									{ :class => 'form-control fs1 required', id: "temperatura", :title => "Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" }, label: false %>
+								</td>
+								<td>
+									<%= f.input :d_peso_en_kilogramos, :input_html =>
+									{ :class => 'form-control fs1 required', id: "peso", :title => "Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" }, label: false %>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<table class="table" id="tab_logic" style="margin-top: -20px;">
+						<thead>
+							<tr  id="titulo_td">
+								<th class="text-center" style="width:25% !important;">Glucometría:</th>
+								<th></th>
+
+							</tr>
+
+						</thead>
+						<tbody>
+							<tr id='addr0'>
+
+								<td>
+									<%= f.input :d_glucometria, :input_html =>
+									{ :class => 'form-control fs1 required', id: "glucometria", :title => "Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" }, label: false %>
+								</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+
+		<style>
+
+.descripcion{
+	height: 30px !important;
+}
+.item{
+	text-align: center !important;
+}
+</style>
+
+		<br/>
+
+		<div class="container-fluid">
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<table class="table table-bordered table-hover" id="tab_logic">
+
+						<thead>
+							<tr >
+								<th  colspan="1"></th>
+
+								<th  colspan="1">
+									&nbsp;Seleccionar Anormales&nbsp;
+									<input type="checkbox" id="selecctall"></th>
+
+								<th  colspan="1">
+									&nbsp;Seleccionar Normales&nbsp;
+									<input type="checkbox" id="selecctall2"></th>
+								<th  colspan="1"></th>
+
+							</tr>
+						</thead>
+						<thead>
+							<tr >
+								<th class="text-center" style="width:10%">Nombre</th>
+								<th class="text-center" style="width:12%">Anormal</th>
+								<th class="text-center" style="width:12%">Normal</th>
+								<th class="text-center" style="width:66%">Ampliar Información</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr id='addr0' class="selectme">
+								<td  class="item">Cabeza</td>
+								<td  class="item">
+									<%= f.radio_button(:d_cabeza, "Anormal", class: "required requerido", :title =>"Debes Seleccionar una Opción", id: 'myRadio' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_cabeza, "Normal", class: 'no_requerido', :id =>"myRadio14" )%></td>
+								<td>
+									<%= f.text_area :d_cabeza_descripcion, class: 'form-control descripcion', :id =>"text_requerido", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr1'></tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Cuello</td>
+								<td  class="item">
+									<%= f.radio_button(:d_cuello, "Anormal", class: "required requerido2", :title =>"Debes Seleccionar una Opción", id: 'myRadio2' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_cuello, "Normal", class: 'no_requerido2', :id =>"myRadio15" )%></td>
+								<td>
+									<%= f.text_area :d_cuello_descripcion, class: 'form-control descripcion', :id =>"text_requerido2", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr1'></tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Caja Toracica</td>
+								<td  class="item">
+									<%= f.radio_button(:d_caja_toracica, "Anormal", class: "required requerido3", :title =>"Debes Seleccionar una Opción", id: 'myRadio3' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_caja_toracica, "Normal", class: 'no_requerido3', :id =>"myRadio16" )%></td>
+								<td>
+									<%= f.text_area :d_caja_toracica_descripcion, class: 'form-control descripcion', :id =>"text_requerido3", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr1'></tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Corazón</td>
+								<td  class="item">
+									<%= f.radio_button(:d_corazon, "Anormal", class: "required requerido4", :title =>"Debes Seleccionar una Opción", id: 'myRadio4' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_corazon, "Normal", class: 'no_requerido4', :id =>"myRadio17" )%></td>
+								<td>
+									<%= f.text_area :d_corazon_descripcion, class: 'form-control descripcion', :id =>"text_requerido4", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr1'></tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Pulmones</td>
+								<td  class="item">
+									<%= f.radio_button(:d_pulmones, "Anormal", class: "required requerido5", :title =>"Debes Seleccionar una Opción", id: 'myRadio5' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_pulmones, "Normal", class: 'no_requerido5', :id =>"myRadio18" )%></td>
+								<td>
+									<%= f.text_area :d_pulmones_descripcion, class: 'form-control descripcion', :id =>"text_requerido5", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr1'></tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Abdomen</td>
+								<td  class="item">
+									<%= f.radio_button(:d_abdomen, "Anormal", class: "required requerido6", :title =>"Debes Seleccionar una Opción", id: 'myRadio6' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_abdomen, "Normal", class: 'no_requerido6', :id =>"myRadio19" )%></td>
+								<td>
+									<%= f.text_area :d_abdomen_descripcion, class: 'form-control descripcion', :id =>"text_requerido6", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr1'></tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Genito urinario</td>
+								<td  class="item">
+									<%= f.radio_button(:d_genito_urinario, "Anormal", class: "required requerido7", :title =>"Debes Seleccionar una Opción", id: 'myRadio7' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_genito_urinario, "Normal", class: 'no_requerido7', :id =>"myRadio20" )%></td>
+								<td>
+									<%= f.text_area :d_genito_urinario_descripcion, class: 'form-control descripcion', :id =>"text_requerido7", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr1'></tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Recto</td>
+								<td  class="item">
+									<%= f.radio_button(:d_recto, "Anormal", class: "required requerido8", :title =>"Debes Seleccionar una Opción", id: 'myRadio8' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_recto, "Normal", class: 'no_requerido8', :id =>"myRadio21" )%></td>
+								<td>
+									<%= f.text_area :d_recto_descripcion, class: 'form-control descripcion', :id =>"text_requerido8", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr1'></tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Extremidades</td>
+								<td  class="item">
+									<%= f.radio_button(:d_extremidades, "Anormal", class: "required requerido9", :title =>"Debes Seleccionar una Opción", id: 'myRadio9' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_extremidades, "Normal", class: 'no_requerido9', :id =>"myRadio22" )%></td>
+								<td>
+									<%= f.text_area :d_extremidades_descripcion, class: 'form-control descripcion', :id =>"text_requerido9", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Piel y Faneras</td>
+								<td  class="item">
+									<%= f.radio_button(:d_piel_y_faneras, "Anormal", class: "required requerido10", :title =>"Debes Seleccionar una Opción", id: 'myRadio10' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_piel_y_faneras, "Normal", class: 'no_requerido10', :id =>"myRadio23" )%></td>
+								<td>
+									<%= f.text_area :d_piel_y_faneras_descripcion, class: 'form-control descripcion', :id =>"text_requerido10", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Musculo esqueletico</td>
+								<td  class="item">
+									<%= f.radio_button(:d_musculo_esqueletico, "Anormal", class: "required requerido11", :title =>"Debes Seleccionar una Opción", id: 'myRadio11' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_musculo_esqueletico, "Normal", class: 'no_requerido11', :id =>"myRadio24" )%></td>
+								<td>
+									<%= f.text_area :d_musculo_esqueletico_descripcion, class: 'form-control descripcion', :id =>"text_requerido11", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Mental</td>
+								<td  class="item">
+									<%= f.radio_button(:d_mental, "Anormal", class: "required requerido12", :title =>"Debes Seleccionar una Opción", id: 'myRadio12' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_mental, "Normal", class: 'no_requerido12', :id =>"myRadio25" )%></td>
+								<td>
+									<%= f.text_area :d_mental_descripcion, class: 'form-control descripcion', :id =>"text_requerido12", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+							<tr id='addr0' class="selectme">
+								<td  class="item">Neurologico</td>
+								<td  class="item">
+									<%= f.radio_button(:d_neurologico, "Anormal", class: "required requerido13", :title =>"Debes Seleccionar una Opción", id: 'myRadio13' )%></td>
+								<td  class="item">
+									<%= f.radio_button(:d_neurologico, "Normal", class: 'no_requerido13', :id =>"myRadio26" )%></td>
+								<td>
+									<%= f.text_area :d_neurologico_descripcion, class: 'form-control descripcion', :id =>"text_requerido13", :title => "Este Campo es requerido" %></td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<table class="table table-bordered table-hover" id="tab_logic">
+						<thead>
+							<tr >
+
+								<th  colspan="10" style = "text-align:left!important;">ALTERACIÓN</th>
+							</tr>
+							<tr >
+								<th  colspan="1" style = "text-align:right!important;">
+									<%= label_tag 'alteration_de_sensibilidad', 'De Sensibilidad' %></th>
+								<th  colspan="1" >
+									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'De Sensibilidad', checked('De Sensibilidad'), id: 'alteration_de_sensibilidad', class: '', :title =>"Debes Seleccionar una Opción" %></th>
+
+								<th  colspan="1" style = "text-align:right!important;">
+									<%= label_tag 'alteration_de_motricidad', 'De Motricidad', class: '' %></th>
+								<th  colspan="1" >
+									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'De Motricidad', checked('De Motricidad'), id: 'alteration_de_motricidad', class: '' %></th>
+
+								<th  colspan="1" style = "text-align:right!important;">
+									<%= label_tag 'alteration_cognitiva', 'Cognitiva' %></th>
+								<th  colspan="1" >
+									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'Cognitiva', checked('Cognitiva'), id: 'alteration_cognitiva', class: '' %></th>
+
+								<th  colspan="1" style = "text-align:right!important;">
+									<%= label_tag 'alteration_sensorial', 'Sensorial', class: '' %></th>
+								<th  colspan="1" >
+									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'Sensorial', checked('Sensorial'), id: 'alteration_sensorial', class: '' %></th>
+
+								<th  colspan="1" style = "text-align:right!important;">
+									<%= label_tag 'alteration_del_lenguaje', 'Del Lenguaje', class: '' %></th>
+								<th  colspan="1" >
+									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'Del Lenguaje', checked('Del Lenguaje'), id: 'alteration_del_lenguaje', class: '' %></th>
+
+							</tr>
+
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<style type="text/css">
+  label{
+    font-weight: normal !important;
+
+  }
+
+  .item{
+     text-align:right;
+  }
+
+</style>
+
+		<div class="container-fluid">
+
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<hr>
+
+					<table class="table table-bordered table-hover" id="tab_logic">
+						<thead>
+							<tr>
+								<th style = "width:18%!important;">Apertura Ocular</th>
+								<th style = "width:2%!important;"></th>
+								<th style = "width:18%!important;">Respuesta Verbal</th>
+								<th style = "width:2%!important;"></th>
+								<th style = "width:18%!important;">Respuesta Motora</th>
+								<th style = "width:2%!important;"></th>
+								<th class="item" colspan="4"  style = "width:40%!important;">Otros Signos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td >
+									<%= f.label "4 - Espontanea" %></td>
+								<td>
+									<%= f.radio_button(:d_apertura_ocular, "4".to_i, class: "calc required", :title =>"Debes Seleccionar una Opción" )%></td>
+								<td >
+									<%= f.label "5 - Orientada" %></td>
+								<td>
+									<%= f.radio_button(:d_respuesta_verbal, "5".to_i, class: "calc required", :title =>"Debes Seleccionar una Opción" )%></td>
+								<td  >
+									<%= f.label "6 - Obedece ordenes" %></td>
+								<td>
+									<%= f.radio_button(:d_respuesta_motora, "6".to_i , class: "calc required", :title =>"Debes Seleccionar una Opción") %></td>
+								<td >
+									<%= label_tag 'other_signs_discoria', 'Discoria' %></td>
+								<td>
+									<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'Discoria', checked('Discoria'), id: 'other_signs_discoria', class: 'required', :title =>"Debes Seleccionar una Opción" %></td>
+								<td  >
+									<%= label_tag 'other_signs_inconsciente', 'Inconsciente' %></td>
+								<td>
+									<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'Inconsciente', checked('Inconsciente'), id: 'other_signs_inconsciente', class: 'required' %></td>
+							</tr>
+							<tr>
+								<tr>
+									<td  >
+										<%= f.label "3 - Al llamado" %></td>
+									<td >
+										<%= f.radio_button(:d_apertura_ocular, "3".to_i, class: "calc required" )%></td>
+									<td  >
+										<%= f.label "4 - Confusa" %></td>
+									<td>
+										<%= f.radio_button(:d_respuesta_verbal, "4".to_i, class: "calc required" )%></td>
+									<td  >
+										<%= f.label "5 - Localiza estimulos" %></td>
+									<td>
+										<%= f.radio_button(:d_respuesta_motora, "5".to_i , class: "calc required")%></td>
+									<td  >
+										<%= label_tag 'other_signs_miosis', 'Miosis' %></td>
+									<td>
+										<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'Miosis', checked('Miosis'), id: 'other_signs_miosis', class: 'required' %></td>
+									<td  >
+										<%= label_tag 'other_signs_midriosis', 'Midriosis' %></td>
+									<td>
+										<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'Midriosis', checked('Midriosis'), id: 'other_signs_midriosis', class: 'required' %></td>
+
+								</tr>
+
+								<tr>
+									<td  >
+										<%= f.label "2 - Al dolor" %></td>
+									<td>
+										<%= f.radio_button(:d_apertura_ocular, "2".to_i, class: "calc required" )%></td>
+									<td  >
+										<%= f.label "3 - Palabras" %></td>
+									<td>
+										<%= f.radio_button(:d_respuesta_verbal, "3".to_i, class: "calc required" )%></td>
+									<td  >
+										<%= f.label "4 - Retira el dolor" %></td>
+									<td>
+										<%= f.radio_button(:d_respuesta_motora, "4".to_i , class: "calc required")%></td>
+									<td   >
+										<%= label_tag 'other_signs_pupilas_fijas', 'Pupilas Fijas' %></td>
+									<td>
+										<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'Pupilas Fijas', checked('Pupilas Fijas'), id: 'other_signs_pupilas_fijas', class: 'required' %></td>
+									<td   >
+										<%= label_tag 'other_signs_nistagmus', 'Nistagmus' %></td>
+									<td>
+										<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'Nistagmus', checked('Nistagmus'), id: 'other_signs_nistagmus', class: 'required' %></td>
+
+								</tr>
+								<tr>
+									<td  >
+										<%= f.label "1 - No apertura" %></td>
+									<td>
+										<%= f.radio_button(:d_apertura_ocular, "1".to_i, class: "calc" )%></td>
+									<td  >
+										<%= f.label "2- Sonidos" %></td>
+									<td>
+										<%= f.radio_button(:d_respuesta_verbal, "2".to_i, class: "calc" )%></td>
+									<td  >
+										<%= f.label "3 - Retira en flexión" %></td>
+									<td>
+										<%= f.radio_button(:d_respuesta_motora, "3".to_i , class: "calc")%></td>
+									<td  >
+										<%= label_tag 'other_signs_fotomotor', 'FotoMotor' %></td>
+									<td>
+										<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'FotoMotor', checked('FotoMotor'), id: 'other_signs_fotomotor', class: 'required' %></td>
+									<td  >
+										<%= label_tag 'other_signs_consciente', 'Consciente' %></td>
+									<td>
+										<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'Consciente', checked('Consciente'), id: 'other_signs_consciente', class: 'required' %></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>
+										<%= f.label "1- Ninguna" %></td>
+									<td>
+										<%= f.radio_button(:d_respuesta_verbal, "1".to_i, class: "calc required" )%></td>
+									<td  >
+										<%= f.label "2- Retira en extensión" %></td>
+									<td>
+										<%= f.radio_button(:d_respuesta_motora, "2".to_i , class: "calc required")%></td>
+									<td  >
+										<%= label_tag 'other_signs_orientado', 'Orientado' %></td>
+									<td>
+										<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'Orientado', checked('Orientado'), id: 'other_signs_orientado', class: 'required' %></td>
+									<td  >
+										<%= label_tag 'other_signs_deprimido', 'Deprimido' %></td>
+									<td>
+										<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'Deprimido', checked('Deprimido'), id: 'other_signs_deprimido', class: 'required' %></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>
+										<%= f.label "1 - Sin_respuesta" %></td>
+									<td>
+										<%= f.radio_button(:d_respuesta_motora, "1".to_i , class: "calc required")%></td>
+									<td  >
+										<%= label_tag 'other_signs_desorientado', 'Desorientado' %></td>
+									<td>
+										<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'Desorientado', checked('Desorientado'), id: 'other_signs_desorientado', class: 'required' %></td>
+									<td  >
+										<%= label_tag 'other_signs_agitado', 'Agitado' %></td>
+									<td>
+										<%= check_box_tag 'historia_clinica[d_otros_signos][]', 'Agitado', checked('Agitado'), id: 'other_signs_agitado', class: 'required' %></td>
+								</tr>
+
+								<tr >
+
+									<td  colspan="2" >
+										<label>Escala De Glasgow</label>
+										<br/>
+
+										<%= f.number_field :d_escala_de_glasgow, class: 'form-control gls' , :readonly =>
+										true, id: 'sum'  %>
+										<span sytle = "font-size:20px!important;">/15</span>
+									</td>
+
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<style type="text/css">
+  .size{
+    font-size: 10px !important;
+  }
+  .optional{
+   text-transform: capitalize;
+   margin-top: -12px;
+  }
+</style>
+
+			<table class="table table-bordered table-hover sig" id="tab_logic"  style="width:300px !important;"></table>
+
+			<script type="text/javascript">
+// Selecccionar/Deseleccionar todos los radio button
+  $(document).ready(function() {
+    $('#selecctall').click(function(event) {  //on click
+        if(this.checked) { // check select status
+             document.getElementById('myRadio').checked = true;
+             document.getElementById('myRadio2').checked = true;
+             document.getElementById('myRadio3').checked = true;
+             document.getElementById('myRadio4').checked = true;
+             document.getElementById('myRadio5').checked = true;
+             document.getElementById('myRadio6').checked = true;
+             document.getElementById('myRadio7').checked = true;
+             document.getElementById('myRadio8').checked = true;
+             document.getElementById('myRadio9').checked = true;
+             document.getElementById('myRadio10').checked = true;
+             document.getElementById('myRadio11').checked = true;
+             document.getElementById('myRadio12').checked = true;
+             document.getElementById('myRadio13').checked = true;
+             document.getElementById('selecctall2').checked = false;
+             document.getElementById('myRadio14').checked = false;
+             document.getElementById('myRadio15').checked = false;
+             document.getElementById('myRadio16').checked = false;
+             document.getElementById('myRadio17').checked = false;
+             document.getElementById('myRadio18').checked = false;
+             document.getElementById('myRadio19').checked = false;
+             document.getElementById('myRadio20').checked = false;
+             document.getElementById('myRadio21').checked = false;
+             document.getElementById('myRadio22').checked = false;
+             document.getElementById('myRadio23').checked = false;
+             document.getElementById('myRadio24').checked = false;
+             document.getElementById('myRadio25').checked = false;
+             document.getElementById('myRadio26').checked = false;
+             $('.item label').hide();
+
+        }
+    });
+    $('#selecctall2').click(function(event) {  //on click
+        if(this.checked) { // check select status
+             document.getElementById('myRadio14').checked = true;
+             document.getElementById('myRadio15').checked = true;
+             document.getElementById('myRadio16').checked = true;
+             document.getElementById('myRadio17').checked = true;
+             document.getElementById('myRadio18').checked = true;
+             document.getElementById('myRadio19').checked = true;
+             document.getElementById('myRadio20').checked = true;
+             document.getElementById('myRadio21').checked = true;
+             document.getElementById('myRadio22').checked = true;
+             document.getElementById('myRadio23').checked = true;
+             document.getElementById('myRadio24').checked = true;
+             document.getElementById('myRadio25').checked = true;
+             document.getElementById('myRadio26').checked = true;
+             document.getElementById('selecctall').checked = false;
+             document.getElementById('myRadio').checked = false;
+             document.getElementById('myRadio2').checked = false;
+             document.getElementById('myRadio3').checked = false;
+             document.getElementById('myRadio4').checked = false;
+             document.getElementById('myRadio5').checked = false;
+             document.getElementById('myRadio6').checked = false;
+             document.getElementById('myRadio7').checked = false;
+             document.getElementById('myRadio8').checked = false;
+             document.getElementById('myRadio9').checked = false;
+             document.getElementById('myRadio10').checked = false;
+             document.getElementById('myRadio11').checked = false;
+             document.getElementById('myRadio12').checked = false;
+             document.getElementById('myRadio13').checked = false;
+             $('.item label').hide();
+
+        }
+    });
+
+
+
+  $('#selecctall2').change(function(){
+    if ($('#selecctall2').is(':checked') == true){
+        $('#text_requerido').val('N/A').prop('readonly', false);
+        $('#text_requerido2').val('N/A').prop('readonly', false);
+        $('#text_requerido3').val('N/A').prop('readonly', false);
+        $('#text_requerido4').val('N/A').prop('readonly', false);
+        $('#text_requerido5').val('N/A').prop('readonly', false);
+        $('#text_requerido6').val('N/A').prop('readonly', false);
+        $('#text_requerido7').val('N/A').prop('readonly', false);
+        $('#text_requerido8').val('N/A').prop('readonly', false);
+        $('#text_requerido9').val('N/A').prop('readonly', false);
+        $('#text_requerido10').val('N/A').prop('readonly', false);
+        $('#text_requerido11').val('N/A').prop('readonly', false);
+        $('#text_requerido12').val('N/A').prop('readonly', false);
+        $('#text_requerido13').val('N/A').prop('readonly', false);
+    }
+  });
+
+
+});
+
+
+</script>
+
+			<script type="text/javascript">
+// Agrega y quita la clase requerida a los campos de ampliar información
+$(document).ready(function(){
+      $('#selecctall').click(function(){
+          if($(this).prop("checked") == true){
+               $('#text_requerido').addClass('required');
+               $('#text_requerido2').addClass('required');
+               $('#text_requerido3').addClass('required');
+               $('#text_requerido4').addClass('required');
+               $('#text_requerido5').addClass('required');
+               $('#text_requerido6').addClass('required');
+               $('#text_requerido7').addClass('required');
+               $('#text_requerido8').addClass('required');
+               $('#text_requerido9').addClass('required');
+               $('#text_requerido10').addClass('required');
+               $('#text_requerido11').addClass('required');
+               $('#text_requerido12').addClass('required');
+               $('#text_requerido13').addClass('required');
+                $('#text_requerido').val('').prop('readonly', false);
+                $('#text_requerido2').val('').prop('readonly', false);
+                $('#text_requerido3').val('').prop('readonly', false);
+                $('#text_requerido4').val('').prop('readonly', false);
+                $('#text_requerido5').val('').prop('readonly', false);
+                $('#text_requerido6').val('').prop('readonly', false);
+                $('#text_requerido7').val('').prop('readonly', false);
+                $('#text_requerido8').val('').prop('readonly', false);
+                $('#text_requerido9').val('').prop('readonly', false);
+                $('#text_requerido10').val('').prop('readonly', false);
+                $('#text_requerido11').val('').prop('readonly', false);
+                $('#text_requerido12').val('').prop('readonly', false);
+                $('#text_requerido13').val('').prop('readonly', false);
+
+          }
+      });
+      $('#selecctall2').click(function(){
+          if($(this).prop("checked") == true){
+            $('#text_requerido').removeClass('required');
+            $('#text_requerido').removeClass('error');
+            $('#text_requerido-error').hide();
+            $('#text_requerido').val('N/A').prop('readonly', true);
+            $('#text_requerido').val('').prop('readonly', true);
+            $('#text_requerido2').removeClass('required');
+            $('#text_requerido2').removeClass('error');
+            $('#text_requerido2-error').hide();
+            $('#text_requerido2').val('').prop('readonly', true);
+            $('#text_requerido3').removeClass('required');
+            $('#text_requerido3').removeClass('error');
+            $('#text_requerido3-error').hide();
+            $('#text_requerido3').val('').prop('readonly', true);
+            $('#text_requerido4').removeClass('required');
+            $('#text_requerido4').removeClass('error');
+            $('#text_requerido4-error').hide();
+            $('#text_requerido4').val('').prop('readonly', true);
+            $('#text_requerido5').removeClass('required');
+            $('#text_requerido5').removeClass('error');
+            $('#text_requerido5-error').hide();
+            $('#text_requerido5').val('').prop('readonly', true);
+            $('#text_requerido6').removeClass('required');
+            $('#text_requerido6').removeClass('error');
+            $('#text_requerido6-error').hide();
+            $('#text_requerido6').val('').prop('readonly', true);
+            $('#text_requerido7').removeClass('required');
+            $('#text_requerido7').removeClass('error');
+            $('#text_requerido7-error').hide();
+            $('#text_requerido7').val('').prop('readonly', true);
+            $('#text_requerido8').removeClass('required');
+            $('#text_requerido8').removeClass('error');
+            $('#text_requerido8-error').hide();
+            $('#text_requerido8').val('').prop('readonly', true);
+            $('#text_requerido9').removeClass('required');
+            $('#text_requerido9').removeClass('error');
+            $('#text_requerido9-error').hide();
+            $('#text_requerido9').val('').prop('readonly', true);
+            $('#text_requerido10').removeClass('required');
+            $('#text_requerido10').removeClass('error');
+            $('#text_requerido10-error').hide();
+            $('#text_requerido10').val('').prop('readonly', true);
+            $('#text_requerido11').removeClass('required');
+            $('#text_requerido11').removeClass('error');
+            $('#text_requerido11-error').hide();
+            $('#text_requerido11').val('').prop('readonly', true);
+            $('#text_requerido12').removeClass('required');
+            $('#text_requerido12').removeClass('error');
+            $('#text_requerido12-error').hide();
+            $('#text_requerido12').val('').prop('readonly', true);
+            $('#text_requerido13').removeClass('required');
+            $('#text_requerido13').removeClass('error');
+            $('#text_requerido13-error').hide();
+            $('#text_requerido13').val('').prop('readonly', true);
+
+
+
+          }
+      });
+
+  });
+
+</script>
+
+			<script type="text/javascript">
+
+
+
+
+
+
+// Codigo para cuando Ya guardoo registros
+if($(".no_requerido").is(':checked')) {
+    $('#text_requerido').removeClass('required');
+    $('#text_requerido').removeClass('error');
+    $('#text_requerido-error').hide();
+    $('#text_requerido').val('N/A').prop('readonly', true);
+}
+
+if($(".no_requerido2").is(':checked')) {
+    $('#text_requerido2').removeClass('required');
+    $('#text_requerido2').removeClass('error');
+    $('#text_requerido2-error').hide();
+    $('#text_requerido2').val('N/A').prop('readonly', true);
+}
+
+if($(".no_requerido3").is(':checked')) {
+    $('#text_requerido3').removeClass('required');
+    $('#text_requerido3').removeClass('error');
+    $('#text_requerido3-error').hide();
+    $('#text_requerido3').val('N/A').prop('readonly', true);
+}
+
+if($(".no_requerido4").is(':checked')) {
+    $('#text_requerido4').removeClass('required');
+    $('#text_requerido4').removeClass('error');
+    $('#text_requerido4-error').hide();
+    $('#text_requerido4').val('N/A').prop('readonly', true);
+}
+
+if($(".no_requerido5").is(':checked')) {
+    $('#text_requerido5').removeClass('required');
+    $('#text_requerido5').removeClass('error');
+    $('#text_requerido5-error').hide();
+    $('#text_requerido5').val('N/A').prop('readonly', true);
+}
+
+if($(".no_requerido6").is(':checked')) {
+    $('#text_requerido6').removeClass('required');
+    $('#text_requerido6').removeClass('error');
+    $('#text_requerido6-error').hide();
+    $('#text_requerido6').val('N/A').prop('readonly', true);
+}
+
+if($(".no_requerido7").is(':checked')) {
+    $('#text_requerido7').removeClass('required');
+    $('#text_requerido7').removeClass('error');
+    $('#text_requerido7-error').hide();
+    $('#text_requerido7').val('N/A').prop('readonly', true);
+}
+
+if($(".no_requerido8").is(':checked')) {
+    $('#text_requerido8').removeClass('required');
+    $('#text_requerido8').removeClass('error');
+    $('#text_requerido8-error').hide();
+    $('#text_requerido8').val('N/A').prop('readonly', true);
+}
+
+if($(".no_requerido9").is(':checked')) {
+    $('#text_requerido9').removeClass('required');
+    $('#text_requerido9').removeClass('error');
+    $('#text_requerido9-error').hide();
+    $('#text_requerido9').val('N/A').prop('readonly', true);
+}
+
+
+if($(".no_requerido10").is(':checked')) {
+    $('#text_requerido10').removeClass('required');
+    $('#text_requerido10').removeClass('error');
+    $('#text_requerido10-error').hide();
+    $('#text_requerido10').val('N/A').prop('readonly', true);
+}
+
+
+if($(".no_requerido11").is(':checked')) {
+    $('#text_requerido11').removeClass('required');
+    $('#text_requerido11').removeClass('error');
+    $('#text_requerido11-error').hide();
+    $('#text_requerido11').val('N/A').prop('readonly', true);
+}
+
+
+if($(".no_requerido12").is(':checked')) {
+    $('#text_requerido12').removeClass('required');
+    $('#text_requerido12').removeClass('error');
+    $('#text_requerido12-error').hide();
+    $('#text_requerido12').val('N/A').prop('readonly', true);
+}
+
+
+if($(".no_requerido13").is(':checked')) {
+    $('#text_requerido13').removeClass('required');
+    $('#text_requerido13').removeClass('error');
+    $('#text_requerido13-error').hide();
+    $('#text_requerido13').val('N/A').prop('readonly', true);
+}
+
+
+
+
+
+
+// Agrega y quita la clase required a los campos ampliar información uno a
+$('.no_requerido').change(function(){
+  if(this.checked){
+      $('#text_requerido').removeClass('required');
+      $('#text_requerido').removeClass('error');
+      $('#text_requerido-error').hide();
+       $('#text_requerido').val('N/A');
+
+  }
+})
+$('.requerido').change(function(){
+if(this.checked){
+       $('#text_requerido').addClass('required');
+       $('#text_requerido').val('').prop('readonly', false);
+
+  }
+})
+
+$('.no_requerido2').change(function(){
+  if(this.checked){
+      $('#text_requerido2').removeClass('required');
+      $('#text_requerido2').removeClass('error');
+      $('#text_requerido2-error').hide();
+       $('#text_requerido2').val('N/A');
+
+
+  }
+})
+$('.requerido2').change(function(){
+if(this.checked){
+       $('#text_requerido2').addClass('required');
+       $('#text_requerido2').val('').prop('readonly', false);
+
+  }
+})
+
+$('.no_requerido3').change(function(){
+  if(this.checked){
+      $('#text_requerido3').removeClass('required');
+      $('#text_requerido3').removeClass('error');
+      $('#text_requerido3-error').hide();
+       $('#text_requerido3').val('N/A');
+
+
+  }
+})
+$('.requerido3').change(function(){
+if(this.checked){
+       $('#text_requerido3').addClass('required');
+       $('#text_requerido3').val('').prop('readonly', false);
+
+  }
+})
+
+$('.no_requerido4').change(function(){
+  if(this.checked){
+      $('#text_requerido4').removeClass('required');
+      $('#text_requerido4').removeClass('error');
+      $('#text_requerido4-error').hide();
+       $('#text_requerido4').val('N/A');
+
+  }
+})
+$('.requerido4').change(function(){
+if(this.checked){
+       $('#text_requerido4').addClass('required');
+       $('#text_requerido4').val('').prop('readonly', false);
+
+  }
+})
+
+$('.no_requerido5').change(function(){
+  if(this.checked){
+      $('#text_requerido5').removeClass('required');
+      $('#text_requerido5').removeClass('error');
+      $('#text_requerido5-error').hide();
+       $('#text_requerido5').val('N/A');
+
+  }
+})
+$('.requerido5').change(function(){
+if(this.checked){
+       $('#text_requerido5').addClass('required');
+       $('#text_requerido5').val('').prop('readonly', false);
+
+  }
+})
+
+$('.no_requerido6').change(function(){
+  if(this.checked){
+      $('#text_requerido6').removeClass('required');
+      $('#text_requerido6').removeClass('error');
+      $('#text_requerido6-error').hide();
+       $('#text_requerido6').val('N/A');
+
+  }
+})
+$('.requerido6').change(function(){
+if(this.checked){
+       $('#text_requerido6').addClass('required');
+       $('#text_requerido6').val('').prop('readonly', false);
+
+  }
+})
+
+$('.no_requerido7').change(function(){
+  if(this.checked){
+      $('#text_requerido7').removeClass('required');
+      $('#text_requerido7').removeClass('error');
+      $('#text_requerido7-error').hide();
+       $('#text_requerido7').val('N/A');
+
+  }
+})
+$('.requerido7').change(function(){
+if(this.checked){
+       $('#text_requerido7').addClass('required');
+       $('#text_requerido7').val('').prop('readonly', false);
+
+  }
+})
+
+$('.no_requerido8').change(function(){
+  if(this.checked){
+      $('#text_requerido8').removeClass('required');
+      $('#text_requerido8').removeClass('error');
+      $('#text_requerido8-error').hide();
+       $('#text_requerido8').val('N/A');
+
+
+  }
+})
+$('.requerido8').change(function(){
+if(this.checked){
+       $('#text_requerido8').addClass('required');
+       $('#text_requerido8').val('').prop('readonly', false);
+
+  }
+})
+
+$('.no_requerido9').change(function(){
+  if(this.checked){
+      $('#text_requerido9').removeClass('required');
+      $('#text_requerido9').removeClass('error');
+      $('#text_requerido9-error').hide();
+       $('#text_requerido9').val('N/A');
+
+
+  }
+})
+$('.requerido9').change(function(){
+if(this.checked){
+       $('#text_requerido9').addClass('required');
+       $('#text_requerido9').val('').prop('readonly', false);
+
+  }
+})
+
+
+$('.no_requerido10').change(function(){
+  if(this.checked){
+      $('#text_requerido10').removeClass('required');
+      $('#text_requerido10').removeClass('error');
+      $('#text_requerido10-error').hide();
+       $('#text_requerido10').val('N/A');
+
+
+  }
+})
+$('.requerido10').change(function(){
+if(this.checked){
+       $('#text_requerido10').addClass('required');
+       $('#text_requerido10').val('').prop('readonly', false);
+
+  }
+})
+
+
+$('.no_requerido11').change(function(){
+  if(this.checked){
+      $('#text_requerido11').removeClass('required');
+      $('#text_requerido11').removeClass('error');
+      $('#text_requerido11-error').hide();
+       $('#text_requerido11').val('N/A');
+
+
+  }
+})
+$('.requerido11').change(function(){
+if(this.checked){
+       $('#text_requerido11').addClass('required');
+       $('#text_requerido11').val('').prop('readonly', false);
+
+  }
+})
+
+
+$('.no_requerido12').change(function(){
+  if(this.checked){
+      $('#text_requerido12').removeClass('required');
+      $('#text_requerido12').removeClass('error');
+      $('#text_requerido12-error').hide();
+       $('#text_requerido12').val('N/A');
+
+
+  }
+})
+$('.requerido12').change(function(){
+if(this.checked){
+       $('#text_requerido12').addClass('required');
+       $('#text_requerido12').val('').prop('readonly', false);
+
+  }
+})
+
+
+$('.no_requerido13').change(function(){
+  if(this.checked){
+      $('#text_requerido13').removeClass('required');
+      $('#text_requerido13').removeClass('error');
+      $('#text_requerido13-error').hide();
+       $('#text_requerido13').val('N/A');
+
+
+  }
+})
+$('.requerido13').change(function(){
+if(this.checked){
+       $('#text_requerido13').addClass('required');
+       $('#text_requerido13').val('').prop('readonly', false);
+
+  }
+})
+
+
+</script>
+
+			<br/>
+			<br/>
+
+			<%= f.hidden_field :s4_validation, :value =>
+			"TRUE" %>
+			<div class="well pie_form">
+
+				<div class="form-actions"  style = "text-align:center!important">
+
+					<% if not @historia_clinica.errors.any? %>
+
+					<%= link_to "Regresar", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.third), :class=>
+					"btn btn-info color_blanco custom" %>
+					<% end %>
+					<button type="rese  t" class="btn btn btn-info custom" style = "margin-right:20px;margin-left:20px;">Borrar</button>
+					<%= f.submit "Siguiente", :class =>'btn btn btn-info  custom' %></div>
+			</div>
+
+		</div>
+	</div>
+
+	<% end %></div>
+
+<script type="text/javascript">
+
+
+
+
+$('#checkAll').click(function () {
+    $(':checkbox.checkItem').prop('checked', this.checked);
+    $(':checkbox.checkItem2').prop('checked', false);
+    $( "#checkAll2" ).prop( "checked", false );
+
+ });
+$('#checkAll2').click(function () {
+    $(':checkbox.checkItem2').prop('checked', this.checked);
+    $(':checkbox.checkItem').prop('checked', false);
+    $( "#checkAll" ).prop( "checked", false );
+
+ });
+
+
+
+////////////////
+$('.myCheckbox1').click(function () {
+    $('.myCheckbox1').prop('checked', this.checked);
+    $('.myCheckbox12').prop('checked', false);
+
+
+ });
+$('.myCheckbox12').click(function () {
+    $('.myCheckbox12').prop('checked', this.checked);
+    $('.myCheckbox1').prop('checked', false);
+
+
+ });
+///////////////
+
+$('.myCheckbox2').click(function () {
+    $('.myCheckbox2').prop('checked', this.checked);
+    $('.myCheckbox22').prop('checked', false);
+
+
+ });
+$('.myCheckbox22').click(function () {
+    $('.myCheckbox22').prop('checked', this.checked);
+    $('.myCheckbox2').prop('checked', false);
+
+
+ });
+///////////////
+$('.myCheckbox3').click(function () {
+    $('.myCheckbox3').prop('checked', this.checked);
+    $('.myCheckbox32').prop('checked', false);
+
+
+ });
+$('.myCheckbox32').click(function () {
+    $('.myCheckbox32').prop('checked', this.checked);
+    $('.myCheckbox3').prop('checked', false);
+
+
+ });
+
+$('.myCheckbox4').click(function () {
+    $('.myCheckbox4').prop('checked', this.checked);
+    $('.myCheckbox42').prop('checked', false);
+
+
+ });
+$('.myCheckbox42').click(function () {
+    $('.myCheckbox42').prop('checked', this.checked);
+    $('.myCheckbox4').prop('checked', false);
+
+
+ });
+
+
+$('.myCheckbox5').click(function () {
+    $('.myCheckbox5').prop('checked', this.checked);
+    $('.myCheckbox52').prop('checked', false);
+
+
+ });
+$('.myCheckbox52').click(function () {
+    $('.myCheckbox52').prop('checked', this.checked);
+    $('.myCheckbox5').prop('checked', false);
+
+
+ });
+
+
+$('.myCheckbox6').click(function () {
+    $('.myCheckbox6').prop('checked', this.checked);
+    $('.myCheckbox62').prop('checked', false);
+
+
+ });
+$('.myCheckbox62').click(function () {
+    $('.myCheckbox62').prop('checked', this.checked);
+    $('.myCheckbox6').prop('checked', false);
+
+
+ });
+
+
+$('.myCheckbox7').click(function () {
+    $('.myCheckbox7').prop('checked', this.checked);
+    $('.myCheckbox72').prop('checked', false);
+
+
+ });
+$('.myCheckbox72').click(function () {
+    $('.myCheckbox72').prop('checked', this.checked);
+    $('.myCheckbox7').prop('checked', false);
+
+
+ });
+
+
+$('.myCheckbox8').click(function () {
+    $('.myCheckbox8').prop('checked', this.checked);
+    $('.myCheckbox82').prop('checked', false);
+
+
+ });
+$('.myCheckbox82').click(function () {
+    $('.myCheckbox82').prop('checked', this.checked);
+    $('.myCheckbox8').prop('checked', false);
+
+
+ });
+$('.myCheckbox9').click(function () {
+    $('.myCheckbox9').prop('checked', this.checked);
+    $('.myCheckbox92').prop('checked', false);
+
+
+ });
+$('.myCheckbox92').click(function () {
+    $('.myCheckbox92').prop('checked', this.checked);
+    $('.myCheckbox9').prop('checked', false);
+
+
+ });
+
+
+$('.myCheckbox10').click(function () {
+    $('.myCheckbox10').prop('checked', this.checked);
+    $('.myCheckbox102').prop('checked', false);
+
+
+ });
+$('.myCheckbox102').click(function () {
+    $('.myCheckbox102').prop('checked', this.checked);
+    $('.myCheckbox10').prop('checked', false);
+
+
+ });
+
+
+$('.myCheckbox11').click(function () {
+    $('.myCheckbox11').prop('checked', this.checked);
+    $('.myCheckbox112').prop('checked', false);
+
+
+ });
+$('.myCheckbox112').click(function () {
+    $('.myCheckbox112').prop('checked', this.checked);
+    $('.myCheckbox11').prop('checked', false);
+
+
+ });
+
+
+$('.myCheckbox12').click(function () {
+    $('.myCheckbox12').prop('checked', this.checked);
+    $('.myCheckbox122').prop('checked', false);
+
+
+ });
+$('.myCheckbox122').click(function () {
+    $('.myCheckbox122').prop('checked', this.checked);
+    $('.myCheckbox12').prop('checked', false);
+
+
+ });
+
+
+$('.myCheckbox13').click(function () {
+    $('.myCheckbox13').prop('checked', this.checked);
+    $('.myCheckbox132').prop('checked', false);
+
+
+ });
+$('.myCheckbox132').click(function () {
+    $('.myCheckbox132').prop('checked', this.checked);
+    $('.myCheckbox13').prop('checked', false);
+
+
+ });
+
+
+$('.myCheckbox14').click(function () {
+    $('.myCheckbox14').prop('checked', this.checked);
+    $('.myCheckbox142').prop('checked', false);
+
+
+ });
+$('.myCheckbox142').click(function () {
+    $('.myCheckbox142').prop('checked', this.checked);
+    $('.myCheckbox14').prop('checked', false);
+
+
+ });
+
+
+
+
+  function calcscore(){
+    var score = 0;
+    $(".calc:checked").each(function(){
+        score+=parseInt($(this).val(),10);
+    });
+    $("#sum" ).val(score)
+}
+$().ready(function(){
+    $(".calc").change(function(){
+        calcscore()
+    });
+});
+
+
+</script>

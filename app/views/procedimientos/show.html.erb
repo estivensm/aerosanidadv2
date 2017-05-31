@@ -1,0 +1,28 @@
+<p id="notice">
+  <%= notice %></p>
+
+<p> <strong>Tratamiento:</strong>
+  <%= @procedimiento.tratamiento %></p>
+
+<p> <strong>Via acceso:</strong>
+  <%= @procedimiento.via_acceso %></p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @procedimiento.descripcion %></p>
+
+<p>
+  <strong>Glucometria1:</strong>
+  <%= @procedimiento.glucometria1 %></p>
+
+<p>
+  <strong>Glucometria2:</strong>
+  <%= @procedimiento.glucometria2 %></p>
+
+<p>
+  <strong>Electrocardiograma:</strong>
+  <%= @procedimiento.electrocardiograma %></p>
+
+<%= link_to 'Edit', edit_procedimiento_path(@procedimiento) %>
+|
+<%= link_to 'Back', procedimientos_path %>

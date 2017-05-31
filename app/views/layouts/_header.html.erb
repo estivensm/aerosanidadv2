@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Aerosanidad</title>
+
+  <!-- Bootstrap Core CSS -->
+
+  <style>
+/*!
+ * Start Bootstrap - SB Admin Bootstrap Admin Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Global Styles */
+
+body {
+    margin-top: 100px;
+    background-color: #FFFFFF;
+}
+
+@media(min-width:768px) {
+    body {
+        margin-top: 50px;
+    }
+}
+
+#wrapper {
+    padding-left: 0;
+}
+
+#page-wrapper {
+    width: 100%;
+    padding: 0;
+    background-color: #fff;
+}
+
+.huge {
+    font-size: 50px;
+    line-height: normal;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 225px;
+    }
+
+    #page-wrapper {
+        padding: 10px;
+    }
+}
+
+/* Top Navigation */
+
+.top-nav {
+    padding: 0 15px;
+}
+
+.top-nav>li {
+    display: inline-block;
+    float: left;
+}
+
+.top-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    color: #999;
+}
+
+.top-nav>li>a:hover,
+.top-nav>li>a:focus,
+.top-nav>.open>a,
+.top-nav>.open>a:hover,
+.top-nav>.open>a:focus {
+    color: #fff;
+    background-color: #000;
+}
+
+.top-nav>.open>.dropdown-menu {
+    float: left;
+    position: absolute;
+    margin-top: 0;
+    border: 1px solid rgba(0,0,0,.15);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: #fff;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.top-nav>.open>.dropdown-menu>li>a {
+    white-space: normal;
+}
+
+ul.message-dropdown {
+    padding: 0;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+li.message-preview {
+    width: 275px;
+    border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+li.message-preview>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+li.message-footer {
+    margin: 5px 0;
+}
+
+ul.alert-dropdown {
+    width: 200px;
+}
+
+/* Side Navigation */
+
+@media(min-width:768px) {
+    .side-nav {
+        position: fixed;
+        top: 51px;
+        left: 225px;
+        width: 225px;
+        margin-left: -225px;
+        border: none;
+        border-radius: 0;
+        overflow-y: auto;
+        background-color: #2e353d;
+        bottom: 0;
+        overflow-x: hidden;
+        padding-bottom: 40px;
+    }
+
+    .side-nav>li>a {
+        width: 225px;
+    }
+
+    .side-nav li a:hover,
+    .side-nav li a:focus {
+        outline: none;
+        background-color: #090909 !important;
+    }
+
+    .side-nav .my-logo a:hover,
+    .side-nav .my-logo a:focus {
+        outline: none;
+        background-color: transparent !important;
+    }
+
+
+
+
+}
+
+.side-nav>li>ul {
+    padding: 0;
+}
+
+.side-nav>li>ul>li>a {
+    display: block;
+    padding: 10px 15px 10px 38px;
+    text-decoration: none;
+    color: #999;
+}
+
+.side-nav>li>ul>li>a:hover {
+    color: #fff;
+}
+
+/* Flot Chart Containers */
+
+.flot-chart {
+    display: block;
+    height: 400px;
+}
+
+.flot-chart-content {
+    width: 100%;
+    height: 100%;
+}
+
+/* Custom Colored Panels */
+
+.huge {
+    font-size: 40px;
+}
+
+.panel-green {
+    border-color: #5cb85c;
+}
+
+.panel-green > .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.panel-green > a {
+    color: #5cb85c;
+}
+
+.panel-green > a:hover {
+    color: #3d8b3d;
+}
+
+.panel-red {
+    border-color: #d9534f;
+}
+
+.panel-red > .panel-heading {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.panel-red > a {
+    color: #d9534f;
+}
+
+.panel-red > a:hover {
+    color: #b52b27;
+}
+
+.panel-yellow {
+    border-color: #f0ad4e;
+}
+
+.panel-yellow > .panel-heading {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+.panel-yellow > a {
+    color: #f0ad4e;
+}
+
+.panel-yellow > a:hover {
+    color: #df8a13;
+}
+
+  </style>
+  <!-- Morris Charts CSS -->
+
+  <style>
+.morris-hover{position:absolute;z-index:1000}.morris-hover.morris-default-style{border-radius:10px;padding:6px;color:#666;background:rgba(255,255,255,0.8);border:solid 2px rgba(230,230,230,0.8);font-family:sans-serif;font-size:12px;text-align:center}.morris-hover.morris-default-style .morris-hover-row-label{font-weight:bold;margin:0.25em 0}
+.morris-hover.morris-default-style .morris-hover-point{white-space:nowrap;margin:0.1em 0}
+  </style>
+  <!-- Custom Fonts -->
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+
+<body>
+
+  <div id="wrapper">
+
+    <style>
+.navbar-inverse{
+  background-color: #2e353d !important;
+}
+.navbar-brand{
+  color: #fff !important;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+      background-color: #131619;
+}
+
+
+
+  </style>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <%= link_to  root_path, class: "color-negro" do %>
+        <a class="navbar-brand">
+          Aerosanidad
+          <span class="title">
+            Virtual. <i class="fa fa-heartbeat "></i>
+          </span>
+        </a>
+        <% end %></div>
+      <!-- Top Menu Items -->
+      <ul class="nav navbar-right top-nav">
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-user"></i>
+            <%= truncate(current_user.nombres, :length =>
+            12) %>
+            <%= truncate(current_user.apellidos, :length =>
+            12) %> <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+
+            <li class="divider"></li>
+
+            <li>
+
+              <%= link_to  edit_user_path(current_user) do %>
+              <i class="fa fa-fw fa-user-plus"></i>
+              Actualizar mi información
+              <% end %></li>
+
+            <li>
+
+              <%= link_to  logout_path do %>
+              <i class="fa fa-fw fa-power-off"></i>
+              Cerrar Sesión
+              <% end %></li>
+          </ul>
+        </li>
+      </ul>
+
+      <style>
+            .color-negro{
+              color:  #fff !important;
+            }
+            .color-negro a{
+              color:  #fff !important;
+
+            }
+.navbar-nav li a{
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+}
+
+
+
+            </style>
+      <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+
+          <li class="active">
+            <% if current_user.rol_id == 1 %>
+            <%= link_to  graficas_path, class: "color-negro" do %>
+            <i class="fa fa-fw fa-home"></i>
+            Dashboard
+            <% end %>
+            <% end %></li>
+
+          <li>
+
+            <%= link_to  root_path, class: "color-negro" do %>
+            <i class="fa fa-fw fa-home"></i>
+            Inicio
+            <% end %></li>
+
+          <li>
+            <% if current_user.rol_id == 1 %>
+            <%= link_to  epses_path, class: "color-negro" do %>
+            <i class="fa fa-fw fa-building-o"></i>
+            Eps
+            <% end %></li>
+
+          <li>
+
+            <%= link_to  arles_path, class: "color-negro" do %>
+            <i class="fa fa-fw fa-building"></i>
+            Arl
+            <% end %></li>
+
+          <li>
+
+            <%= link_to  aeropuertos_path, class: "color-negro" do %>
+            <i class="fa fa-fw fa-plane"></i>
+            Aeropuertos
+            <% end %></li>
+
+          <li>
+
+            <%= link_to  ciudades_path, class: "color-negro" do %>
+            <i class="fa fa-fw fa-sitemap"></i>
+            Ciudades
+            <% end %></li>
+
+          <li>
+
+            <%= link_to  users_path, class: "color-negro" do %>
+            <i class="fa fa-fw fa-user-plus"></i>
+            Usuarios
+            <% end %></li>
+
+          <li>
+
+            <%= link_to  roles_path, class: "color-negro" do %>
+            <i class="fa fa-fw fa-users"></i>
+            Roles
+            <% end %></li>
+
+          <% end %>
+
+          <li>
+
+            <%= link_to  pacientes_path, class: "color-negro" do %>
+            <i class="fa fa-fw fa-wheelchair"></i>
+            Pacientes
+            <% end %></li>
+
+          
+
+          <% if current_user.rol_id == 1 %>
+
+          <li class="color-negro">
+
+            <%= link_to  info_link_path, class: "color-negro", method: :get  do %>
+            <i class="fa fa-fw fa-bar-chart"></i>
+            Informes
+            <% end %></li>
+
+          <li>
+
+            <%= link_to  reportes_path, class: "color-negro" do %>
+            <i class="fa fa-file-text" aria-hidden="true"></i> 
+            Reportes
+            <% end %></li>
+
+          <% if current_user.rol_id == 1 %>
+
+          <li>
+
+            <%= link_to  emergencias_path, class: "color-negro" do %>
+            <i class="fa fa-ambulance" aria-hidden="true"></i>
+            Emergencias
+            <% end %></li>
+          
+          <li>
+
+            <%= link_to  procedimientos_medicos_y_de_enfermeria_path, class: "color-negro" do %>
+            <i class="fa fa-user-md" aria-hidden="true"></i>
+            Actividades Medicas Y De Enfermeria
+            <% end %></li>
+          <% end %>
+
+          <% end %>
+
+          <li class="my-logo">
+            <%= link_to image_tag('Logo/logo.png',:size =>"140x70", :class =>"ember-view"), root_path %></li>
+        </ul>
+
+      </div>
+      <!-- /.navbar-collapse --> </nav>
+
+    <div id="page-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">

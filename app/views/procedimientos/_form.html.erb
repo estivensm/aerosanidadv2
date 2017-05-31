@@ -1,0 +1,14 @@
+<%= simple_form_for(@procedimiento) do |f| %>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+  <%= f.input :tratamiento %>
+  <%= f.input :via_acceso %>
+  <%= f.input :descripcion %>
+  <%= f.input :glucometria1 %>
+  <%= f.input :glucometria2 %>
+  <%= f.input :electrocardiograma %></div>
+
+<div class="form-actions">
+  <%= f.button :submit %></div>
+<% end %>

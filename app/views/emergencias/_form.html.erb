@@ -1,0 +1,125 @@
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+  <script>
+    $(function () {
+      $("#fecha_novedad").datepicker();
+    });
+  </script>
+
+  <style type="text/css" media="screen">.lead { font-size: 33px;margin-bottom:0px; }</style>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+  <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+  <script>
+    jQuery.datepicker.regional['eu'] = {
+    closeText: 'Egina',
+    prevText: '<Aur',
+    nextText: 'Hur>',
+    currentText: 'Gaur',
+    monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+    'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+    monthNamesShort: ['Ene','Febr','Mar','Abr','May','Jun',
+    'Jul','Agos','Sept','Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+    dayNamesShort: ['Domin', 'Lun','Mart','Mierc','Juev','Viern','Saba'],
+    dayNamesMin: ['Do', 'Lu','Ma','Mi','Ju','Vi','Sa'],
+    dateFormat: 'yy/mm/dd', firstDay: 1,
+    isRTL: false};
+    $.datepicker.setDefaults($.datepicker.regional['eu']);
+  </script>
+</div>
+
+<div class="container-fluid">
+  <div id="loginbox" class="mainbox col-md-11 col-sm-11">
+    <div class="container-fluid navbar navbar-default" style = "margin-bottom:0px!important">
+      <div class="row">
+        <%= simple_form_for(@emergencia) do |f| %>
+          <% if @emergencia.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@emergencia.errors.count, "error") %> prohibited this pet from being saved:</h2>
+
+              <ul>
+              <% @emergencia.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="container-fluid"  style="margin: 10px;">
+            <br/><br/>
+
+            <%= link_to "Regresar", reportes_path, :class=>"btn btn-info color_blanco mrg" %>
+            <h3 style = "color: #22BDC8;">EMERGENCIAS</h3>
+            <div class="row">
+              <div class="container-fluid">
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th width="30%">Aeropuerto:</th>
+                        <th width="30%">Fecha Novedad:</th>
+                        <th width="30%">Emergencias:</th>
+                        <th width="10%"></th>
+                    </tr> 
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <%= f.hidden_field :user_id, :value => current_user.id %>
+                      <td>
+                        <%= f.collection_select :aeropuerto_id, Aeropuerto.all, :id, :nombre, {prompt: "Campo Obligatorio"}, {class: "form-control"} %>
+                      </td>
+                      <td>
+                        <%= f.text_field :fecha_novedad, class: "form-control", id: "fecha_novedad", placeholder: 'Por Favor ingresa la Fecha de incio' %>
+                      </td>
+                      <td> 
+                        <%= f.text_field :emergencias, class: "form-control" %>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+
+
+
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th width="40%">Notas De La Emergencia:</th>
+                        <th width="60%"></th>
+                    </tr> 
+                  </thead>
+                  <tbody>
+                    <tr>
+
+                      <td>
+                        <%= f.text_area :notas_de_la_emergencia, class: "form-control" %>
+                      </td>
+    
+                    </tr>
+                  </tbody>
+                </table>
+
+                <style>
+                  thead tr th {
+                    font-size: 15px;
+                  }
+
+                </style>
+
+
+                <div class="well pie_form">
+                  <div class="form-actions"  style = "text-align:center!important">
+                    <%= f.submit "Guardar", :class => 'btn btn btn-info  custom' %>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>      

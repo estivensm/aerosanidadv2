@@ -1,0 +1,1222 @@
+
+<style>
+
+  #page-wrapper {
+    background-color: #fdfdfd !important;
+  }
+
+  .flatTable {
+    width: 100%;
+    min-width: 500px;
+    border-collapse: collapse;
+    color: #6b6b6b;
+  }
+  .flatTable tr {
+    height: 50px;
+    background: #e8e8e8;
+    border-bottom: rgba(0, 0, 0, 0.05) 1px solid;
+  }
+  .flatTable td {
+    box-sizing: border-box;
+    padding-left: 30px;
+  }
+  .flatTable .titleTr {
+    height: 70px;
+    color: #f6f3f7;
+    background: #418a95;
+    border: 0px solid;
+  }
+
+  .titleTr .titleTd{
+    font-size: 17px;
+  }
+
+  .flatTable .plusTd {
+    background: url(http://i.imgur.com/3hSkhay.png) center center no-repeat, rgba(0, 0, 0, 0.1);
+  }
+  .flatTable .controlTd {
+    position: relative;
+    width: 80px;
+    background: url(http://i.imgur.com/9Q5f6cv.png) center center no-repeat;
+    cursor: pointer;
+  }
+  .flatTable .headingTr {
+    height: 30px;
+    background: #63acb7;
+    color: #f6f3f7;
+    font-size: 8pt;
+    border: 0px solid;
+  }
+  .button {
+    text-align: center;
+    cursor: pointer;
+  }
+  .sForm {
+    position: absolute;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100%;
+    background: #d4d1d5;
+    overflow: hidden;
+    transition: width 1s, right .3s;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  .sForm .close {
+    float: right;
+    height: 70px;
+    width: 80px;
+    padding-top: 25px;
+    box-sizing: border-box;
+    background: rgba(255, 0, 0, 0.4);
+  }
+  .sForm .title {
+    width: 100%;
+    height: 70px;
+    padding-top: 20px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .open {
+    right: 0;
+    width: 400px !important;
+  }
+  .settingsIcons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    overflow: hidden;
+  }
+  .display {
+    width: 300px;
+  }
+  .settingsIcon {
+    float: right;
+    background: #418a95;
+    color: #f6f3f7;
+    height: 50px;
+    width: 80px;
+    padding-top: 15px;
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden;
+    transition: width 1s;
+  }
+  .settingsIcon:hover {
+    background: #1f6873;
+  }
+  tr:nth-child(3) .settingsIcon {
+    height: 51px;
+  }
+  .openIcon {
+    width: 80px;
+  }
+
+</style>
+
+
+
+<style>
+  .alert-message{
+    margin: 20px 0;
+    padding: 20px;
+    border-left: 3px solid #eee;
+  }
+  .alert-message h4{
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  .alert-message p:last-child{
+    margin-bottom: 0;
+  }
+  .alert-message code{
+    background-color: #fff;
+    border-radius: 3px;
+  }
+  .alert-message-success{
+    background-color: #F4FDF0;
+    border-color: #3C763D;
+  }
+  .alert-message-success h4{
+    color: #3C763D;
+  }
+  .alert-message-danger{
+    background-color: #fdf7f7;
+    border-color: #d9534f;
+  }
+  .alert-message-danger h4{
+    color: #d9534f;
+  }
+  .alert-message-warning{
+    background-color: #fcf8f2;
+    border-color: #f0ad4e;
+  }
+  .alert-message-warning h4{
+    color: #f0ad4e;
+  }
+  .alert-message-info{
+    background-color: #f4f8fa;
+    border-color: #5bc0de;
+  }
+  .alert-message-info h4{
+    color: #5bc0de;
+  }
+  .alert-message-default{
+    background-color: #EEE;
+    border-color: #B4B4B4;
+  }
+  .alert-message-default h4{
+    color: #000;
+  }
+  .alert-message-notice{
+    background-color: #FCFCDD;
+    border-color: #BDBD89;
+  }
+  .alert-message-notice h4{
+    color: #444;
+  }
+
+</style>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <% if @historia_clinica.e_estado_historia_clinica == true %>
+
+      <div class="col-sm-7 col-md-7 col-md-offset-2">
+        <div class="alert-message alert-message-success">
+          <h4>
+            La Historia Clinica esta cerrada</h4>
+        </div>
+      </div>
+
+    <% else %>
+
+      <div class="col-sm-7 col-md-7 col-md-offset-2">
+        <div class="alert-message alert-message-danger">
+          <h4>
+            La Historia Clinica no se ha cerrado aun.</h4>
+          <p>
+            Para cerrar la historia clinica por favor sigue el siguiente enlace <strong>  <%= link_to "cerrar historia clinica", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.fifth), :class=>"tn btn-xs btn-danger pull-right color_blanco" %></strong>.
+            </p>
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>
+<br/>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= link_to image_tag("pdf-64.png"), paciente_historia_clinica_path(@paciente,@historia_clinica, :format => "pdf"), target: '_blank',  :rel => "tooltip", :title => "Pdf", :class => 'btn btn-link' %>
+  </div>
+
+  <style>
+    .ui-group-buttons .or{position:relative;float:left;width:.3em;height:1.3em;z-index:3;font-size:12px}
+    .ui-group-buttons .or:before{position:absolute;top:50%;left:50%;content:'  ';background-color:#2E353D;margin-top:-.1em;margin-left:-.9em;width:1.8em;height:1.8em;line-height:1.55;color:#fff;font-style:normal;font-weight:400;text-align:center;border-radius:500px;-webkit-box-shadow:0 0 0 1px rgba(0,0,0,0.1);box-shadow:0 0 0 1px rgba(0,0,0,0.1);-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}
+    .ui-group-buttons .or:after{position:absolute;top:0;left:0;content:' ';width:.3em;height:2.84em;background-color:rgba(0,0,0,0);border-top:.6em solid #2E353D;border-bottom:.6em solid #2E353D}
+    .ui-group-buttons .or.or-lg{height:1.3em;font-size:16px}
+    .ui-group-buttons .or.or-lg:after{height:2.85em}
+    .ui-group-buttons .or.or-sm{height:1em}
+    .ui-group-buttons .or.or-sm:after{height:2.5em}
+    .ui-group-buttons .or.or-xs{height:.25em}
+    .ui-group-buttons .or.or-xs:after{height:1.84em;z-index:-1000}
+    .ui-group-buttons{display:inline-block;vertical-align:middle}
+    .ui-group-buttons:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .ui-group-buttons .btn{float:left;border-radius:0}
+    .ui-group-buttons .btn:first-child{margin-left:0;border-top-left-radius:.25em;border-bottom-left-radius:.25em;padding-right:15px}
+    .ui-group-buttons .btn:last-child{border-top-right-radius:.25em;border-bottom-right-radius:.25em;padding-left:15px}
+  </style>
+
+
+  <div class="col-md-6  col-md-offset-1">
+    <div class="ui-group-buttons">
+      <%= link_to 'Volver a Historias Clinicas' , paciente_historias_clinicas_path(@paciente), :class => "btn btn-success color_blanco mrg" %>
+        <div class="or"></div>
+      <%= link_to 'Crear Nota de Evolución', new_paciente_historia_clinica_nota_progreso_path(@paciente,@historia_clinica,@nota_progreso), :class => "btn btn-primary color_blanco mrg" %>
+    </div>
+  </div>
+  <div class="col-md-4" style="margin-left: 50px; margin-top: -20px;">
+  </div>
+</div>
+
+
+<div id="page-wrapper" style="min-height: 343px;">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="dataTable_wrapper">
+          <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="flatTable" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
+                  <thead>
+                    <tr role="row">
+                      <th  rowspan = "4" style="width:20%;">
+                        <%= link_to image_tag('Logo/logo2.png',:size => "190x100", :class =>"ember-view "), root_path %>
+                      </th>
+                      <th  colspan="2">
+                        HISTORIA CLINICA
+                      </th>
+                      <th style="text-align: center;">
+                        HC N" <%= @historia_clinica.id %>
+                      </th>
+                    </tr>
+
+                    <tr>
+                      <th style="width:20%; ">
+                        FECHA:  <%= @historia_clinica.created_at.strftime("%d-%m-%y") %>
+                      </th>
+                      <th style="width:20%;">
+                        HORA MILITAR: <%= @historia_clinica.created_at.strftime("%H:%M") %>
+                      </th>
+                      <th style="width:30%; text-align:center; font-size:12px">
+                        Revisión 11 - 13
+                      </th>
+                    </tr>
+
+                    <tr>
+                      <th colspan = "2" style="width:85%;text-align:center;" rowspan="1">
+                        DATOS GENERALES
+                      </th>
+                      <th style="width:20%;text-align:center;font-size:12px">
+                        F GS 033
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="gradeA odd" role="row">
+                      <td class="sorting_1" >
+                        <b>Movil/Servicio:</b>
+                      </td>
+                      <td><%= @historia_clinica.a_movil_servicio %></td>
+                      <td>
+                        <b>Conductor/Comandante:</b>
+                      </td>
+                      <td class="center"><%= @historia_clinica.a_cove  %></td>
+                    </tr>
+
+                    <tr class="gradeA even" role="row">
+                      <td class="sorting_1"><b>Ciudad:</b></td>
+                      <td><%= @historia_clinica.aeropuerto.ciudad.nombre.capitalize %></td>
+                      <td><b>Departamento:</b></td>
+                      <td class="center"><%= @historia_clinica.aeropuerto.departamento  %></td>
+                    </tr>
+
+                    <tr class="gradeA odd" role="row">
+                      <td class="sorting_1"><b>Medico de Turno:</b></td>
+                      <td><%=  @historia_clinica.user.nombres %> <%=  @historia_clinica.user.apellidos %></td>
+                      <td><b>Aeropuerto:</b></td>
+                      <td class="center"><%=  @historia_clinica.aeropuerto.nombre.capitalize %> - <%=  @historia_clinica.aeropuerto.ciudad.nombre.capitalize %></td>
+                    </tr>
+                    <tr class="gradeA even" role="row">
+                      <td class="sorting_1"><b>Empresa:</b></td>
+                      <td><%=  @historia_clinica.a_empresa.capitalize %></td>
+                      <td><b> Auxiliar de Enfermería: </b></td>
+                      <td class="center"><%=  @historia_clinica.a_auxiliar %></td>
+                    </tr>
+                    <tr class="gradeA odd" role="row">
+                      <td class="sorting_1"><b>Tipo de Servicio Solicitado:</b></td>
+                      <td><%=  @historia_clinica.a_tipo_servicio %></td>
+                      <td class="sorting_1"><b>Lugar te atención:</b></td>
+                      <td><%=  @historia_clinica.a_lugar_de_atencion %></td>
+                    </tr>
+
+                    <tr class="gradeA odd" role="row">
+                      <td class="sorting_1"><b>Tipo de Vuelo:</b></td>
+                      <td><%=  @historia_clinica.tipo_de_vuelo %></td>
+                      <% if @historia_clinica.registro_medico %>
+                        <td class="sorting_1"><b>Registro Medico:</b></td>
+                        <td ><%=  @historia_clinica.registro_medico %></td>
+                      <% end %>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>          
+
+      <br/>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="dataTable_wrapper">
+            <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+              <div class="row">
+                <div class="col-sm-12">
+                  <table class="flatTable " id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
+                    <thead>
+                      <tr class="titleTr">
+                        <td class="titleTd" colspan="5"> I. IDENTIFICACIÓN DEL PACIENTE</td>
+                      </tr>
+                      <tr role="row">
+                        <td style="width: 158px"><strong>Nombres:</strong></td>
+                        <td><%= @historia_clinica.p_primer_nombre %> <%= @historia_clinica.p_segundo_nombre %></td>
+                        <td><b>Apellidos:</b></td>
+                        <td>
+                          <%= @historia_clinica.p_primer_apellido %> <%= @historia_clinica.p_segundo_apellido %>
+                        </td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr role="row">
+                        <td><b>Origen:</b></td>
+                        <td>
+                          <%= @historia_clinica.a_origen.capitalize %>
+                        </td>
+                        <td><b>Destino:</b></td>
+                        <td>
+                          <%= @historia_clinica.a_destino.capitalize %>
+                        </td>
+                      </tr>
+
+                      <tr role="row">
+                        <td><b>Tipo de Documento:</b></td>
+                        <td>
+                          <%= @historia_clinica.p_tipo_documento %>
+                        </td>
+                        <td><b>Documento:</b></td>
+                        <td>
+                          <%= @historia_clinica.p_documento %>
+                        </td>
+                      </tr>
+
+                      <tr role="row">
+                        <td><b>Email:</b></td>
+                        <td>
+                          <%= @historia_clinica.p_email %>
+                        </td>
+                        <td><b>Genero:</b></td>
+                        <td>
+                          <%= @historia_clinica.p_genero %>
+                        </td>
+                      </tr>
+
+                      <tr role="row">
+                        <td><b>Profesion:</b></td>
+                        <td>
+                          <%= @historia_clinica.p_profesion %>
+                        </td>
+                        <td><b>Tipo de Sangre:</b>
+                        </td>
+                        <td>
+                          <%= @historia_clinica.p_tipo_sangre %>
+                        </td>
+                      </tr>
+
+                      <tr role="row">
+                        <td><b>Nacionalidad:</b></td>
+                        <td>
+                          <%= @historia_clinica.p_nacionalidad %>
+                        </td>
+                        <td><b>Ciudad:</b></td>
+                        <td>
+                          <%= @historia_clinica.p_ciudad %>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td><b>Dirección</b></td>
+                        <td>
+                          <%= @historia_clinica.p_direccion %>
+                        </td>
+                        <td><b>Fecha de nacimiento:</b></td>
+                        <td>
+                          <%= @historia_clinica.p_fecha_nacimiento.strftime("%d-%m-%Y") %>
+                        </td>
+                      </tr>
+
+                      <tr class="gradeA odd" role="row">
+                        <td class="sorting_1"><b>Condición:</b></td>
+                        <td><%=  @historia_clinica.a_condicion %></td>
+                        <td class="sorting_1"><b>Edad:</b></td>
+                        <td><%= @historia_clinica.p_edad %> <%= @historia_clinica.p_tipo_edad %></td>
+                      </tr>
+
+                      <tr class="gradeA odd" role="row">
+                        <td class="sorting_1"><b>Acompañante:</b></td>
+                        <td><%=  @historia_clinica.a_nombre_acompañante %></td>
+                        <td class="sorting_1"><b>Parentesco:</b></td>
+                        <td><%=  @historia_clinica.a_parentesco %></td>
+                      </tr>
+
+                      <tr class="gradeA odd" role="row">
+                        <td class="sorting_1"><b>Telefono Acompañante:</b></td>
+                        <td><%=  @historia_clinica.a_telefono %></td>
+                        <td class="sorting_1"><b>Arl:</b></td>
+                        <td><%=  @historia_clinica.arl %></td>
+                      </tr>
+
+                      <tr class="gradeA odd" role="row">
+                        <td class="sorting_1"><b>Eps:</b></td>
+                        <td colspan="3"><%=  @historia_clinica.eps %></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>            
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr class="titleTr">
+              <td class="titleTd"> II. MOTIVO DE CONSULTA</td>
+              <td colspan="5"></td>
+            </tr>
+
+            <tr>
+              <td colspan="2"><%= @historia_clinica.a_motivo_de_consulta %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div> <!-- /widget-content -->
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr class="titleTr">
+              <td class="titleTd"> III. ENFERMEDAD ACTUAL</td>
+              <td colspan="5"></td>
+            </tr>
+
+            <tr>
+              <td colspan="2"><%= @historia_clinica.a_enfermedad_actual %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div> <!-- /widget-content -->
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr class="titleTr">
+              <td class="titleTd" colspan="10"> IV. ANTECEDENTES PERSONALES</td>
+            </tr>
+            <tr>
+              <td style="width:20%;"><b>Antecedentes</b></td>
+              <td style="width:5%;"><b>Si/No</b></td>
+              <td style="width:75%;"><b>Ampliar Información</b></td>
+            </tr>
+            <tr>
+              <td><b>Neonatales:</b></td>
+              <td><%= @historia_clinica.b_neonatales %></td>
+              <td><%= @historia_clinica.b_neonatales_descripcion %></td>
+            </tr>
+            <tr>
+              <td><b>Patologicos:</b></td>
+              <td><%= @historia_clinica.b_patologicos %></td>
+              <td><%= @historia_clinica.b_patologicos_descripcion %></td>
+            </tr>
+            <tr>
+              <td><b>Quirurgicos:</b></td>
+              <td><%= @historia_clinica.b_quirurgicos %></td>
+              <td><%= @historia_clinica.b_quirurgicos_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Farmacologicos:</b></td>
+              <td><%= @historia_clinica.b_farmacologicos %></td>
+              <td><%= @historia_clinica.b_farmacologicos_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Alergicos:</b></td>
+              <td><%= @historia_clinica.b_alergicos %></td>
+              <td><%= @historia_clinica.b_alergicos_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Toxicos:</b></td>
+              <td><%= @historia_clinica.b_toxicos %></td>
+              <td><%= @historia_clinica.b_toxicos_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Traumaticos:</b></td>
+              <td><%= @historia_clinica.b_traumaticos %></td>
+              <td><%= @historia_clinica.b_traumaticos_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Hospitalarios:</b></td>
+              <td><%= @historia_clinica.b_hospitalarios %></td>
+              <td><%= @historia_clinica.b_hospitalarios_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Atep Laboral:</b></td>
+              <td><%= @historia_clinica.b_atep_laboral %></td>
+              <td><%= @historia_clinica.b_atep_laboral_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Familiares:</b></td>
+              <td><%= @historia_clinica.b_familiares %></td>
+              <td><%= @historia_clinica.b_familiar_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Inmunologicos:</b></td>
+              <td><%= @historia_clinica.b_inmunologicos %></td>
+              <td><%= @historia_clinica.b_inmunologios_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Asociado Viajes De Vuelo:</b></td>
+              <td><%= @historia_clinica.b_asociado_viajes_de_vuelo %></td>
+              <td><%= @historia_clinica.b_asociado_viajes_de_vuelo_descripcion %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr>
+              <td style="width:20%;"><b>Ciclo Menstrual:</b></td>
+              <td style="width:25%;"><%= @historia_clinica.b_ciclo_menstrual %></td>
+              <td style="width:20%;"><b>Edad Gestacional:</b></td>
+              <td style="width:25%;"><%= @historia_clinica.b_edad_gestacional %></td>
+            </tr>
+
+            <tr>
+              <td style="width:20%;"><b>Eco:</b></td>
+              <td  style="width:35%;"><%= @historia_clinica.b_eco %></td>
+              <td><b>Menarquia:</b></td>
+              <td><%= @historia_clinica.b_menarquia %></td>
+            </tr>
+
+            <tr>
+              <td><b>Fecha Ultima Citología:</b></td>
+              <td><%= @historia_clinica.b_fecha_ultima_citologia %></td>
+              <td><b>Fecha Ultima Mamografía:</b></td>
+              <td><%= @historia_clinica.b_fecha_ultima_mamografia %></td>
+            </tr>
+            
+            <tr>
+              <td><b>Fum:</b></td>
+              <td colspan="4"><%= @historia_clinica.b_fum %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr>
+              <td style="width:15%;"><b>Esta en Embarazo?:</b></td>
+              <td style="width:10%;"><%= @historia_clinica.b_embarazo %></td>
+              <td style="width:10%;"><b>G:</b></td>
+              <td style="width:10%;"><%= @historia_clinica.b_g %></td>
+              <td style="width:10%;"><b>P:</b></td>
+              <td style="width:10%;"><%= @historia_clinica.b_p %></td>
+              <td style="width:10%;"><b>C:</b></td>
+              <td style="width:10%;"><%= @historia_clinica.b_c %></td>
+            </tr>
+            <tr>
+              <td><b>A:</b></td>
+                <td><%= @historia_clinica.b_a %></td>
+                <td><b>M:</b></td>
+                <td><%= @historia_clinica.b_m %></td>
+                <td><b>V:</b></td>
+                <td><%= @historia_clinica.b_v %></td>
+                <td><b>E:</b></td>
+                <td><%= @historia_clinica.b_e %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+
+            <tr class="titleTr">
+              <td class="titleTd" colspan="5"> V. REVISIÓN POR SISTEMAS</td>
+            </tr>
+          
+            <tr>
+              <td style="width:20%;"><b>Antecedentes</b></td>
+              <td style="width:12%;"><b>Anormal/Normal</b></td>
+              <td style="width:68%;"><b>Ampliar Información</b></td>
+            </tr>
+          
+            <tr>
+              <td><b>Cardiovascular:</b></td>
+              <td><%= @historia_clinica.c_cardiovascular %></td>
+              <td><%= @historia_clinica.c_cardiovascular_descripcion %></td>
+            </tr>
+          
+            <tr>
+              <td><b>Respiratorio:</b></td>
+              <td><%= @historia_clinica.c_respiratorio %></td>
+              <td><%= @historia_clinica.c_respiratorio_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Abdominal:</b></td>
+              <td><%= @historia_clinica.c_abdominal %></td>
+              <td><%= @historia_clinica.c_abdominal_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Genito Urinario:</b></td>
+              <td><%= @historia_clinica.c_genito_urinario %></td>
+              <td><%= @historia_clinica.c_genito_urinario_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Neurologico:</b></td>
+              <td><%= @historia_clinica.c_neurologico %></td>
+              <td><%= @historia_clinica.c_neurologico_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Mental:</b></td>
+              <td><%= @historia_clinica.c_mental %></td>
+              <td><%= @historia_clinica.c_mental_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Organo de los Sentidos:</b></td>
+              <td><%= @historia_clinica.c_organo_de_los_sentidos %></td>
+              <td><%= @historia_clinica.c_organo_de_los_sentidos_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Musculo esqueletico:</b></td>
+              <td><%= @historia_clinica.c_musculo_esqueletico %></td>
+              <td><%= @historia_clinica.c_musculo_esqueletico_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Piel y Faneras:</b></td>
+              <td><%= @historia_clinica.c_piel_y_faneras %></td>
+              <td><%= @historia_clinica.c_piel_y_faneras_descripcion %></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div> 
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+
+            <tr class="titleTr">
+              <td class="titleTd" colspan="5"> VI.  EXAMEN FISICO</td>
+            </tr>
+
+            <tr>
+              <td  style="width:30%;">
+                <b>TA mm/Hg:</b>
+              </td>
+              <td  style="width:20%;">
+                <%= @historia_clinica.d_ta_mmgh_diastole %> - Mm / <%= @historia_clinica.d_ta_mmgh_sistole %> - Hg
+              </td>
+              <td  >
+                <b>Frecuencia Cardiaca:</b>
+              </td>
+              <td >
+                <%= @historia_clinica.d_frecuencia_cardiaca %>
+              </td>
+            </tr>
+
+            <tr>
+              <td >
+              <b>Frecuencia Respiratoria:</b>
+              </td>
+              <td  >
+              <%= @historia_clinica.d_frecuencia_respiratoria %>
+              </td>
+              <td >
+              <b>% SAT. de O2 Ambiente:</b>
+              </td>
+              <td >
+                <%= @historia_clinica.d_sat_of_o_ambiente %>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+              <b>% SAT. de O2 Suplementario:</b>
+              </td>
+              <td  >
+              <%= @historia_clinica.d_sat_of_o_suplementario %>
+              </td>
+
+              <td >
+              <b>Temperatura:</b>
+              </td>
+              <td >
+                <%= @historia_clinica.d_temperatura %> (Centigrados)
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+              <b>Peso:</b>
+              </td>
+              <td  >
+              <%= @historia_clinica.d_peso_en_kilogramos %> (Kilogramos)
+              </td>
+              <td >
+              <b>Talla:</b>
+              </td>
+              <td >
+                <%= @historia_clinica.d_talla_en_centimetros %> (Centimetros)
+              </td>
+            </tr>
+              
+            <tr>
+              <td >
+              <b>Glucometria:</b>
+              </td>
+              <td colspan="4">
+              <%= @historia_clinica.d_glucometria %>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div> 
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr>
+              <td style="width:20%;"><b>Antecedentes</b></td>
+              <td style="width:12%;"><b>Anormal/Normal</b></td>
+              <td style="width:68%;"><b>Ampliar Información</b></td>
+            </tr>
+            <tr>
+              <td><b>Cabeza:</b></td>
+              <td><%= @historia_clinica.d_cabeza %></td>
+              <td><%= @historia_clinica.d_cabeza_descripcion %></td>
+            </tr>
+            <tr>
+              <td><b>Cuello:</b></td>
+              <td><%= @historia_clinica.d_cuello %></td>
+              <td><%= @historia_clinica.d_cuello_descripcion %></td>
+            </tr>
+            <tr>
+              <td><b>Caja Toracica:</b></td>
+              <td><%= @historia_clinica.d_caja_toracica %></td>
+              <td><%= @historia_clinica.d_caja_toracica_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Corazón:</b></td>
+              <td><%= @historia_clinica.d_corazon %></td>
+              <td><%= @historia_clinica.d_corazon_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Pulmones:</b></td>
+              <td><%= @historia_clinica.d_pulmones %></td>
+              <td><%= @historia_clinica.d_pulmones_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Abdomen:</b></td>
+              <td><%= @historia_clinica.d_abdomen %></td>
+              <td><%= @historia_clinica.d_abdomen_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Genito Urinario:</b></td>
+              <td><%= @historia_clinica.d_genito_urinario %></td>
+              <td><%= @historia_clinica.d_genito_urinario_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Recto:</b></td>
+              <td><%= @historia_clinica.d_recto %></td>
+              <td><%= @historia_clinica.d_recto_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Extremidades:</b></td>
+              <td><%= @historia_clinica.d_extremidades %></td>
+              <td><%= @historia_clinica.d_extremidades_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Piel Y Faneras:</b></td>
+              <td><%= @historia_clinica.d_piel_y_faneras %></td>
+              <td><%= @historia_clinica.d_piel_y_faneras_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Musculo Esqueletico:</b></td>
+              <td><%= @historia_clinica.d_musculo_esqueletico %></td>
+              <td><%= @historia_clinica.d_musculo_esqueletico_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Mental:</b></td>
+              <td><%= @historia_clinica.d_mental %></td>
+              <td><%= @historia_clinica.d_mental_descripcion %></td>
+            </tr>
+
+            <tr>
+              <td><b>Neurologico:</b></td>
+              <td><%= @historia_clinica.d_neurologico %></td>
+              <td><%= @historia_clinica.d_neurologico_descripcion %></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+
+            <tr>
+              <td  style="width:20%;">
+              <b>Apertura Ocular:</b>
+              </td>
+              <td  style="width:30%;">
+                <% if @historia_clinica.d_apertura_ocular == 4 %>
+                  4 - Espontanea
+                <% elsif @historia_clinica.d_apertura_ocular == 3 %>
+                  3 - Al Llamado
+                <% elsif @historia_clinica.d_apertura_ocular == 2 %>
+                  2 - Al Dolor
+                <% elsif @historia_clinica.d_apertura_ocular == 1 %>
+                  1 - No Apertura
+                <% end %>
+              </td>
+
+              <td  style="width:20%;">
+              <b>Respuesta Verbal:</b>
+              </td>
+              <td  style="width:30%;">
+                <% if @historia_clinica.d_respuesta_verbal == 5 %>
+                  5 - Orientada
+                <% elsif @historia_clinica.d_respuesta_verbal == 4 %>
+                  4 - Confusa
+                <% elsif @historia_clinica.d_respuesta_verbal == 3 %>
+                  3 - Palabras
+                <% elsif @historia_clinica.d_respuesta_verbal == 2 %>
+                  2- Sonidos
+                <% elsif @historia_clinica.d_respuesta_verbal == 1 %>
+                  1- Ninguna
+                <% end %>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+              <b>Respuesta Motora:</b>
+              </td>
+              <td>
+
+                <% if @historia_clinica.d_respuesta_motora == 6 %>
+                  6 - Obedece Ordenes
+                <% elsif @historia_clinica.d_respuesta_motora == 5 %>
+                  5 - Localiza Estimulos
+                <% elsif @historia_clinica.d_respuesta_motora == 4 %>
+                  4 - Retira El Dolor
+                <% elsif @historia_clinica.d_respuesta_motora == 3 %>
+                  3 - Retira En Flexión
+                <% elsif @historia_clinica.d_respuesta_motora == 2 %>
+                  2- Retira En Extensión
+                <% elsif @historia_clinica.d_respuesta_motora == 1 %>
+                  1 - Sin Respuesta
+                <% end %>
+
+              </td>
+
+              <td>
+              <b>Escala de Glasgow:</b>
+              </td>
+              <td  >
+              <%= @historia_clinica.d_escala_de_glasgow %> / 15
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+              <b>Alteración:</b>
+              </td>
+              <td>
+                <%= @historia_clinica.d_alteracion %>
+              </td>
+
+              <td>
+              <b>Otros Signos</b>
+              </td>
+              <td  >
+              <%= @historia_clinica.d_otros_signos %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>      
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr class="titleTr">
+              <td class="titleTd"> VI.  ANALISIS</td>
+              <td colspan="5"></td>
+            </tr>
+
+            <tr>
+              <td colspan="2"><%= @historia_clinica.e_analisis %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr class="titleTr">
+              <td class="titleTd"  colspan="5"> VI.  IMPRESIÓN DIAGNOSTICA</td>
+            </tr>
+            <tr class="headingTr">
+              <td colspan="6">Diagnostico Principal</td>
+            </tr>
+            <tr>
+              <td style="width:20%;"><b>Familia</b></td>
+              <td style="width:5%;"><b>Codigo</b></td>
+              <td style="width:75%;"><b>Descripción</b></td>
+            </tr>
+            <tr>
+              <% if @historia_clinica.cie10 %>
+                <td><%= @historia_clinica.cie10.familia.capitalize %></td>
+                <td><%= @historia_clinica.cie10.codigo %></td>
+                <td><%= @historia_clinica.cie10.descripcion.capitalize %></td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div> <!-- /widget-content -->
+      
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+
+            <tr class="headingTr">
+              <td colspan="6">Diagnostico Secundarios</td>
+            </tr>
+
+            <tr>
+              <td style="width:20%;"><b>Familia</b></td>
+              <td style="width:5%;"><b>Codigo</b></td>
+              <td style="width:75%;"><b>Descripción</b></td>
+            </tr>
+
+            <% @diagnosticos.each do |diagnostico| %>
+              <tr>
+                <td><%= diagnostico.cie10.familia.capitalize %></td>
+                <td><%= diagnostico.cie10.codigo %></td>
+                <td><%= diagnostico.cie10.descripcion.capitalize %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr>
+              <td style="width:20%;"><b>Sistemas:</b></td>
+              <td><%= @historia_clinica.patologias %></td>
+              <td style="width:20%;"><b>Otros Sistemas:</b></td>
+              <td><%= @historia_clinica.otras_patologias %></td>
+            </tr>
+
+            <tr>
+              <td><b>Post Operatorios Varios:</b></td>
+              <td><%= @historia_clinica.post_operatorios_varios %></td>
+              <td><b>Accidentes Especiales:</b></td>
+              <td><%= @historia_clinica.accidentes_especiales %></td>
+            </tr>
+            <tr>
+              <td><b>Notificación Obligatoría:</b></td>
+              <td><%= @historia_clinica.notificacion_obligatoria %></td>
+              <td><b>Emergencias:</b></td>
+              <td><%= @historia_clinica.emergencias %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr class="titleTr">
+              <td class="titleTd">PROCEDIMIENTOS</td>
+              <td colspan="5"></td>
+            </tr>
+
+            <tr>
+              <td style="width:15%;"><b>Tratamiento</b></td>
+              <td style="width:25%;"><b>Via de Acceso</b></td>
+              <td colspan="2" style="width:50%;"><b>Descripción</b></td>
+            </tr>
+
+
+            <% @procedimientos.each do |procedimiento| %>
+              <tr>
+                <td><%= procedimiento.tratamiento %></td>
+                <td><%= procedimiento.via_acceso %></td>
+                <td  colspan="2"><%= procedimiento.descripcion %></td>
+              </tr>
+            <% end %>
+
+          </tbody>
+        </table>
+      </div> 
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr>
+              <td style="width:15%;"><b>Glucometria:</b></td>
+              <td><%= @historia_clinica.e_glucometria1 %></td>
+              <td  style="width:15%;"><b>Hora 1:</b></td>
+              <td><%= @historia_clinica.e_hora1 %></td>
+            </tr>
+
+            <tr>
+              <td><b>Glucometria 2:</b></td>
+              <td><%= @historia_clinica.e_glucometria2 %></td>
+              <td><b>Hora 2:</b></td>
+              <td><%= @historia_clinica.e_hora2 %></td>
+            </tr>
+
+            <tr>
+              <td><b>Electrocardiograma:</b></td>
+              <td  colspan="3"><%= @historia_clinica.e_electrocardiograma %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr class="titleTr">
+              <td class="titleTd"> VI.  OBSERVACIONES</td>
+              <td colspan="5"></td>
+            </tr>
+
+            <tr>
+              <td colspan="2"><%= @historia_clinica.e_observaciones_recomendaciones %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div> <!-- /widget-content -->
+
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr class="titleTr">
+              <td class="titleTd"> VI.  DESENLACE</td>
+              <td colspan="5"></td>
+            </tr>
+
+            <tr>
+              <td  style="width:5%;"><b>Evento Adverso:</b></td>
+              <td  style="width:45%;"><%= @historia_clinica.e_evento_adverso %></td>
+            </tr>
+
+            <tr>
+                <td  style="width:5%;"><b>Estado Paciente:</b></td>
+                <td  style="width:45%;"><%= @historia_clinica.e_estado_paciente %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+      
+      <br/>
+
+      <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr class="titleTr">
+              <td class="titleTd"> VI. NOTAS DE EVOLUCIÓN</td>
+              <td colspan="5"></td>
+            </tr>
+
+            <tr>
+              <td><b>Fecha</b></td>
+              <td><b>Hora</b></td>
+              <td><b>Descripción</b></td>
+              <td><b>Responsable</b></td>
+              <td><b>Cargo</b></td>
+            </tr>
+
+            <% notas_progreso = @historia_clinica.notas_progreso.each do |nota_progreso| %>
+              <tr>
+                <td><%= nota_progreso.created_at.strftime("%d-%m-%y") %></td>
+                  <td><%= nota_progreso.created_at.strftime("%X")  %></td>
+                <td><%= nota_progreso.descripcion %></td>
+                <td><%= nota_progreso.user.nombres %> <%= nota_progreso.user.apellidos %></td>
+                <td><%= nota_progreso.user.rol.nombre %></td>
+              </tr>
+            <% end %>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>  
+
+
+
+<br/><br/><br/>
+

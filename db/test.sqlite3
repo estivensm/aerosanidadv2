@@ -1,0 +1,1 @@
+UPDATE Historias_Clinicas SET paciente_id=2 WHERE paciente_id = 3;

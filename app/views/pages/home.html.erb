@@ -1,0 +1,185 @@
+<meta name="robots" content="noindex">
+
+<style>
+.alert-success{
+  text-align: center;
+  font-size: 18px;
+}
+
+.bs{
+  background: #B3B3B3!important;
+  border-color: #B3B3B3!important;
+}
+
+.Cr{
+  margin-top: 20px;
+  padding: 20px 45px !important;
+  background-color: #22BEC9!important;
+  font-size: 16px;
+  border-color: #22BEC9!important;
+}
+
+</style>
+
+<% if current_user %>
+  <div class="padding">
+    <div class="full col-sm-12">
+      <!-- content -->
+      <div class="row">
+        <!-- main col left -->
+        <div class="col-sm-12 navbar navbar-default">
+          <header class="sb-page-header" style = "padding-bottom:0px!important">
+            <div class="navbar navbar-default">
+              <%= form_tag pages_home_path, :method =>
+              'get', remote: true, class: 'js-filter' do %>
+              <div class="container">
+                <% flash.each do |name, msg| %>
+                  <%= content_tag :div, msg, class: "alert alert-success" %>
+                  <% end %>
+                  <div >
+                    <h2 style = "color:#969696 !important;font-size:45px!important;text-align:center!important">Buscar Paciente</h2>
+
+     
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="input-group" id="adv-search">
+                          <%= text_field_tag :search, nil, :placeholder =>
+                          "Ingresa Nombre o Cedula", :class => 'form-control query' %>
+                          <div class="input-group-btn">
+                            <div class="btn-group" role="group">
+                              <%= submit_tag "Consultar", :name =>nil, :class=>"btn btn-primary bs" %></div>
+                          </div>
+                        </div>
+                        <% if current_user.rol_id != 3 %>
+                          <div class="row">
+                            <div class="col-md-12" style = "text-align:center">
+                              <%= link_to 'Nuevo Paciente', new_paciente_path , :class=>"btn btn-primary Cr js-filter"%></div>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                    <br>
+                  </div>
+                <% end %>
+              </div>    
+            </div>    
+          </header>
+          <br/>
+
+          <div class = "personal">
+            <div class="row">
+              <div class="col-md-12 jm">
+                <%= render partial: "personas" %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>        
+<% else %>
+
+  <style type="text/css">
+
+    html,
+    body {
+    /*css for full size background image*/
+    background-image: url('/assets/06.jpg')  ;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+
+      height: 100%;
+      color: #fff;
+      text-align: center;
+      text-shadow: 0 1px 3px rgba(0,0,0,.5);
+
+    }
+
+    .masthead-nav > .active > a,
+    .masthead-nav > .active > a:hover,
+    .masthead-nav > .active > a:focus {
+      color: #fff;
+      border-bottom-color: #fff;
+    }
+
+    .card-container.card {
+      max-width: 400px;
+      padding: 40px 40px;
+    }
+
+    .btn {
+      font-weight: 700;
+      height: 36px;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: default;
+    }
+
+    .card {
+      background-color: #F7F7F7;
+      padding: 20px 25px 30px;
+      margin: 0 auto 25px;
+      margin-top: 50px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border-radius: 2px;
+      -moz-box-shadow:2px  2px 2px 2px rgba(0, 0, 0, 0.3);
+      -webkit-box-shadow:2px  2px 2px 2px rgba(0, 0, 0, 0.3);
+      box-shadow:2px  2px 2px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn.btn-signin {
+      padding: 0px;
+      font-weight: 700;
+      font-size: 14px;
+      height: 36px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      border: none;
+    }
+
+  </style>
+
+  <br>
+  <br>
+  <br>
+  <%= form_tag sessions_path, :method =>
+  :post do %>
+    <div class="container">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: "alert alert-danger" %>
+      <% end %>
+
+      <div class="card card-container"  style="border-radius: 4px;">
+        <div class="row">
+          <div class="col-xs-6 col-md-6 col-sm-6">
+            <%= link_to  image_tag('Logo/logo.png', :size =>
+            "125x80"), :remote => true,  :rel => "tooltip", :title => "Mostrar", :class => 'btn btn-link logo'%>
+          </div>
+          <div class="col-xs-6 col-md-6 col-sm-6"> 
+            <img src="/assets/9-128.png" width="60%" alt="">
+          </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+
+        <%= text_field_tag :nombre_usuario, nil, class: 'form-control', :placeholder => "Nombres" %>
+        <br/>
+        <%= password_field_tag :password, nil, class: 'form-control', :placeholder => "Clave" %>
+        <br/><br/>
+        <%= submit_tag 'Ingresar', class: 'btn btn-lg btn-primary btn-block btn-signin' %>
+        <!-- /form -->
+        <br/>
+      </div>
+
+    </div>
+  <% end %>
+      
+
+<% end %>

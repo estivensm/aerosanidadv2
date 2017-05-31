@@ -1,0 +1,1000 @@
+<% 
+
+empleadoAAA = HistoriaClinica.where(:a_empresa => "A.A.A")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroAAA = HistoriaClinica.where(:a_empresa => "A.A.A")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalAAA = empleadoAAA.to_i + pasajeroAAA.to_i
+acumulado1 = totalAAA.to_i
+
+
+empleadoACA = HistoriaClinica.where(:a_empresa => "ACA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroACA = HistoriaClinica.where(:a_empresa => "ACA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalACA = empleadoACA.to_i + pasajeroACA.to_i
+acumulado2 = acumulado1.to_i + totalACA.to_i
+
+
+empleadoADA = HistoriaClinica.where(:a_empresa => "ADA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroADA = HistoriaClinica.where(:a_empresa => "ADA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalADA = empleadoADA.to_i + pasajeroADA.to_i
+acumulado3 = acumulado2.to_i + totalACA.to_i
+
+
+empleadoAEROCIVIL = HistoriaClinica.where(:a_empresa => "AEROCIVIL")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where(:aeropuerto_id => $airport).where("date(created_at) <= ?", $mivar2).count
+
+pasajeroAEROCIVIL = HistoriaClinica.where(:a_empresa => "AEROCIVIL")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where(:aeropuerto_id => $airport).where("date(created_at) <= ?", $mivar2).count
+
+totalAEROCIVIL = empleadoAEROCIVIL.to_i + pasajeroAEROCIVIL.to_i
+acumulado4 = acumulado3.to_i + totalAEROCIVIL.to_i
+ 
+
+empleadoAEROGAL = HistoriaClinica.where(:a_empresa => "AEROGAL")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroAEROGAL = HistoriaClinica.where(:a_empresa => "AEROGAL")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalAEROGAL = empleadoAEROGAL.to_i + pasajeroAEROGAL.to_i
+acumulado5 = acumulado4.to_i + totalAEROGAL.to_i
+
+empleadoAEROPOSTAL = HistoriaClinica.where(:a_empresa => "AEROPOSTAL")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroAEROPOSTAL = HistoriaClinica.where(:a_empresa => "AEROPOSTAL")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalAEROPOSTAL = empleadoAEROPOSTAL.to_i + pasajeroAEROPOSTAL.to_i
+acumulado6 = acumulado5.to_i + totalAEROPOSTAL.to_i
+
+
+empleadoAEROREPUBLICA = HistoriaClinica.where(:a_empresa => "AEROREPUBLICA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroAEROREPUBLICA = HistoriaClinica.where(:a_empresa => "AEROREPUBLICA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalAEROREPUBLICA = empleadoAEROREPUBLICA.to_i + pasajeroAEROREPUBLICA.to_i
+acumulado7 = acumulado6.to_i + totalAEROREPUBLICA.to_i
+
+
+empleadoAEROSANIDAD = HistoriaClinica.where(:a_empresa => "AEROSANIDAD")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroAEROSANIDAD = HistoriaClinica.where(:a_empresa => "AEROSANIDAD")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalAEROSANIDAD = empleadoAEROSANIDAD.to_i + pasajeroAEROSANIDAD.to_i
+acumulado8 = acumulado7.to_i + totalAEROSANIDAD.to_i
+
+
+empleadoAEXPA = HistoriaClinica.where(:a_empresa => "AEXPA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroAEXPA = HistoriaClinica.where(:a_empresa => "AEXPA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalAEXPA = empleadoAEXPA.to_i + pasajeroAEXPA.to_i
+acumulado9 = acumulado8.to_i + totalAEXPA.to_i
+
+
+empleadoAIRPLAN = HistoriaClinica.where(:a_empresa => "AIR PLAN")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroAIRPLAN = HistoriaClinica.where(:a_empresa => "AIR PLAN")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalAIRPLAN = empleadoAIRPLAN.to_i + pasajeroAIRPLAN.to_i
+acumulado10 = acumulado9.to_i + totalAIRPLAN.to_i
+
+
+empleadoAIRES = HistoriaClinica.where(:a_empresa => "AIRES")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroAIRES = HistoriaClinica.where(:a_empresa => "AIRES")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalAIRES = empleadoAIRES.to_i + pasajeroAIRES.to_i
+acumulado11 = acumulado10.to_i + totalAIRES.to_i
+
+
+empleadoAMERICAN = HistoriaClinica.where(:a_empresa => "AMERICAN AIRLINES")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroAMERICAN = HistoriaClinica.where(:a_empresa => "AMERICAN AIRLINES")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalAMERICAN = empleadoAMERICAN.to_i + pasajeroAMERICAN.to_i
+acumulado12 = acumulado11.to_i + totalAMERICAN.to_i
+
+
+empleadoAVIANCA = HistoriaClinica.where(:a_empresa => "AVIANCA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroAVIANCA = HistoriaClinica.where(:a_empresa => "AVIANCA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalAVIANCA = empleadoAVIANCA.to_i + pasajeroAVIANCA.to_i
+acumulado13 = acumulado12.to_i + totalAVIANCA.to_i
+
+
+empleadoBOMBEROS = HistoriaClinica.where(:a_empresa => "BOMBEROS")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroBOMBEROS = HistoriaClinica.where(:a_empresa => "BOMBEROS")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalBOMBEROS =  empleadoBOMBEROS.to_i + pasajeroBOMBEROS.to_i
+acumulado14 = acumulado13.to_i + totalBOMBEROS.to_i
+
+
+empleadoCOMERCIO = HistoriaClinica.where(:a_empresa => "COMERCIO")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroCOMERCIO = HistoriaClinica.where(:a_empresa => "COMERCIO")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalCOMERCIO = empleadoCOMERCIO.to_i + pasajeroCOMERCIO.to_i
+acumulado15 = acumulado14.to_i + totalCOMERCIO.to_i
+
+
+empleadoCONSTRUCTORA = HistoriaClinica.where(:a_empresa => "CONSTRUCTORA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroCONSTRUCTORA = HistoriaClinica.where(:a_empresa => "CONSTRUCTORA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalCONSTRUCTORA = empleadoCONSTRUCTORA.to_i + pasajeroCONSTRUCTORA.to_i
+acumulado16 = acumulado15.to_i + totalCONSTRUCTORA.to_i
+
+
+empleadoCOPA = HistoriaClinica.where(:a_empresa => "COPA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroCOPA = HistoriaClinica.where(:a_empresa => "COPA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalCOPA = empleadoCOPA.to_i + pasajeroCOPA.to_i
+acumulado17 = acumulado16.to_i + totalCOPA.to_i
+
+empleadoDEPRISA = HistoriaClinica.where(:a_empresa => "DEPRISA CARGA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroDEPRISA = HistoriaClinica.where(:a_empresa => "DEPRISA CARGA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalDEPRISA = empleadoDEPRISA.to_i + pasajeroDEPRISA.to_i 
+acumulado18 = acumulado17.to_i + pasajeroDEPRISA.to_i
+
+
+empleadoDESACOL = HistoriaClinica.where(:a_empresa => "DESACOL")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroDESACOL = HistoriaClinica.where(:a_empresa => "DESACOL")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalDESACOL = empleadoDESACOL.to_i + pasajeroDESACOL.to_i
+acumulado19 = acumulado18.to_i + totalDESACOL.to_i
+
+
+empleadoEASY = HistoriaClinica.where(:a_empresa => "EASY FLY")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroEASY = HistoriaClinica.where(:a_empresa => "EASY FLY")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalEASY = empleadoEASY.to_i + pasajeroEASY.to_i
+acumulado20 = acumulado19.to_i + totalEASY.to_i
+
+
+empleadoASEO = HistoriaClinica.where(:a_empresa => "EMPRESAS DE ASEO")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroASEO = HistoriaClinica.where(:a_empresa => "EMPRESAS DE ASEO")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalASEO = empleadoASEO.to_i + pasajeroASEO.to_i 
+acumulado21 = acumulado20.to_i + totalASEO.to_i
+
+
+empleadoVIGILANCIA = HistoriaClinica.where(:a_empresa => "EMPRESAS DE VIGILANCIA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroVIGILANCIA = HistoriaClinica.where(:a_empresa => "EMPRESAS DE VIGILANCIA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalVIGILANCIA = empleadoVIGILANCIA.to_i + pasajeroVIGILANCIA.to_i
+acumulado22 = acumulado21.to_i + totalVIGILANCIA.to_i
+
+
+empleadoENERGIZAR = HistoriaClinica.where(:a_empresa => "ENERGIZAR")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroENERGIZAR = HistoriaClinica.where(:a_empresa => "ENERGIZAR")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalENERGIZAR = empleadoENERGIZAR.to_i + pasajeroENERGIZAR.to_i
+acumulado23 = acumulado22.to_i + totalVIGILANCIA.to_i
+
+
+empleadoEQUIPAJEROS = HistoriaClinica.where(:a_empresa => "EQUIPAJEROS")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroEQUIPAJEROS = HistoriaClinica.where(:a_empresa => "EQUIPAJEROS")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalEQUIPAJEROS = empleadoEQUIPAJEROS.to_i + pasajeroEQUIPAJEROS.to_i
+acumulado24 = acumulado23.to_i + totalEQUIPAJEROS.to_i
+
+
+empleadoIDEAM = HistoriaClinica.where(:a_empresa => "IDEAM")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroIDEAM = HistoriaClinica.where(:a_empresa => "IDEAM")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalIDEAM = empleadoIDEAM.to_i + pasajeroIDEAM.to_i
+acumulado25 = acumulado24.to_i + totalIDEAM.to_i
+
+empleadoINMIGRACION = HistoriaClinica.where(:a_empresa => "INMIGRACION - DIAN")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroINMIGRACION = HistoriaClinica.where(:a_empresa => "INMIGRACION - DIAN")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalINMIGRACION = empleadoINMIGRACION.to_i + pasajeroINMIGRACION.to_i
+acumulado26 = acumulado25.to_i + totalINMIGRACION.to_i
+
+empleadoLAN = HistoriaClinica.where(:a_empresa => "LAN")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroLAN = HistoriaClinica.where(:a_empresa => "LAN")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalLAN = empleadoLAN.to_i + pasajeroLAN.to_i
+acumulado27 = acumulado26.to_i + totalLAN.to_i
+
+empleadoLOMAS = HistoriaClinica.where(:a_empresa => "LAS LOMAS")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroLOMAS = HistoriaClinica.where(:a_empresa => "LAS LOMAS")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalLOMAS = empleadoLOMAS.to_i + pasajeroLOMAS.to_i 
+acumulado28 = acumulado27.to_i + totalLOMAS.to_i
+
+
+empleadoLASA = HistoriaClinica.where(:a_empresa => "LASA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroLASA = HistoriaClinica.where(:a_empresa => "LASA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalLASA = empleadoLASA.to_i + pasajeroLASA.to_i
+acumulado29 = acumulado28.to_i + totalLASA.to_i
+
+
+empleadoPANTURISMO = HistoriaClinica.where(:a_empresa => "PANTURISMO")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroPANTURISMO = HistoriaClinica.where(:a_empresa => "PANTURISMO")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalPANTURISMO = empleadoPANTURISMO.to_i + pasajeroPANTURISMO.to_i
+acumulado30 = acumulado29.to_i + totalPANTURISMO.to_i
+
+
+empleadoPARTICULAR = HistoriaClinica.where(:a_empresa => "PARTICULAR")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroPARTICULAR = HistoriaClinica.where(:a_empresa => "PARTICULAR")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalPARTICULAR = empleadoPARTICULAR.to_i + pasajeroPARTICULAR.to_i
+acumulado31 = acumulado30.to_i + totalPARTICULAR.to_i
+
+
+empleadoPOLICIA = HistoriaClinica.where(:a_empresa => "POLICIA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroPOLICIA = HistoriaClinica.where(:a_empresa => "POLICIA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalPOLICIA = empleadoPOLICIA.to_i + pasajeroPOLICIA.to_i
+acumulado32 = acumulado31.to_i + totalPOLICIA.to_i
+
+
+empleadoRESTAURANTES = HistoriaClinica.where(:a_empresa => "RESTAURANTES")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroRESTAURANTES = HistoriaClinica.where(:a_empresa => "RESTAURANTES")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalRESTAURANTES = empleadoRESTAURANTES.to_i + pasajeroRESTAURANTES.to_i
+acumulado33 = acumulado32.to_i + totalRESTAURANTES.to_i
+
+empleadoSAI = HistoriaClinica.where(:a_empresa => "SAI")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroSAI = HistoriaClinica.where(:a_empresa => "SAI")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalSAI = empleadoSAI.to_i + pasajeroSAI.to_i
+acumulado34 = acumulado33.to_i + totalSAI.to_i
+
+
+empleadoSANIDAD = HistoriaClinica.where(:a_empresa => "SANIDAD")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroSANIDAD = HistoriaClinica.where(:a_empresa => "SANIDAD")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalSANIDAD = empleadoSANIDAD.to_i + pasajeroSANIDAD.to_i
+acumulado35 = acumulado34.to_i + totalSANIDAD.to_i
+
+
+empleadoSATENA = HistoriaClinica.where(:a_empresa => "SATENA - FAC")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroSATENA = HistoriaClinica.where(:a_empresa => "SATENA - FAC")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalSATENA = empleadoSATENA.to_i + pasajeroSATENA.to_i
+acumulado36 = acumulado35.to_i + totalSATENA.to_i
+
+
+empleadoSIALAS = HistoriaClinica.where(:a_empresa => "SIALAS")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroSIALAS = HistoriaClinica.where(:a_empresa => "SIALAS")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalSIALAS = empleadoSIALAS.to_i + pasajeroSIALAS.to_i
+acumulado37 = acumulado36.to_i + totalSIALAS.to_i
+
+
+empleadoSPIRIT = HistoriaClinica.where(:a_empresa => "SPIRIT")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroSPIRIT = HistoriaClinica.where(:a_empresa => "SPIRIT")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalSPIRIT = empleadoSPIRIT.to_i + pasajeroSPIRIT.to_i
+acumulado38 = acumulado37.to_i + totalSPIRIT.to_i
+
+
+empleadoTACA = HistoriaClinica.where(:a_empresa => "TACA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroTACA = HistoriaClinica.where(:a_empresa => "TACA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalTACA = empleadoTACA.to_i + pasajeroTACA.to_i 
+acumulado39 = acumulado38.to_i + totalTACA.to_i
+
+
+empleadoTAMPA = HistoriaClinica.where(:a_empresa => "TAMPA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroTAMPA = HistoriaClinica.where(:a_empresa => "TAMPA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalTAMPA = empleadoTAMPA.to_i + pasajeroTAMPA.to_i
+acumulado40 = acumulado39.to_i + totalTAMPA.to_i
+
+
+empleadoTERPEL = HistoriaClinica.where(:a_empresa => "TERPEL")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroTERPEL = HistoriaClinica.where(:a_empresa => "TERPEL")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalTERPEL = empleadoTERPEL.to_i + pasajeroTERPEL.to_i
+acumulado41 = acumulado40.to_i + totalTERPEL.to_i
+
+
+empleadoTRANSPORTADORES = HistoriaClinica.where(:a_empresa => "TRANSPORTADORES")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroTRANSPORTADORES = HistoriaClinica.where(:a_empresa => "TRANSPORTADORES")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalTRANSPORTADORES = empleadoTRANSPORTADORES.to_i + pasajeroTRANSPORTADORES.to_i
+acumulado42 = acumulado41.to_i + totalTRANSPORTADORES.to_i
+
+
+empleadoVIVA = HistoriaClinica.where(:a_empresa => "VIVA COLOMBIA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroVIVA = HistoriaClinica.where(:a_empresa => "VIVA COLOMBIA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalVIVA = empleadoVIVA.to_i + pasajeroVIVA.to_i
+acumulado43 = acumulado41.to_i + totalVIVA.to_i
+
+
+empleadoVUELOSAMBULANCIA = HistoriaClinica.where(:a_empresa => "VUELOS AMBULANCIA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroVUELOSAMBULANCIA = HistoriaClinica.where(:a_empresa => "VUELOS AMBULANCIA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalVUELOSAMBULANCIA = empleadoVUELOSAMBULANCIA.to_i + pasajeroVUELOSAMBULANCIA.to_i
+acumulado44 = acumulado42.to_i + totalVUELOSAMBULANCIA.to_i
+
+
+empleadoVUELOSPARTICULARES = HistoriaClinica.where(:a_empresa => "VUELOS PARTICULARES")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroVUELOSPARTICULARES = HistoriaClinica.where(:a_empresa => "VUELOS PARTICULARES")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalVUELOSPARTICULARES = empleadoVUELOSPARTICULARES.to_i + pasajeroVUELOSPARTICULARES.to_i
+acumulado45 = acumulado44.to_i + totalVUELOSPARTICULARES.to_i
+
+
+empleadoZONACARGA = HistoriaClinica.where(:a_empresa => "ZONA DE CARGA")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroZONACARGA = HistoriaClinica.where(:a_empresa => "ZONA DE CARGA")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalZONACARGA = empleadoZONACARGA.to_i + pasajeroZONACARGA.to_i
+acumulado46 = acumulado45.to_i + totalZONACARGA.to_i
+
+
+empleadoOTROS = HistoriaClinica.where(:a_empresa => "OTROS")
+.where(:a_condicion => "Empleado").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+pasajeroOTROS = HistoriaClinica.where(:a_empresa => "OTROS")
+.where(:a_condicion => "Pasajero").where("date(created_at) >= ?", $mivar)
+.where("date(created_at) <= ?", $mivar2).where(:aeropuerto_id => $airport).count
+
+totalOTROS = empleadoOTROS.to_i + pasajeroOTROS.to_i
+acumulado47 = acumulado46.to_i + totalOTROS.to_i
+
+
+ empleadoTOTAL = empleadoAAA.to_i +  empleadoACA.to_i + empleadoADA.to_i + empleadoAEROCIVIL.to_i + empleadoAEROGAL.to_i + empleadoAEROPOSTAL.to_i + empleadoAEROREPUBLICA.to_i + empleadoAEROSANIDAD.to_i + empleadoAEXPA.to_i + empleadoAIRPLAN.to_i + empleadoAIRES.to_i + empleadoAMERICAN.to_i + empleadoAVIANCA.to_i + empleadoBOMBEROS.to_i + empleadoCOMERCIO.to_i + empleadoCONSTRUCTORA.to_i + empleadoCOPA.to_i + empleadoDEPRISA.to_i + empleadoDESACOL.to_i + empleadoEASY.to_i + empleadoASEO.to_i + empleadoVIGILANCIA.to_i + empleadoENERGIZAR.to_i + empleadoEQUIPAJEROS.to_i + empleadoIDEAM.to_i + empleadoINMIGRACION.to_i + empleadoLAN.to_i + empleadoLOMAS.to_i + empleadoLASA.to_i + empleadoPANTURISMO.to_i + empleadoPARTICULAR.to_i + empleadoPOLICIA.to_i + empleadoRESTAURANTES.to_i + empleadoSAI.to_i + empleadoSANIDAD.to_i + empleadoSATENA.to_i + empleadoSIALAS.to_i + empleadoSPIRIT.to_i + empleadoTACA.to_i + empleadoTAMPA.to_i + empleadoTERPEL.to_i + empleadoTRANSPORTADORES.to_i + empleadoVIVA.to_i + empleadoVUELOSAMBULANCIA.to_i + empleadoVUELOSPARTICULARES.to_i + empleadoZONACARGA.to_i + empleadoOTROS.to_i
+
+ 
+ pasajeroTOTAL = pasajeroAAA.to_i + pasajeroACA.to_i + pasajeroADA.to_i + pasajeroAEROCIVIL.to_i + pasajeroAEROGAL.to_i + pasajeroAEROPOSTAL.to_i + pasajeroAEROREPUBLICA.to_i + pasajeroAEROSANIDAD.to_i + pasajeroAEXPA.to_i + pasajeroAIRPLAN.to_i + pasajeroAIRES.to_i + pasajeroAMERICAN.to_i + pasajeroAVIANCA.to_i + pasajeroBOMBEROS.to_i + pasajeroCOMERCIO.to_i + pasajeroCONSTRUCTORA.to_i + pasajeroCOPA.to_i + pasajeroDEPRISA.to_i + pasajeroDESACOL.to_i + pasajeroEASY.to_i + pasajeroASEO.to_i + pasajeroVIGILANCIA.to_i + pasajeroENERGIZAR.to_i + pasajeroEQUIPAJEROS.to_i + pasajeroIDEAM.to_i + pasajeroINMIGRACION.to_i + pasajeroLAN.to_i + pasajeroLOMAS.to_i + pasajeroLASA.to_i + pasajeroPANTURISMO.to_i + pasajeroPARTICULAR.to_i + pasajeroPOLICIA.to_i + pasajeroRESTAURANTES.to_i + pasajeroSAI.to_i + pasajeroSANIDAD.to_i + pasajeroSATENA.to_i + pasajeroSIALAS.to_i + pasajeroSPIRIT.to_i + pasajeroTACA.to_i + pasajeroTAMPA.to_i + pasajeroTERPEL.to_i + pasajeroTRANSPORTADORES.to_i + pasajeroVIVA.to_i + pasajeroVUELOSAMBULANCIA.to_i + pasajeroVUELOSPARTICULARES.to_i + pasajeroZONACARGA.to_i + pasajeroOTROS.to_i 
+
+ totalTOTAL = empleadoTOTAL.to_i + pasajeroTOTAL.to_i
+ 
+ totalACUMULADO = acumulado47
+
+%>
+
+<div class="panel panel-default">
+<br/>
+<div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-bordered table-hover dataTable no-footer">
+
+    <tbody>
+        <tr>
+            <th  style="width:1%; " rowspan="3">                                    
+              <img src="http://www.aerosanidadvirtual.com/assets/Logo/logo.png" style="width: 130px;" alt="">
+            </th>
+            <th  style="width:20%; text-align: center;" colspan="2">
+              INFORME DE PACIENTES ATENDIDOS POR EMPRESA
+            </th>
+        </tr>
+
+          <tr>
+            <th  style="width:10%; text-align: center;">
+            <b>FECHA: </b> 
+              <% t = Time.now %>
+              <%= t.strftime "%d-%m-%Y" %>
+            </th >
+  
+        </tr>
+
+
+          <tr>
+            <th  style="width:10%; text-align: center;">
+            <b>HORA: </b> 
+              <% t = Time.now %>
+              <%= t.strftime("%X %P") %>
+            </th >
+  
+        </tr>
+
+    </tbody>
+
+
+
+    </table>
+    </div>
+</div>
+
+
+
+
+<div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer">       
+      <tbody>
+          <tr>
+                <th class="info">EMPRESA</th>
+                <th class="info">EMPLEADOS</th>
+                <th class="info">PASAJEROS</th>
+                <th class="info">TOTAL</th>
+                <th class="info">ACUMULADO</th>
+            </tr>
+            <tr>
+              <td>A.A.A</td>
+              <td><%= empleadoAAA %></td>
+              <td><%= pasajeroAAA %></td>
+              <td><%= totalAAA %></td>
+              <td><%= acumulado1 %></td>
+            </tr>
+
+            <tr>
+              <td>ACA</td>
+              <td><%= empleadoACA %></td>
+              <td><%= pasajeroACA %></td>
+              <td><%= totalACA %></td>
+              <td><%= acumulado2 %></td>
+            </tr>
+
+            <tr>
+              <td>ADA</td>
+              <td><%= empleadoADA %></td>
+              <td><%= pasajeroADA %></td>
+              <td><%= totalADA %></td>
+              <td><%= acumulado3 %></td>
+            </tr>
+
+            <tr>
+              <td>AEROCIVIL</td>
+              <td><%= empleadoAEROCIVIL %></td>
+              <td><%= pasajeroAEROCIVIL %></td>
+              <td><%= totalAEROCIVIL %></td>
+              <td><%= acumulado4 %></td>
+            </tr>
+            <tr>
+              <td>AEROGAL</td>
+              <td><%= empleadoAEROGAL %></td>
+              <td><%= pasajeroAEROGAL %></td>
+              <td><%= totalAEROGAL %></td>
+              <td><%= acumulado5 %></td>
+            </tr>
+
+            <tr>
+              <td>AEROPOSTAL</td>
+              <td><%= empleadoAEROPOSTAL %></td>
+              <td><%= pasajeroAEROPOSTAL %></td>
+              <td><%= totalAEROPOSTAL %></td>
+              <td><%= acumulado6 %></td>
+            </tr>
+
+            <tr>
+              <td>AEROREPUBLICA</td>
+              <td><%= empleadoAEROREPUBLICA %></td>
+              <td><%= pasajeroAEROREPUBLICA %></td>
+              <td><%= totalAEROREPUBLICA %></td>
+              <td><%= acumulado7 %></td>
+            </tr>
+            <tr>
+              <td>AEROSANIDAD</td>
+              <td><%= empleadoAEROSANIDAD %></td>
+              <td><%= pasajeroAEROSANIDAD %></td>
+              <td><%= totalAEROSANIDAD %></td>
+              <td><%= acumulado8 %></td>
+            </tr>
+            <tr>
+              <td>AEXPA</td>
+              <td><%= empleadoAEXPA %></td>
+              <td><%= pasajeroAEXPA %></td>
+              <td><%= totalAEXPA %></td>
+              <td><%= acumulado9 %></td>
+            </tr>
+
+            <tr>
+              <td>AIR PLAN</td>
+              <td><%= empleadoAIRPLAN %></td>
+              <td><%= pasajeroAIRPLAN %></td>
+              <td><%= totalAIRPLAN %></td>
+              <td><%= acumulado10 %></td>
+            </tr>
+            <tr>
+              <td>AIRES</td>
+              <td><%= empleadoAIRES %></td>
+              <td><%= pasajeroAIRES %></td>
+              <td><%= totalAIRES %></td>
+              <td><%= acumulado11 %></td>
+            </tr>
+            <tr>
+              <td>AMERICAN AIRLINES</td>
+              <td><%= empleadoAMERICAN %></td>
+              <td><%= pasajeroAMERICAN %></td>
+              <td><%= totalAMERICAN %></td>
+              <td><%= acumulado12 %></td>
+            </tr>
+            <tr>
+              <td>AVIANCA</td>
+              <td><%= empleadoAVIANCA %></td>
+              <td><%= pasajeroAVIANCA %></td>
+              <td><%= totalAVIANCA %></td>
+              <td><%= acumulado13 %></td>
+            </tr>
+            <tr>
+              <td>BOMBEROS</td>
+              <td><%= empleadoBOMBEROS %></td>
+              <td><%= pasajeroBOMBEROS %></td>
+              <td><%= totalBOMBEROS %></td>
+              <td><%= acumulado14 %></td>
+            </tr>
+            <tr>
+              <td>COMERCIO</td>
+              <td><%= empleadoCOMERCIO %></td>
+              <td><%= pasajeroCOMERCIO %></td>
+              <td><%= totalCOMERCIO %></td>
+              <td><%= acumulado15 %></td>
+            </tr>
+            <tr>
+              <td>CONSTRUCTORA</td>
+              <td><%= empleadoCONSTRUCTORA %></td>
+              <td><%= pasajeroCONSTRUCTORA %></td>
+              <td><%= totalCONSTRUCTORA %></td>
+              <td><%= acumulado16 %></td>
+            </tr>
+            <tr>
+              <td>COPA</td>
+              <td><%= empleadoCOPA %></td>
+              <td><%= pasajeroCOPA %></td>
+              <td><%= totalCOPA %></td>
+              <td><%= acumulado17 %></td>
+            </tr>
+            <tr>
+              <td>DEPRISA CARGA</td>
+              <td><%= empleadoDEPRISA %></td>
+              <td><%= pasajeroDEPRISA %></td>
+              <td><%= totalDEPRISA %></td>
+              <td><%= acumulado18 %></td>
+            </tr>
+            <tr>
+              <td>DESACOL</td>
+              <td><%= empleadoDESACOL %></td>
+              <td><%= pasajeroDESACOL %></td>
+              <td><%= totalDESACOL %></td>
+              <td><%= acumulado19 %></td>
+            </tr>
+            <tr>
+              <td>EASY FLY</td>
+              <td><%= empleadoEASY %></td>
+              <td><%= pasajeroEASY %></td>
+              <td><%= totalEASY %></td>
+              <td><%= acumulado20 %></td>
+            </tr>
+            <tr>
+              <td>EMPRESAS DE ASEO</td>
+              <td><%= empleadoASEO %></td>
+              <td><%= pasajeroASEO %></td>
+              <td><%= totalASEO %></td>
+              <td><%= acumulado21 %></td>
+            </tr>
+            <tr>
+              <td>EMPRESAS DE VIGILANCIA</td>
+              <td><%= empleadoVIGILANCIA %></td>
+              <td><%= pasajeroVIGILANCIA %></td>
+              <td><%= totalVIGILANCIA %></td>
+              <td><%= acumulado22 %></td>
+            </tr>
+            <tr>
+              <td>ENERGIZAR</td>
+              <td><%= empleadoENERGIZAR %></td>
+              <td><%= pasajeroENERGIZAR %></td>
+              <td><%= totalENERGIZAR %></td>
+              <td><%= acumulado23 %></td>
+            </tr>
+            <tr>
+              <td>EQUIPAJEROS</td>
+              <td><%= empleadoEQUIPAJEROS %></td>
+              <td><%= pasajeroEQUIPAJEROS %></td>
+              <td><%= totalEQUIPAJEROS %></td>
+              <td><%= acumulado24 %></td>
+            </tr>
+            <tr>
+              <td>IDEAM</td>
+              <td><%= empleadoIDEAM %></td>
+              <td><%= pasajeroIDEAM %></td>
+              <td><%= totalIDEAM %></td>
+              <td><%= acumulado25 %></td>
+            </tr>
+            <tr>
+              <td>INMIGRACION - DIAN</td>
+              <td><%= empleadoINMIGRACION %></td>
+              <td><%= pasajeroINMIGRACION %></td>
+              <td><%= totalINMIGRACION %></td>
+              <td><%= acumulado26 %></td>
+            </tr>
+            <tr>
+              <td>LAN</td>
+              <td><%= empleadoLAN %></td>
+              <td><%= pasajeroLAN %></td>
+              <td><%= totalLAN %></td>
+              <td><%= acumulado27 %></td>
+            </tr>
+            <tr>
+              <td>LAS LOMAS</td>
+              <td><%= empleadoLOMAS %></td>
+              <td><%= pasajeroLOMAS %></td>
+              <td><%= totalLOMAS %></td>
+              <td><%= acumulado28 %></td>
+            </tr>
+            <tr>
+              <td>LASA</td>
+              <td><%= empleadoLASA %></td>
+              <td><%= pasajeroLASA %></td>
+              <td><%= totalLASA %></td>
+              <td><%= acumulado29 %></td>
+            </tr>
+            <tr>
+              <td>PANTURISMO</td>
+              <td><%= empleadoPANTURISMO %></td>
+              <td><%= pasajeroPANTURISMO %></td>
+              <td><%= totalPANTURISMO %></td>
+              <td><%= acumulado30 %></td>
+            </tr>
+            <tr>
+              <td>PARTICULAR</td>
+              <td><%= empleadoPARTICULAR %></td>
+              <td><%= pasajeroPARTICULAR %></td>
+              <td><%= totalPARTICULAR %></td>
+              <td><%= acumulado31 %></td>
+
+            </tr>
+            <tr>
+              <td>POLICIA</td>
+              <td><%= empleadoPOLICIA %></td>
+              <td><%= pasajeroPOLICIA %></td>
+              <td><%= totalPOLICIA %></td>
+              <td><%= acumulado32 %></td>
+            </tr>
+            <tr>
+              <td>RESTAURANTES</td>
+              <td><%= empleadoRESTAURANTES %></td>
+              <td><%= pasajeroRESTAURANTES %></td>
+              <td><%= totalRESTAURANTES %></td>
+              <td><%= acumulado33 %></td>
+            </tr>
+            <tr>
+              <td>SAI</td>
+              <td><%= empleadoSAI %></td>
+              <td><%= pasajeroSAI %></td>
+              <td><%= totalSAI %></td>
+              <td><%= acumulado34 %></td>
+            </tr>
+            <tr>
+              <td>SANIDAD</td>
+              <td><%= empleadoSANIDAD %></td>
+              <td><%= pasajeroSANIDAD %></td>
+              <td><%= totalSANIDAD %></td>
+              <td><%= acumulado35 %></td>
+            </tr>
+            <tr>
+              <td>SATENA - FAC</td>
+              <td><%= empleadoSATENA %></td>
+              <td><%= pasajeroSATENA %></td>
+              <td><%= totalSATENA %></td>
+              <td><%= acumulado36 %></td>
+            </tr>
+            <tr>
+              <td>SIALAS</td>
+              <td><%= empleadoSIALAS %></td>
+              <td><%= pasajeroSIALAS %></td>
+              <td><%= totalSIALAS %></td>
+              <td><%= acumulado37 %></td>
+            </tr>
+            <tr>
+              <td>SPIRIT</td>
+              <td><%= empleadoSPIRIT %></td>
+              <td><%= pasajeroSPIRIT %></td>
+              <td><%= totalSPIRIT %></td>
+              <td><%= acumulado38 %></td>
+            </tr>
+            <tr>
+              <td>TACA</td>
+              <td><%= empleadoTACA %></td>
+              <td><%= pasajeroTACA %></td>
+              <td><%= totalTACA %></td>
+              <td><%= acumulado39 %></td>
+            </tr>
+            <tr>
+              <td>TAMPA</td>
+              <td><%= empleadoTAMPA %></td>
+              <td><%= pasajeroTAMPA %></td>
+              <td><%= totalTAMPA %></td>
+              <td><%= acumulado40 %></td>
+            </tr>
+            <tr>
+              <td>TERPEL</td>
+              <td><%= empleadoTERPEL %></td>
+              <td><%= pasajeroTERPEL %></td>
+              <td><%= totalTERPEL %></td>
+              <td><%= acumulado41 %></td>
+            </tr>
+            <tr>
+              <td>TRANSPORTADORES</td>
+              <td><%= empleadoTRANSPORTADORES %></td>
+              <td><%= pasajeroTRANSPORTADORES %></td>
+              <td><%= totalTRANSPORTADORES %></td>
+              <td><%= acumulado42 %></td>
+            </tr>
+            <tr>
+              <td>VIVA COLOMBIA</td>
+              <td><%= empleadoVIVA %></td>
+              <td><%= pasajeroVIVA %></td>
+              <td><%= totalVIVA %></td>
+              <td><%= acumulado43 %></td>
+            </tr>
+            <tr>
+              <td>VUELOS AMBULANCIA</td>
+              <td><%= empleadoVUELOSAMBULANCIA %></td>
+              <td><%= pasajeroVUELOSAMBULANCIA %></td>
+              <td><%= totalVUELOSAMBULANCIA %></td>
+              <td><%= acumulado44 %></td>
+            </tr>
+            <tr>
+              <td>VUELOS PARTICULARES</td>
+              <td><%= empleadoVUELOSPARTICULARES %></td>
+              <td><%= pasajeroVUELOSPARTICULARES %></td>
+              <td><%= totalVUELOSPARTICULARES %></td>
+              <td><%= acumulado45 %></td>
+            </tr>
+            <tr>
+              <td>ZONA DE CARGA</td>
+              <td><%= empleadoZONACARGA %></td>
+              <td><%= pasajeroZONACARGA %></td>
+              <td><%= totalZONACARGA %></td>
+              <td><%= acumulado46 %></td>
+            </tr>
+            <tr>
+              <td>OTROS</td>
+              <td><%= empleadoOTROS %></td>
+              <td><%= pasajeroOTROS %></td>
+              <td><%= totalOTROS %></td>
+              <td><%= acumulado47 %></td>
+            </tr>
+            <tr>
+              <td>TOTAL</td>
+              <td><%= empleadoTOTAL %></td>
+              <td><%= pasajeroTOTAL %></td>
+              <td><%= totalTOTAL %></td>
+	      <td><%= totalACUMULADO %></td>
+            </tr>
+
+
+
+
+
+
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+<style type="text/css" media="screen">
+th{
+  font-size: 10px;
+} 
+
+td{
+  font-size: 10px;
+} 
+
+</style>
+
+</div>    
+
+

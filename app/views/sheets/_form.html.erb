@@ -1,0 +1,35 @@
+
+
+<%= form_for(@sheet) do |f| %>
+<% if @sheet.errors.any? %>
+<div id="error_explanation">
+  <h2>
+    <%= pluralize(@sheet.errors.count, "error") %>prohibited this sheet from being saved:</h2>
+
+  <ul>
+    <% @sheet.errors.full_messages.each do |message| %>
+    <li>
+      <%= message %></li>
+    <% end %></ul>
+</div>
+<% end %>
+
+<div class="field">
+  <%= f.label :nombre %>
+  <br>
+  <%= f.text_field :nombre %></div>
+<div class="field">
+  <%= f.label :descripcion %>
+  <br>
+  <%= f.text_area :descripcion %></div>
+<h1 class="center">Muestra</h1>
+
+<div class="fielset">
+  <%= f.fields_for :diagnosticos do |diagnosticos| %>
+  <%= render "diagnostico_fields", f: diagnosticos %>
+  <% end %>
+  <%= link_to_add_association 'Agregar', f, :diagnosticos, {data: {'association-insertion-method' =>'after'}} %></div>
+
+<div class="actions">
+  <%= f.submit %></div>
+<% end %>

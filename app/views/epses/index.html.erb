@@ -1,0 +1,78 @@
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-lg-12">
+
+      <span  class="btn btn-link btn-xs  pull-left pagination pagination">
+        <h1 class="title">Eps</h1>
+      </span>
+
+      <span class="btn btn-link btn-sm pull-right " style="margin-top:-6px;"></span>
+      <% if admin? %>
+      <span  class="pagination pull-right">
+        <%= link_to 'Nueva Eps', new_eps_path, remote: true, :class =>"btn   btn-info color_blanco btn-sm" %></span>
+      <% end %>
+
+      <div class="row" >
+        <div class="col-lg-12" style="margin-top: -40px;">
+          <%= will_paginate @epses, renderer: BootstrapPagination::Rails, :previous_label =>'Atras', :next_label => 'Siguiente' %></div>
+      </div>
+
+      <table class="table table-bordered table-hover">
+
+        <thead>
+          <tr>
+            <th  colspan="5">
+
+              <%= form_tag request.path, :method =>
+              'get', :class => '' do %>
+              <div>
+                <div class="row">
+
+                  <div class="col-lg-5 ">
+
+                    <div class="input-group custom-search-form">
+                      <%= text_field_tag :search, params[:search], :placeholder =>
+                      "Busca por el Nombre", :class => 'form-control' %>
+                      <span class="input-group-btn">
+
+                        <%= button_tag(type: "submit", class: "btn principal") do %>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <% end %></span>
+                    </div>
+                    <!-- /input-group --> </div>
+
+                </div>
+              </div>
+              <% end %></th>
+
+          </tr>
+
+          <tr class="x1">
+            <th width="5% !important;" class="active" style="text-align: center;">Id</th>
+            <th width="90% !important;" class="active">Nombre</th>
+            <th width="5% !important;" class="active">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @epses %></tbody>
+      </table>
+
+    </div>
+
+<style>
+
+  .x td{
+    padding: 5px 10px !important;
+    background-color: #FBFBFB;
+    color: #828282;
+  }
+  
+  .x1 th{
+    color: #67B0C7!important;
+    background: #EFEFEF;
+    font-size: 15px;      
+  }
+
+</style>

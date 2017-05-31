@@ -1,0 +1,1269 @@
+
+<script type="text/javascript">
+  /*! jQuery Validation Plugin - v1.13.1 - 10/14/2014
+ * http://jqueryvalidation.org/
+ * Copyright (c) 2014 JÃ¶rn Zaefferer; Licensed MIT */
+!function(a){"function"==typeof define&&define.amd?define(["jquery"],a):a(jQuery)}(function(a){a.extend(a.fn,{validate:function(b){if(!this.length)return void(b&&b.debug&&window.console&&console.warn("Nothing selected, can't validate, returning nothing."));var c=a.data(this[0],"validator");return c?c:(this.attr("novalidate","novalidate"),c=new a.validator(b,this[0]),a.data(this[0],"validator",c),c.settings.onsubmit&&(this.validateDelegate(":submit","click",function(b){c.settings.submitHandler&&(c.submitButton=b.target),a(b.target).hasClass("cancel")&&(c.cancelSubmit=!0),void 0!==a(b.target).attr("formnovalidate")&&(c.cancelSubmit=!0)}),this.submit(function(b){function d(){var d,e;return c.settings.submitHandler?(c.submitButton&&(d=a("<input type='hidden'/>").attr("name",c.submitButton.name).val(a(c.submitButton).val()).appendTo(c.currentForm)),e=c.settings.submitHandler.call(c,c.currentForm,b),c.submitButton&&d.remove(),void 0!==e?e:!1):!0}return c.settings.debug&&b.preventDefault(),c.cancelSubmit?(c.cancelSubmit=!1,d()):c.form()?c.pendingRequest?(c.formSubmitted=!0,!1):d():(c.focusInvalid(),!1)})),c)},valid:function(){var b,c;return a(this[0]).is("form")?b=this.validate().form():(b=!0,c=a(this[0].form).validate(),this.each(function(){b=c.element(this)&&b})),b},removeAttrs:function(b){var c={},d=this;return a.each(b.split(/\s/),function(a,b){c[b]=d.attr(b),d.removeAttr(b)}),c},rules:function(b,c){var d,e,f,g,h,i,j=this[0];if(b)switch(d=a.data(j.form,"validator").settings,e=d.rules,f=a.validator.staticRules(j),b){case"add":a.extend(f,a.validator.normalizeRule(c)),delete f.messages,e[j.name]=f,c.messages&&(d.messages[j.name]=a.extend(d.messages[j.name],c.messages));break;case"remove":return c?(i={},a.each(c.split(/\s/),function(b,c){i[c]=f[c],delete f[c],"required"===c&&a(j).removeAttr("aria-required")}),i):(delete e[j.name],f)}return g=a.validator.normalizeRules(a.extend({},a.validator.classRules(j),a.validator.attributeRules(j),a.validator.dataRules(j),a.validator.staticRules(j)),j),g.required&&(h=g.required,delete g.required,g=a.extend({required:h},g),a(j).attr("aria-required","true")),g.remote&&(h=g.remote,delete g.remote,g=a.extend(g,{remote:h})),g}}),a.extend(a.expr[":"],{blank:function(b){return!a.trim(""+a(b).val())},filled:function(b){return!!a.trim(""+a(b).val())},unchecked:function(b){return!a(b).prop("checked")}}),a.validator=function(b,c){this.settings=a.extend(!0,{},a.validator.defaults,b),this.currentForm=c,this.init()},a.validator.format=function(b,c){return 1===arguments.length?function(){var c=a.makeArray(arguments);return c.unshift(b),a.validator.format.apply(this,c)}:(arguments.length>2&&c.constructor!==Array&&(c=a.makeArray(arguments).slice(1)),c.constructor!==Array&&(c=[c]),a.each(c,function(a,c){b=b.replace(new RegExp("\\{"+a+"\\}","g"),function(){return c})}),b)},a.extend(a.validator,{defaults:{messages:{},groups:{},rules:{},errorClass:"error",validClass:"valid",errorElement:"label",focusCleanup:!1,focusInvalid:!0,errorContainer:a([]),errorLabelContainer:a([]),onsubmit:!0,ignore:":hidden",ignoreTitle:!1,onfocusin:function(a){this.lastActive=a,this.settings.focusCleanup&&(this.settings.unhighlight&&this.settings.unhighlight.call(this,a,this.settings.errorClass,this.settings.validClass),this.hideThese(this.errorsFor(a)))},onfocusout:function(a){this.checkable(a)||!(a.name in this.submitted)&&this.optional(a)||this.element(a)},onkeyup:function(a,b){(9!==b.which||""!==this.elementValue(a))&&(a.name in this.submitted||a===this.lastElement)&&this.element(a)},onclick:function(a){a.name in this.submitted?this.element(a):a.parentNode.name in this.submitted&&this.element(a.parentNode)},highlight:function(b,c,d){"radio"===b.type?this.findByName(b.name).addClass(c).removeClass(d):a(b).addClass(c).removeClass(d)},unhighlight:function(b,c,d){"radio"===b.type?this.findByName(b.name).removeClass(c).addClass(d):a(b).removeClass(c).addClass(d)}},setDefaults:function(b){a.extend(a.validator.defaults,b)},messages:{required:"This field is required.",remote:"Please fix this field.",email:"Please enter a valid email address.",url:"Please enter a valid URL.",date:"Please enter a valid date.",dateISO:"Please enter a valid date ( ISO ).",number:"Please enter a valid number.",digits:"Please enter only digits.",creditcard:"Please enter a valid credit card number.",equalTo:"Please enter the same value again.",maxlength:a.validator.format("Please enter no more than {0} characters."),minlength:a.validator.format("Please enter at least {0} characters."),rangelength:a.validator.format("Please enter a value between {0} and {1} characters long."),range:a.validator.format("Please enter a value between {0} and {1}."),max:a.validator.format("Please enter a value less than or equal to {0}."),min:a.validator.format("Please enter a value greater than or equal to {0}.")},autoCreateRanges:!1,prototype:{init:function(){function b(b){var c=a.data(this[0].form,"validator"),d="on"+b.type.replace(/^validate/,""),e=c.settings;e[d]&&!this.is(e.ignore)&&e[d].call(c,this[0],b)}this.labelContainer=a(this.settings.errorLabelContainer),this.errorContext=this.labelContainer.length&&this.labelContainer||a(this.currentForm),this.containers=a(this.settings.errorContainer).add(this.settings.errorLabelContainer),this.submitted={},this.valueCache={},this.pendingRequest=0,this.pending={},this.invalid={},this.reset();var c,d=this.groups={};a.each(this.settings.groups,function(b,c){"string"==typeof c&&(c=c.split(/\s/)),a.each(c,function(a,c){d[c]=b})}),c=this.settings.rules,a.each(c,function(b,d){c[b]=a.validator.normalizeRule(d)}),a(this.currentForm).validateDelegate(":text, [type='password'], [type='file'], select, textarea, [type='number'], [type='search'] ,[type='tel'], [type='url'], [type='email'], [type='datetime'], [type='date'], [type='month'], [type='week'], [type='time'], [type='datetime-local'], [type='range'], [type='color'], [type='radio'], [type='checkbox']","focusin focusout keyup",b).validateDelegate("select, option, [type='radio'], [type='checkbox']","click",b),this.settings.invalidHandler&&a(this.currentForm).bind("invalid-form.validate",this.settings.invalidHandler),a(this.currentForm).find("[required], [data-rule-required], .required").attr("aria-required","true")},form:function(){return this.checkForm(),a.extend(this.submitted,this.errorMap),this.invalid=a.extend({},this.errorMap),this.valid()||a(this.currentForm).triggerHandler("invalid-form",[this]),this.showErrors(),this.valid()},checkForm:function(){this.prepareForm();for(var a=0,b=this.currentElements=this.elements();b[a];a++)this.check(b[a]);return this.valid()},element:function(b){var c=this.clean(b),d=this.validationTargetFor(c),e=!0;return this.lastElement=d,void 0===d?delete this.invalid[c.name]:(this.prepareElement(d),this.currentElements=a(d),e=this.check(d)!==!1,e?delete this.invalid[d.name]:this.invalid[d.name]=!0),a(b).attr("aria-invalid",!e),this.numberOfInvalids()||(this.toHide=this.toHide.add(this.containers)),this.showErrors(),e},showErrors:function(b){if(b){a.extend(this.errorMap,b),this.errorList=[];for(var c in b)this.errorList.push({message:b[c],element:this.findByName(c)[0]});this.successList=a.grep(this.successList,function(a){return!(a.name in b)})}this.settings.showErrors?this.settings.showErrors.call(this,this.errorMap,this.errorList):this.defaultShowErrors()},resetForm:function(){a.fn.resetForm&&a(this.currentForm).resetForm(),this.submitted={},this.lastElement=null,this.prepareForm(),this.hideErrors(),this.elements().removeClass(this.settings.errorClass).removeData("previousValue").removeAttr("aria-invalid")},numberOfInvalids:function(){return this.objectLength(this.invalid)},objectLength:function(a){var b,c=0;for(b in a)c++;return c},hideErrors:function(){this.hideThese(this.toHide)},hideThese:function(a){a.not(this.containers).text(""),this.addWrapper(a).hide()},valid:function(){return 0===this.size()},size:function(){return this.errorList.length},focusInvalid:function(){if(this.settings.focusInvalid)try{a(this.findLastActive()||this.errorList.length&&this.errorList[0].element||[]).filter(":visible").focus().trigger("focusin")}catch(b){}},findLastActive:function(){var b=this.lastActive;return b&&1===a.grep(this.errorList,function(a){return a.element.name===b.name}).length&&b},elements:function(){var b=this,c={};return a(this.currentForm).find("input, select, textarea").not(":submit, :reset, :image, [disabled], [readonly]").not(this.settings.ignore).filter(function(){return!this.name&&b.settings.debug&&window.console&&console.error("%o has no name assigned",this),this.name in c||!b.objectLength(a(this).rules())?!1:(c[this.name]=!0,!0)})},clean:function(b){return a(b)[0]},errors:function(){var b=this.settings.errorClass.split(" ").join(".");return a(this.settings.errorElement+"."+b,this.errorContext)},reset:function(){this.successList=[],this.errorList=[],this.errorMap={},this.toShow=a([]),this.toHide=a([]),this.currentElements=a([])},prepareForm:function(){this.reset(),this.toHide=this.errors().add(this.containers)},prepareElement:function(a){this.reset(),this.toHide=this.errorsFor(a)},elementValue:function(b){var c,d=a(b),e=b.type;return"radio"===e||"checkbox"===e?a("input[name='"+b.name+"']:checked").val():"number"===e&&"undefined"!=typeof b.validity?b.validity.badInput?!1:d.val():(c=d.val(),"string"==typeof c?c.replace(/\r/g,""):c)},check:function(b){b=this.validationTargetFor(this.clean(b));var c,d,e,f=a(b).rules(),g=a.map(f,function(a,b){return b}).length,h=!1,i=this.elementValue(b);for(d in f){e={method:d,parameters:f[d]};try{if(c=a.validator.methods[d].call(this,i,b,e.parameters),"dependency-mismatch"===c&&1===g){h=!0;continue}if(h=!1,"pending"===c)return void(this.toHide=this.toHide.not(this.errorsFor(b)));if(!c)return this.formatAndAdd(b,e),!1}catch(j){throw this.settings.debug&&window.console&&console.log("Exception occurred when checking element "+b.id+", check the '"+e.method+"' method.",j),j}}if(!h)return this.objectLength(f)&&this.successList.push(b),!0},customDataMessage:function(b,c){return a(b).data("msg"+c.charAt(0).toUpperCase()+c.substring(1).toLowerCase())||a(b).data("msg")},customMessage:function(a,b){var c=this.settings.messages[a];return c&&(c.constructor===String?c:c[b])},findDefined:function(){for(var a=0;a<arguments.length;a++)if(void 0!==arguments[a])return arguments[a];return void 0},defaultMessage:function(b,c){return this.findDefined(this.customMessage(b.name,c),this.customDataMessage(b,c),!this.settings.ignoreTitle&&b.title||void 0,a.validator.messages[c],"<strong>Warning: No message defined for "+b.name+"</strong>")},formatAndAdd:function(b,c){var d=this.defaultMessage(b,c.method),e=/\$?\{(\d+)\}/g;"function"==typeof d?d=d.call(this,c.parameters,b):e.test(d)&&(d=a.validator.format(d.replace(e,"{$1}"),c.parameters)),this.errorList.push({message:d,element:b,method:c.method}),this.errorMap[b.name]=d,this.submitted[b.name]=d},addWrapper:function(a){return this.settings.wrapper&&(a=a.add(a.parent(this.settings.wrapper))),a},defaultShowErrors:function(){var a,b,c;for(a=0;this.errorList[a];a++)c=this.errorList[a],this.settings.highlight&&this.settings.highlight.call(this,c.element,this.settings.errorClass,this.settings.validClass),this.showLabel(c.element,c.message);if(this.errorList.length&&(this.toShow=this.toShow.add(this.containers)),this.settings.success)for(a=0;this.successList[a];a++)this.showLabel(this.successList[a]);if(this.settings.unhighlight)for(a=0,b=this.validElements();b[a];a++)this.settings.unhighlight.call(this,b[a],this.settings.errorClass,this.settings.validClass);this.toHide=this.toHide.not(this.toShow),this.hideErrors(),this.addWrapper(this.toShow).show()},validElements:function(){return this.currentElements.not(this.invalidElements())},invalidElements:function(){return a(this.errorList).map(function(){return this.element})},showLabel:function(b,c){var d,e,f,g=this.errorsFor(b),h=this.idOrName(b),i=a(b).attr("aria-describedby");g.length?(g.removeClass(this.settings.validClass).addClass(this.settings.errorClass),g.html(c)):(g=a("<"+this.settings.errorElement+">").attr("id",h+"-error").addClass(this.settings.errorClass).html(c||""),d=g,this.settings.wrapper&&(d=g.hide().show().wrap("<"+this.settings.wrapper+"/>").parent()),this.labelContainer.length?this.labelContainer.append(d):this.settings.errorPlacement?this.settings.errorPlacement(d,a(b)):d.insertAfter(b),g.is("label")?g.attr("for",h):0===g.parents("label[for='"+h+"']").length&&(f=g.attr("id").replace(/(:|\.|\[|\])/g,"\\$1"),i?i.match(new RegExp("\\b"+f+"\\b"))||(i+=" "+f):i=f,a(b).attr("aria-describedby",i),e=this.groups[b.name],e&&a.each(this.groups,function(b,c){c===e&&a("[name='"+b+"']",this.currentForm).attr("aria-describedby",g.attr("id"))}))),!c&&this.settings.success&&(g.text(""),"string"==typeof this.settings.success?g.addClass(this.settings.success):this.settings.success(g,b)),this.toShow=this.toShow.add(g)},errorsFor:function(b){var c=this.idOrName(b),d=a(b).attr("aria-describedby"),e="label[for='"+c+"'], label[for='"+c+"'] *";return d&&(e=e+", #"+d.replace(/\s+/g,", #")),this.errors().filter(e)},idOrName:function(a){return this.groups[a.name]||(this.checkable(a)?a.name:a.id||a.name)},validationTargetFor:function(b){return this.checkable(b)&&(b=this.findByName(b.name)),a(b).not(this.settings.ignore)[0]},checkable:function(a){return/radio|checkbox/i.test(a.type)},findByName:function(b){return a(this.currentForm).find("[name='"+b+"']")},getLength:function(b,c){switch(c.nodeName.toLowerCase()){case"select":return a("option:selected",c).length;case"input":if(this.checkable(c))return this.findByName(c.name).filter(":checked").length}return b.length},depend:function(a,b){return this.dependTypes[typeof a]?this.dependTypes[typeof a](a,b):!0},dependTypes:{"boolean":function(a){return a},string:function(b,c){return!!a(b,c.form).length},"function":function(a,b){return a(b)}},optional:function(b){var c=this.elementValue(b);return!a.validator.methods.required.call(this,c,b)&&"dependency-mismatch"},startRequest:function(a){this.pending[a.name]||(this.pendingRequest++,this.pending[a.name]=!0)},stopRequest:function(b,c){this.pendingRequest--,this.pendingRequest<0&&(this.pendingRequest=0),delete this.pending[b.name],c&&0===this.pendingRequest&&this.formSubmitted&&this.form()?(a(this.currentForm).submit(),this.formSubmitted=!1):!c&&0===this.pendingRequest&&this.formSubmitted&&(a(this.currentForm).triggerHandler("invalid-form",[this]),this.formSubmitted=!1)},previousValue:function(b){return a.data(b,"previousValue")||a.data(b,"previousValue",{old:null,valid:!0,message:this.defaultMessage(b,"remote")})}},classRuleSettings:{required:{required:!0},email:{email:!0},url:{url:!0},date:{date:!0},dateISO:{dateISO:!0},number:{number:!0},digits:{digits:!0},creditcard:{creditcard:!0}},addClassRules:function(b,c){b.constructor===String?this.classRuleSettings[b]=c:a.extend(this.classRuleSettings,b)},classRules:function(b){var c={},d=a(b).attr("class");return d&&a.each(d.split(" "),function(){this in a.validator.classRuleSettings&&a.extend(c,a.validator.classRuleSettings[this])}),c},attributeRules:function(b){var c,d,e={},f=a(b),g=b.getAttribute("type");for(c in a.validator.methods)"required"===c?(d=b.getAttribute(c),""===d&&(d=!0),d=!!d):d=f.attr(c),/min|max/.test(c)&&(null===g||/number|range|text/.test(g))&&(d=Number(d)),d||0===d?e[c]=d:g===c&&"range"!==g&&(e[c]=!0);return e.maxlength&&/-1|2147483647|524288/.test(e.maxlength)&&delete e.maxlength,e},dataRules:function(b){var c,d,e={},f=a(b);for(c in a.validator.methods)d=f.data("rule"+c.charAt(0).toUpperCase()+c.substring(1).toLowerCase()),void 0!==d&&(e[c]=d);return e},staticRules:function(b){var c={},d=a.data(b.form,"validator");return d.settings.rules&&(c=a.validator.normalizeRule(d.settings.rules[b.name])||{}),c},normalizeRules:function(b,c){return a.each(b,function(d,e){if(e===!1)return void delete b[d];if(e.param||e.depends){var f=!0;switch(typeof e.depends){case"string":f=!!a(e.depends,c.form).length;break;case"function":f=e.depends.call(c,c)}f?b[d]=void 0!==e.param?e.param:!0:delete b[d]}}),a.each(b,function(d,e){b[d]=a.isFunction(e)?e(c):e}),a.each(["minlength","maxlength"],function(){b[this]&&(b[this]=Number(b[this]))}),a.each(["rangelength","range"],function(){var c;b[this]&&(a.isArray(b[this])?b[this]=[Number(b[this][0]),Number(b[this][1])]:"string"==typeof b[this]&&(c=b[this].replace(/[\[\]]/g,"").split(/[\s,]+/),b[this]=[Number(c[0]),Number(c[1])]))}),a.validator.autoCreateRanges&&(null!=b.min&&null!=b.max&&(b.range=[b.min,b.max],delete b.min,delete b.max),null!=b.minlength&&null!=b.maxlength&&(b.rangelength=[b.minlength,b.maxlength],delete b.minlength,delete b.maxlength)),b},normalizeRule:function(b){if("string"==typeof b){var c={};a.each(b.split(/\s/),function(){c[this]=!0}),b=c}return b},addMethod:function(b,c,d){a.validator.methods[b]=c,a.validator.messages[b]=void 0!==d?d:a.validator.messages[b],c.length<3&&a.validator.addClassRules(b,a.validator.normalizeRule(b))},methods:{required:function(b,c,d){if(!this.depend(d,c))return"dependency-mismatch";if("select"===c.nodeName.toLowerCase()){var e=a(c).val();return e&&e.length>0}return this.checkable(c)?this.getLength(b,c)>0:a.trim(b).length>0},email:function(a,b){return this.optional(b)||/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(a)},url:function(a,b){return this.optional(b)||/^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(a)},date:function(a,b){return this.optional(b)||!/Invalid|NaN/.test(new Date(a).toString())},dateISO:function(a,b){return this.optional(b)||/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test(a)},number:function(a,b){return this.optional(b)||/^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(a)},digits:function(a,b){return this.optional(b)||/^\d+$/.test(a)},creditcard:function(a,b){if(this.optional(b))return"dependency-mismatch";if(/[^0-9 \-]+/.test(a))return!1;var c,d,e=0,f=0,g=!1;if(a=a.replace(/\D/g,""),a.length<13||a.length>19)return!1;for(c=a.length-1;c>=0;c--)d=a.charAt(c),f=parseInt(d,10),g&&(f*=2)>9&&(f-=9),e+=f,g=!g;return e%10===0},minlength:function(b,c,d){var e=a.isArray(b)?b.length:this.getLength(b,c);return this.optional(c)||e>=d},maxlength:function(b,c,d){var e=a.isArray(b)?b.length:this.getLength(b,c);return this.optional(c)||d>=e},rangelength:function(b,c,d){var e=a.isArray(b)?b.length:this.getLength(b,c);return this.optional(c)||e>=d[0]&&e<=d[1]},min:function(a,b,c){return this.optional(b)||a>=c},max:function(a,b,c){return this.optional(b)||c>=a},range:function(a,b,c){return this.optional(b)||a>=c[0]&&a<=c[1]},equalTo:function(b,c,d){var e=a(d);return this.settings.onfocusout&&e.unbind(".validate-equalTo").bind("blur.validate-equalTo",function(){a(c).valid()}),b===e.val()},remote:function(b,c,d){if(this.optional(c))return"dependency-mismatch";var e,f,g=this.previousValue(c);return this.settings.messages[c.name]||(this.settings.messages[c.name]={}),g.originalMessage=this.settings.messages[c.name].remote,this.settings.messages[c.name].remote=g.message,d="string"==typeof d&&{url:d}||d,g.old===b?g.valid:(g.old=b,e=this,this.startRequest(c),f={},f[c.name]=b,a.ajax(a.extend(!0,{url:d,mode:"abort",port:"validate"+c.name,dataType:"json",data:f,context:e.currentForm,success:function(d){var f,h,i,j=d===!0||"true"===d;e.settings.messages[c.name].remote=g.originalMessage,j?(i=e.formSubmitted,e.prepareElement(c),e.formSubmitted=i,e.successList.push(c),delete e.invalid[c.name],e.showErrors()):(f={},h=d||e.defaultMessage(c,"remote"),f[c.name]=g.message=a.isFunction(h)?h(b):h,e.invalid[c.name]=!0,e.showErrors(f)),g.valid=j,e.stopRequest(c,j)}},d)),"pending")}}}),a.format=function(){throw"$.format has been deprecated. Please use $.validator.format instead."};var b,c={};a.ajaxPrefilter?a.ajaxPrefilter(function(a,b,d){var e=a.port;"abort"===a.mode&&(c[e]&&c[e].abort(),c[e]=d)}):(b=a.ajax,a.ajax=function(d){var e=("mode"in d?d:a.ajaxSettings).mode,f=("port"in d?d:a.ajaxSettings).port;return"abort"===e?(c[f]&&c[f].abort(),c[f]=b.apply(this,arguments),c[f]):b.apply(this,arguments)}),a.extend(a.fn,{validateDelegate:function(b,c,d){return this.bind(c,function(c){var e=a(c.target);return e.is(b)?d.apply(e,arguments):void 0})}})});
+</script>
+
+<% @campo2 = @historia_clinica.s2_validation %>
+<% @campo3 = @historia_clinica.s3_validation %>
+<% @campo4 = @historia_clinica.s4_validation %>
+<% @campo5 = @historia_clinica.s5_validation %>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="panel panel-default modal-dialog">
+			<div class="panel-body">
+
+				<%= link_to "1. Informacion General", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.first), :class=>
+				"btn btn-info color_blanco mrg" %>
+				<% if @campo2 == true %>
+				<%= link_to "2. Antecedentes Personales", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.second), :class=>
+				"btn btn-default mrg" %>
+				<% elsif @campo2 == false %>
+				<a class="btn btn-default mrg" >2. Antecedentes Personales</a>
+				<% end %>
+
+				<% if @campo3 == true %>
+				<%= link_to "3. Revisión por Sistemas", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.third), :class=>
+				"btn btn-info color_blanco mrg" %>
+				<% elsif @campo3 == false %>
+				<a class="btn btn-info color_blanco mrg"  disabled="disabled">3. Revisión por Sistemas</a>
+
+				<% end %>
+
+				<% if @campo4 == true %>
+				<%= link_to "4. Examen Fisico", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.fourth), :class=>
+				"btn btn-info color_blanco mrg" %>
+				<% elsif @campo4 == false %>
+				<a class="btn btn-info color_blanco mrg"  disabled="disabled">4. Examen Fisico</a>
+
+				<% end %>
+
+				<%= link_to "5. Impresión Diagnostica", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.fifth), :class=>
+				"btn btn-info color_blanco mrg" %>
+
+				</div>
+		</div>
+
+	</div>
+</div>
+<style>
+.panel-default{width:97%;text-align:center}.btn{border-radius:0;border:0;border-bottom:4px solid #CCC;margin:0;-webkit-box-shadow:0 5px 5px -6px rgba(0,0,0,.3);-moz-box-shadow:0 5px 5px -6px rgba(0,0,0,.3);box-shadow:0 5px 5px -6px rgba(0,0,0,.3)}.btn .btn-block:active,.btn .btn-lg:active{-webkit-box-shadow:inset 0 3px 3px -5px rgba(0,0,0,.3);-moz-box-shadow:inset 0 3px 3px -5px rgba(0,0,0,.3);box-shadow:inset 0 3px 3px -5px rgba(0,0,0,.3)}.btn-default{color:#555;background-color:#f9f9f9;border-color:#cacaca;text-shadow:1px 1px 0 #f5f5f5}.btn-default:hover,.btn-default:focus{background-color:#f4f4f4;border-color:#bebebe}.btn-success{background-color:#80d752;border-color:#61be26;text-shadow:1px 1px 0 #5fdb34}.btn-success:hover,.btn-success:focus{background-color:#75cd53;border-color:#53aa27}.btn-info{background-color:#39b3d7;border-color:#348fd2;text-shadow:1px 1px 0 #238ed5}.btn-info:hover,.btn-info:focus{background-color:#45abcd;border-color:#347abe}.btn-warning{background-color:#FEAF20;border-color:#d79a34;text-shadow:1px 1px 0 #db9e34}.btn-warning:hover,.btn-warning:focus{background-color:#f5a620;border-color:#cd9034}.btn-danger{background-color:#d73814;border-color:#be0000;text-shadow:1px 1px 0 #ac2925}.btn-danger:hover,.btn-danger:focus{background-color:#cd3714;border-color:#a00}.btn-primary{background-color:#4274d7;border-color:#4d5bbe;text-shadow:1px 1px 0 #232bd5}.btn-primary:hover,.btn-primary:focus{background-color:#426acd;border-color:#4f56aa}.btn-magick{color:#fff;background-color:#bb39d7;border-color:#9a00cd;text-shadow:1px 1px 0 #9823d5}.btn-magick:hover,.btn-magick:focus{color:#fff;background-color:#b13acd;border-color:#8600b9}.btn-pressure{position:relative;margin-bottom:0}.btn-pressure:focus{-moz-outline-style:none;outline:medium none}.btn-pressure:active,.btn-pressure.active{top:4px;border:0;position:relative}.btn-sensitive:active,.btn-sensitive.active{top:1px;margin-top:4px}
+</style>
+
+<div class="container-fluid">
+
+	<div id="loginbox" class="mainbox col-md-12 col-sm-12">
+
+		<style type="text/css">
+
+.panel-heading {
+    background-image: none;
+    background-color: #ECECEC;
+    color: #5bc0de;
+}
+
+  .panel-title{
+    font-size: 30px;
+  }
+  .pie_form{
+    background-image: none;
+    background-color: #ECECEC;
+    color: white;
+  }
+  .line1
+  {
+    display: inline-block;
+    width: 30% !important;
+  }
+.titulo{
+  margin-top: 20px;
+  margin-bottom: -8px;
+}
+  .centered{
+    text-align: left;
+  }
+
+.btn{
+	border-radius: 5px;
+}
+</style>
+
+		<div class="container-fluid navbar navbar-default" style = "margin-bottom:0px!importan">
+			<div class="row">
+
+				<%= simple_form_for([@paciente, @historia_clinica], method: :put, url: wizard_path, :html =>
+				{ :class => 'block multistep pf_form w_normal horizontal_center shadow', :id => "signup" }) do |f| %>
+				<% if @historia_clinica.errors.any? %>
+				<div id="error_explanation">
+					<h2>
+						<%= pluralize(@historia_clinica.errors.count, "error") %>prohibited this pet from being saved:</h2>
+
+					<ul>
+						<% @historia_clinica.errors.full_messages.each do |msg| %>
+						<li>
+							<%= msg %></li>
+						<% end %></ul>
+				</div>
+				<% end %>
+
+				<div class="container-fluid">
+					<div class="row clearfix">
+						<div class="col-md-12 column">
+
+							<h3 style = "color: #22BDC8;">IV. ANTECEDENTES PERSONALES</h3>
+							<hr class="featurette-divider"></hr>
+
+						<table class="table table-bordered table-hover" id="tab_logic">
+							<thead>
+								<tr>
+									<th style="width:10%"  class="text-center"></th>
+									<th style="width:12%"  class="text-center">
+										Todos Si
+										<input type="checkbox" id="selecctall"></th>
+									<th style="width:12%"  class="text-center">
+										Todos No
+										<input type="checkbox" id="selecctall2"></th>
+									<th style="width:66%"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th class="text-center">Nombre</th>
+									<th class="text-center">Si</th>
+									<th class="text-center">No</th>
+									<th class="text-center">Ampliar Información</th>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Neonatales</td>
+									<td  class="item">
+										<%= f.radio_button(:b_neonatales, "Si", class: "required requerido",  id: 'myRadio', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_neonatales, "No", class: 'no_requerido', :id =>"myRadio13" )%></td>
+
+									<style>
+
+            .descripcion{
+            	height: 30px !important;
+            }
+			.item{
+				text-align: center;
+			}
+            </style>
+									<td >
+
+										<%= f.text_area :b_neonatales_descripcion, class: 'form-control descripcion', :id =>"text_requerido", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Patologicos</td>
+									<td class="item">
+										<%= f.radio_button(:b_patologicos, "Si", class: "required requerido2",  id: 'myRadio2', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_patologicos, "No", class: 'no_requerido2', :id =>"myRadio14" )%></td>
+									<td>
+										<%= f.text_area :b_patologicos_descripcion, class: 'form-control descripcion', :id =>"text_requerido2", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Quirurgicos</td>
+									<td class="item">
+										<%= f.radio_button(:b_quirurgicos, "Si", class: "required requerido3",  id: 'myRadio3', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_quirurgicos, "No", class: 'no_requerido3', :id =>"myRadio15" )%></td>
+									<td>
+										<%= f.text_area :b_quirurgicos_descripcion, class: 'form-control descripcion', :id =>"text_requerido3", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Farmacologicos</td>
+									<td class="item">
+										<%= f.radio_button(:b_farmacologicos, "Si", class: "required requerido4",  id: 'myRadio4', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_farmacologicos, "No", class: 'no_requerido4', :id =>"myRadio16" )%></td>
+									<td>
+										<%= f.text_area :b_farmacologicos_descripcion, class: 'form-control descripcion', :id =>"text_requerido4", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Alergicos</td>
+									<td class="item">
+										<%= f.radio_button(:b_alergicos, "Si", class: "required requerido5",  id: 'myRadio5', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_alergicos, "No", class: 'no_requerido5', :id =>"myRadio17" )%></td>
+									<td>
+										<%= f.text_area :b_alergicos_descripcion, class: 'form-control descripcion', :id =>"text_requerido5", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Toxicos</td>
+									<td class="item">
+										<%= f.radio_button(:b_toxicos, "Si", class: "required requerido6",  id: 'myRadio6', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_toxicos, "No", class: 'no_requerido6', :id =>"myRadio18" )%></td>
+									<td>
+										<%= f.text_area :b_toxicos_descripcion, class: 'form-control descripcion', :id =>"text_requerido6", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Traumaticos</td>
+									<td class="item">
+										<%= f.radio_button(:b_traumaticos, "Si", class: "required requerido7",  id: 'myRadio7', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_traumaticos, "No", class: 'no_requerido7', :id =>"myRadio19" )%></td>
+									<td>
+										<%= f.text_area :b_traumaticos_descripcion, class: 'form-control descripcion', :id =>"text_requerido7", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Hospitalarios</td>
+									<td class="item">
+										<%= f.radio_button(:b_hospitalarios, "Si", class: "required requerido8",  id: 'myRadio8', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_hospitalarios, "No", class: 'no_requerido8', :id =>"myRadio20" )%></td>
+									<td>
+										<%= f.text_area :b_hospitalarios_descripcion, class: 'form-control descripcion', :id =>"text_requerido8", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Atep Laboral</td>
+									<td class="item">
+										<%= f.radio_button(:b_atep_laboral, "Si", class: "required requerido9",  id: 'myRadio9', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_atep_laboral, "No", class: 'no_requerido9', :id =>"myRadio21" )%></td>
+									<td>
+										<%= f.text_area :b_atep_laboral_descripcion, class: 'form-control descripcion', :id =>"text_requerido9", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Familiares</td>
+									<td class="item">
+										<%= f.radio_button(:b_familiares, "Si", class: "required requerido10",  id: 'myRadio10', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_familiares, "No", class: 'no_requerido10', :id =>"myRadio22" )%></td>
+									<td>
+										<%= f.text_area :b_familiar_descripcion, class: 'form-control descripcion', :id =>"text_requerido10", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Inmunologicos</td>
+									<td class="item">
+										<%= f.radio_button(:b_inmunologicos, "Si", class: "required requerido11",  id: 'myRadio11', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_inmunologicos, "No", class: 'no_requerido11', :id =>"myRadio23" )%></td>
+									<td>
+										<%= f.text_area :b_inmunologios_descripcion, class: 'form-control descripcion', :id =>"text_requerido11", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+								<tr id='addr0' class="selectme">
+									<td class="item">Asociado Viajes de Vuelo</td>
+									<td class="item">
+										<%= f.radio_button(:b_asociado_viajes_de_vuelo, "Si", class: "required requerido12",  id: 'myRadio12', :title =>"Debes Seleccionar una Opción" )%></td>
+									<td class="item">
+										<%= f.radio_button(:b_asociado_viajes_de_vuelo, "No", class: 'no_requerido12', :id =>"myRadio24" )%></td>
+									<td>
+										<%= f.text_area :b_asociado_viajes_de_vuelo_descripcion, class: 'form-control descripcion', :id =>"text_requerido12", :title => "Es un Campo Obligatorio" %></td>
+								</tr>
+
+							</tbody>
+						</table>
+
+					</div>
+					<!-- /widget-content -->
+
+				</div>
+				<!-- /widget -->
+			</div>
+
+			<% if @paciente.genero == "Masculino" %>
+
+			<style>
+
+#titulo_td>th {
+    vertical-align: bottom;
+    border-bottom-style:hidden;
+}
+
+</style>
+
+			<div class="container-fluid">
+				<div class="row clearfix">
+					<div class="col-md-12 column">
+						<h3 style = "color: #22BDC8;" align="center">GINECO-OBSTÉTRICOS</h3>
+						<hr class="featurette-divider"></hr>
+					<table class="table" id="tab_logic">
+						<thead>
+							<tr id="titulo_td">
+								<th class="text-center" style="width:25%">Ciclo Menstrual:</th>
+
+								<th class="text-center" style="width:25%">FUM:</th>
+								<th class="text-center" style="width:25%">Menarquia:</th>
+							</tr>
+
+						</thead>
+
+						<tbody>
+							<tr id='addr0'>
+								<td>
+									<%= f.text_field :b_ciclo_menstrual, class: 'form-control required', placeholder: 'Ciclo Menstrual', :id =>
+									"ciclo", :title => "Es un Campo Obligatorio", :readonly => true, :value => 'N/A' %>
+								</td>
+
+								<td>
+									<%= f.text_field :b_fum, class: 'form-control required', placeholder: 'Fum', :id =>
+									"fum", :title => "Es un Campo Obligatorio", :readonly => true, :value => 'N/A' %>
+								</td>
+								<td>
+									<%= f.text_field :b_menarquia, class: 'form-control required', placeholder: 'Menarquia', :id =>
+									"menarquia", :title => "Es un Campo Obligatorio", :readonly => true, :value => 'N/A'  %>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<table class="table" id="tab_logic" style="margin-top: -10px;">
+						<thead>
+							<tr  id="titulo_td">
+								<th class="text-center" style="width:33%">Fecha de la Ultima Citología:</th>
+								<th class="text-center" style="width:33%">Fecha de la Ultima Mamografia:</th>
+								<th  colspan="2" style="width:33%">Esta en Embarazo?</th>
+							</tr>
+
+						</thead>
+						<tbody>
+							<tr id='addr0'>
+
+								<td>
+									<%= f.text_field :b_fecha_ultima_citologia, class: 'form-control required', placeholder: 'Campo Obligatorio', :id =>
+									"citologia", :title => "Es un Campo Obligatorio", :readonly => true, :value => 'N/A' %>
+								</td>
+								<td>
+									<%= f.text_field :b_fecha_ultima_mamografia, class: 'form-control required', placeholder: 'Campo Obligatorio', :id =>
+									"mamografia", :title => "Es un Campo Obligatorio", :readonly => true, :value => 'N/A' %>
+								</td>
+								<td>
+									<label class="label" for="firstname">Si</label>
+
+									<%= f.radio_button(:b_embarazo, "Si", :id =>
+									"yes", class: 'required', :title => "Es un Campo Obligatorio" , :onclick => "return false")%>
+								</td>
+								<td>
+
+									<label class="label" for="firstname">No</label>
+
+									<%= f.radio_button(:b_embarazo, "No", :id =>"no", :onclick => "return false", :checked => true)%></td>
+
+							</tr>
+						</tbody>
+					</table>
+
+					<table class="table" id="tab_logic" style="margin-top: -20px;">
+						<thead>
+							<tr  id="titulo_td">
+
+								<th class="text-center" style="width:12.5% !important;">Eco:</th>
+
+								<th  class="text-center" style="width:12.5% !important;">G:</th>
+
+								<th class="text-center" style="width:12.5% !important;">P:</th>
+								<th  class="text-center" style="width:12.5% !important;">C:</th>
+
+								<th  class="text-center" style="width:12.5% !important;">A:</th>
+								<th  class="text-center" style="width:12.5% !important;">V:</th>
+
+								<th  class="text-center" style="width:12.5% !important;">M:</th>
+								<th  class="text-center" style="width:12.5% !important;">E:</th>
+							</tr>
+
+						</thead>
+						<tbody>
+							<tr id='addr0'>
+								<td>
+									<%= f.text_field :b_eco, class: 'form-control required', placeholder: 'Eco', :id =>
+									"eco", :title => "Es un Campo Obligatorio" , :readonly => true, :value => 'N/A' %>
+								</td>
+
+								<td>
+									<%= f.text_field :b_g, class: 'form-control required', placeholder: 'G', :id =>
+									"txt2", :readonly => true, :value => 'N/A' , :title => "Es un Campo Obligatorio" %>
+								</td>
+								<td>
+									<%= f.text_field :b_p, class: 'form-control required', placeholder: 'P',  :id =>
+									"txt3", :readonly => true, :value => 'N/A' , :title => "Es un Campo Obligatorio" %>
+								</td>
+
+								<td>
+									<%= f.text_field :b_c, class: 'form-control required', placeholder: 'C',  :id =>
+									"txt4", :readonly => true, :value => 'N/A' , :title => "Es un Campo Obligatorio" %>
+								</td>
+								<td>
+									<%= f.text_field :b_a, class: 'form-control required', placeholder: 'A',  :id =>
+									"txt5", :readonly => true, :value => 'N/A' , :title => "Es un Campo Obligatorio" %>
+								</td>
+								<td>
+									<%= f.text_field :b_v, class: 'form-control required', placeholder: 'V',  :id =>
+									"txt7", :readonly => true, :value => 'N/A' , :title => "Es un Campo Obligatorio" %>
+								</td>
+								<td>
+									<%= f.text_field :b_m, class: 'form-control required', placeholder: 'M',  :id =>
+									"txt6", :readonly => true, :value => 'N/A' , :title => "Es un Campo Obligatorio" %>
+								</td>
+
+								<td>
+									<%= f.text_field :b_e, class: 'form-control required', placeholder: 'E',  :id =>
+									"txt8", :readonly => true, :value => 'N/A' , :title => "Es un Campo Obligatorio" %>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+
+		<% end %>
+
+		<% if @paciente.genero != "Masculino" %>
+
+		<style>
+
+#titulo_td>th {
+    vertical-align: bottom;
+    border-bottom-style:hidden;
+}
+
+</style>
+
+		<div class="container-fluid">
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<h3 style = "color: #22BDC8;" align="center">GINECO-OBSTÉTRICOS</h3>
+					<hr class="featurette-divider"></hr>
+				<table class="table" id="tab_logic">
+					<thead>
+						<tr id="titulo_td">
+							<th class="text-center" style="width:33%">Ciclo Menstrual:</th>
+							<th class="text-center" style="width:33%">FUM:</th>
+							<th class="text-center" style="width:33%">Menarquia:</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr id='addr0'>
+							<td>
+								<%= f.text_field :b_ciclo_menstrual, class: 'form-control required', placeholder: 'Ciclo Menstrual', :id =>
+								"ciclo", :title => "Es un Campo Obligatorio", :onkeyup => "edValueKeyPress()" %>
+							</td>
+
+							<td>
+								<%= f.text_field :b_fum, class: 'form-control required', placeholder: 'Fum', :id =>
+								"fum", :title => "Es un Campo Obligatorio", :onkeyup => "edValueKeyPress()" %>
+							</td>
+							<td>
+								<%= f.text_field :b_menarquia, class: 'form-control required', placeholder: 'Menarquia', :id =>
+								"menarquia", :title => "Es un Campo Obligatorio", :onkeyup => "edValueKeyPress()"  %>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table" id="tab_logic" style="margin-top: -10px;">
+					<thead>
+						<tr  id="titulo_td">
+							<th class="text-center" style="width:33%">Fecha de la Ultima Citología:</th>
+							<th class="text-center" style="width:33%">Fecha de la Ultima Mamografia:</th>
+							<th  colspan="2" style="width:33%">Esta en Embarazo?</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr id='addr0'>
+
+							<td>
+								<%= f.text_field :b_fecha_ultima_citologia, class: 'form-control required', placeholder: 'Campo Obligatorio', :id =>
+								"citologia", :title => "Es un Campo Obligatorio", :onkeyup => "edValueKeyPress()" %>
+							</td>
+							<td>
+								<%= f.text_field :b_fecha_ultima_mamografia, class: 'form-control required', placeholder: 'Campo Obligatorio', :id =>
+								"mamografia", :title => "Es un Campo Obligatorio", :onkeyup => "edValueKeyPress()" %>
+							</td>
+							<td>
+								<label class="label" for="firstname">Si</label>
+
+								<%= f.radio_button(:b_embarazo, "Si", :id =>
+								"yes", class: 'required', :title => "Es un Campo Obligatorio"  )%>
+							</td>
+
+							<td>
+
+								<label class="label" for="firstname">No</label>
+
+								<%= f.radio_button(:b_embarazo, "No", :id =>"no")%></td>
+
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table" id="tab_logic" style="margin-top: -20px;">
+					<thead>
+						<tr  id="titulo_td">
+
+							<th class="text-center" style="width:12.5% !important;%">Eco:</th>
+							<th class="text-center" style="width:12.5% !important;">P:</th>
+							<th  class="text-center" style="width:12.5% !important;">C:</th>
+
+							<th  class="text-center" style="width:12.5% !important;">A:</th>
+							<th  class="text-center" style="width:12.5% !important;">M:</th>
+							<th  class="text-center" style="width:12.5% !important;">V:</th>
+							<th  class="text-center" style="width:12.5% !important;">E:</th>
+							<th  class="text-center" style="width:12.5% !important;">G:</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr id='addr0'>
+
+
+
+							<td>
+									
+								<%= f.text_field :b_eco, class: 'form-control required', placeholder: 'Eco',  :id =>
+								"eco", :onkeyup => "edValueKeyPress()", :title => "Es un Campo Obligatorio" %>
+
+								</td>
+
+							<td>
+								<%= f.text_field :b_p, class: 'form-control required', placeholder: 'P',  :id =>
+								"txt3", :onkeyup => "edValueKeyPress()", :title => "Es un Campo Obligatorio" %>
+							</td>
+
+							<td>
+								<%= f.text_field :b_c, class: 'form-control required', placeholder: 'C',  :id =>
+								"txt4", :onkeyup => "edValueKeyPress()", :title => "Es un Campo Obligatorio" %>
+							</td>
+							<td>
+								<%= f.text_field :b_a, class: 'form-control required', placeholder: 'A',  :id =>
+								"txt5", :onkeyup => "edValueKeyPress()", :title => "Es un Campo Obligatorio" %>
+							</td>
+							<td>
+								<%= f.text_field :b_m, class: 'form-control required', placeholder: 'M',  :id =>
+								"txt6", :onkeyup => "edValueKeyPress()", :title => "Es un Campo Obligatorio" %>
+							</td>
+							<td>
+								<%= f.text_field :b_v, class: 'form-control required', placeholder: 'V',  :id =>
+								"txt7", :onkeyup => "edValueKeyPress()", :title => "Es un Campo Obligatorio" %>
+							</td>
+							<td>
+								<%= f.text_field :b_e, class: 'form-control required', placeholder: 'E',  :id =>
+								"txt8", :onkeyup => "edValueKeyPress()", :title => "Es un Campo Obligatorio" %>
+							</td>
+							<td>
+								<%= f.text_field :b_g, class: 'form-control required', placeholder: 'G', :id =>
+								"txt2", :onkeyup => "edValueKeyPress()", :title => "Es un Campo Obligatorio" %>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+function edValueKeyPress()
+{
+
+
+  var ciclo = document.getElementById("ciclo");
+  var s = ciclo.value;
+  if (s == '.'){
+    $('#ciclo').val('N/A');
+  }
+
+  var fum = document.getElementById("fum");
+  var s = fum.value;
+  if (s == '.'){
+    $('#fum').val('N/A');
+  }
+
+  var menarquia = document.getElementById("menarquia");
+  var s = menarquia.value;
+  if (s == '.'){
+    $('#menarquia').val('N/A');
+  }
+
+  var citologia = document.getElementById("citologia");
+  var s = citologia.value;
+  if (s == '.'){
+    $('#citologia').val('N/A');
+  }
+
+
+  var mamografia = document.getElementById("mamografia");
+  var s = mamografia.value;
+  if (s == '.'){
+    $('#mamografia').val('N/A');
+  }
+
+
+  var eco = document.getElementById("eco");
+  var s = eco.value;
+  if (s == '.'){
+    $('#eco').val('N/A');
+  }
+  
+  var txt2 = document.getElementById("txt2");
+  var s = txt2.value;
+  if (s == '.'){
+    $('#txt2').val('N/A');
+  }
+
+
+  var txt3 = document.getElementById("txt3");
+  var s = txt3.value;
+  if (s == '.'){
+    $('#txt3').val('N/A');
+  }
+
+
+  var txt4 = document.getElementById("txt4");
+  var s = txt4.value;
+  if (s == '.'){
+    $('#txt4').val('N/A');
+  }
+
+
+  var txt5 = document.getElementById("txt5");
+  var s = txt5.value;
+  if (s == '.'){
+    $('#txt5').val('N/A');
+  }
+
+  var txt6 = document.getElementById("txt6");
+  var s = txt6.value;
+  if (s == '.'){
+    $('#txt6').val('N/A');
+  }
+
+
+  var txt7 = document.getElementById("txt7");
+  var s = txt7.value;
+  if (s == '.'){
+    $('#txt7').val('N/A');
+  }
+
+
+  var txt8 = document.getElementById("txt8");
+  var s = txt8.value;
+  if (s == '.'){
+    $('#txt8').val('N/A');
+  }
+
+
+
+}
+</script>
+
+	<script type="text/javascript">
+
+$(document).ready(function(){
+  $('#yes').click(function(){
+      if($(this).prop("checked") == true){
+
+
+
+        $('#eco').addClass('required');
+        $('#eco').addClass('error');
+        $('#eco-error').show();
+        $('#eco').val('');
+
+        $('#txt2').addClass('required');
+        $('#txt2').addClass('error');
+        $('#txt2-error').show();
+        $('#txt2').val('');
+
+
+        $('#txt3').addClass('required');
+        $('#txt3').addClass('error');
+        $('#txt3-error').show();
+        $('#txt3').val('');
+
+
+        $('#txt4').addClass('required');
+        $('#txt4').addClass('error');
+        $('#txt4-error').show();
+        $('#txt4').val('');
+
+        $('#txt5').addClass('required');
+        $('#txt5').addClass('error');
+        $('#txt5-error').show();
+        $('#txt5').val('');
+
+        $('#txt6').addClass('required');
+        $('#txt6').addClass('error');
+        $('#txt6-error').show();
+        $('#txt6').val('');
+
+        $('#txt7').addClass('required');
+        $('#txt7').addClass('error');
+        $('#txt7-error').show();
+        $('#txt7').val('');
+
+        $('#txt8').addClass('required');
+        $('#txt8').addClass('error');
+        $('#txt8-error').show();
+        $('#txt8').val('');
+
+        $("#eco").attr("readonly", false);
+        $("#txt2").attr("readonly", false);
+        $("#txt3").attr("readonly", false);
+        $("#txt4").attr("readonly", false);
+        $("#txt5").attr("readonly", false);
+        $("#txt6").attr("readonly", false);
+        $("#txt7").attr("readonly", false);
+        $("#txt8").attr("readonly", false);
+
+      }
+  });
+  $('#no').click(function(){
+      if($(this).prop("checked") == true){
+
+
+    $('#eco').removeClass('required');
+    $('#eco').removeClass('error');
+    $('#eco-error').hide();
+
+    $('#txt2').removeClass('required');
+    $('#txt2').removeClass('error');
+    $('#txt2-error').hide();
+
+    $('#txt3').removeClass('required');
+    $('#txt3').removeClass('error');
+    $('#txt3-error').hide();
+
+    $('#txt4').removeClass('required');
+    $('#txt4').removeClass('error');
+    $('#txt4-error').hide();
+
+    $('#txt5').removeClass('required');
+    $('#txt5').removeClass('error');
+    $('#txt5-error').hide();
+
+    $('#txt6').removeClass('required');
+    $('#txt6').removeClass('error');
+    $('#txt6-error').hide();
+
+    $('#txt7').removeClass('required');
+    $('#txt7').removeClass('error');
+    $('#txt7-error').hide();
+
+    $('#txt8').removeClass('required');
+    $('#txt8').removeClass('error');
+    $('#txt8-error').hide();
+
+
+
+        $('#eco').val('N/A');
+
+        $('#txt2').val('N/A');
+
+        $('#txt3').val('N/A');
+
+
+        $('#txt4').val('N/A');
+
+
+        $('#txt5').val('N/A');
+
+        $('#txt6').val('N/A');
+
+
+        $('#txt7').val('N/A');
+
+        $('#txt8').val('N/A');
+
+      }
+  });
+});
+
+</script>
+
+	<% end %>
+
+	<script type="text/javascript">
+
+$(document).ready(function(){
+  $('#checkbox_mostrar').click(function(){
+      if($(this).prop("checked") == true){
+        $('#fecha_citologia').removeAttr("readonly");
+        $('#fecha_mamografia').removeAttr("readonly");
+        $('#txt2').removeAttr("readonly");
+        $('#txt3').removeAttr("readonly");
+        $('#txt4').removeAttr("readonly");
+        $('#txt5').removeAttr("readonly");
+        $('#txt6').removeAttr("readonly");
+        $('#txt7').removeAttr("readonly");
+        $('#txt8').removeAttr("readonly");
+
+      }
+  });
+
+
+
+  $('#checkbox_ocultar').click(function(){
+      if($(this).prop("checked") == true){
+
+        $("#fecha_citologia").attr("readonly", true);
+        $("#fecha_citologia").val("readonly");
+        $("#fecha_mamografia").attr("readonly", true);
+        $("#txt2").attr("readonly", true);
+        $("#txt3").attr("readonly", true);
+        $("#txt4").attr("readonly", true);
+        $("#txt5").attr("readonly", true);
+        $("#txt6").attr("readonly", true);
+        $("#txt7").attr("readonly", true);
+        $("#txt8").attr("readonly", true);
+
+      }
+  });
+});
+
+</script>
+
+	<script type="text/javascript">
+// Selecccionar/Deseleccionar todos los radio button
+  $(document).ready(function() {
+    $('#selecctall').click(function(event) {  //on click
+        if(this.checked) { // check select status
+             document.getElementById('myRadio').checked = true;
+             document.getElementById('myRadio2').checked = true;
+             document.getElementById('myRadio3').checked = true;
+             document.getElementById('myRadio4').checked = true;
+             document.getElementById('myRadio5').checked = true;
+             document.getElementById('myRadio6').checked = true;
+             document.getElementById('myRadio7').checked = true;
+             document.getElementById('myRadio8').checked = true;
+             document.getElementById('myRadio9').checked = true;
+             document.getElementById('myRadio10').checked = true;
+             document.getElementById('myRadio11').checked = true;
+             document.getElementById('myRadio12').checked = true;
+             document.getElementById('selecctall2').checked = false;
+             document.getElementById('myRadio13').checked = false;
+             document.getElementById('myRadio14').checked = false;
+             document.getElementById('myRadio15').checked = false;
+             document.getElementById('myRadio16').checked = false;
+             document.getElementById('myRadio17').checked = false;
+             document.getElementById('myRadio18').checked = false;
+             document.getElementById('myRadio19').checked = false;
+             document.getElementById('myRadio20').checked = false;
+             document.getElementById('myRadio21').checked = false;
+             document.getElementById('myRadio22').checked = false;
+             document.getElementById('myRadio23').checked = false;
+             document.getElementById('myRadio24').checked = false;
+             $('.item label').hide();
+        }
+    });
+
+    $('#selecctall2').click(function(event) {  //on click
+        if(this.checked) { // check select status
+             document.getElementById('myRadio13').checked = true;
+             document.getElementById('myRadio14').checked = true;
+             document.getElementById('myRadio15').checked = true;
+             document.getElementById('myRadio16').checked = true;
+             document.getElementById('myRadio17').checked = true;
+             document.getElementById('myRadio18').checked = true;
+             document.getElementById('myRadio19').checked = true;
+             document.getElementById('myRadio20').checked = true;
+             document.getElementById('myRadio21').checked = true;
+             document.getElementById('myRadio22').checked = true;
+             document.getElementById('myRadio23').checked = true;
+             document.getElementById('myRadio24').checked = true;
+             document.getElementById('selecctall').checked = false;
+             document.getElementById('myRadio').checked = false;
+             document.getElementById('myRadio2').checked = false;
+             document.getElementById('myRadio3').checked = false;
+             document.getElementById('myRadio4').checked = false;
+             document.getElementById('myRadio5').checked = false;
+             document.getElementById('myRadio6').checked = false;
+             document.getElementById('myRadio7').checked = false;
+             document.getElementById('myRadio8').checked = false;
+             document.getElementById('myRadio9').checked = false;
+             document.getElementById('myRadio10').checked = false;
+             document.getElementById('myRadio11').checked = false;
+             document.getElementById('myRadio12').checked = false;
+                     $('.item label').hide();
+
+        }
+    });
+
+
+
+
+
+  $('#selecctall2').change(function(){
+    if ($('#selecctall2').is(':checked') == true){
+        $('#text_requerido').val('N/A');
+        $('#text_requerido2').val('N/A');
+        $('#text_requerido3').val('N/A');
+        $('#text_requerido4').val('N/A');
+        $('#text_requerido5').val('N/A');
+        $('#text_requerido6').val('N/A');
+        $('#text_requerido7').val('N/A');
+        $('#text_requerido8').val('N/A');
+        $('#text_requerido9').val('N/A');
+        $('#text_requerido10').val('N/A');
+        $('#text_requerido11').val('N/A');
+        $('#text_requerido12').val('N/A');
+    }
+  });
+
+
+
+});
+
+
+</script>
+
+	<script type="text/javascript">
+// Agrega y quita la clase requerida a los campos de ampliar información
+$(document).ready(function(){
+      $('#selecctall').click(function(){
+          if($(this).prop("checked") == true){
+               $('#text_requerido').addClass('required');
+               $('#text_requerido2').addClass('required');
+               $('#text_requerido3').addClass('required');
+               $('#text_requerido4').addClass('required');
+               $('#text_requerido5').addClass('required');
+               $('#text_requerido6').addClass('required');
+               $('#text_requerido7').addClass('required');
+               $('#text_requerido8').addClass('required');
+               $('#text_requerido9').addClass('required');
+               $('#text_requerido10').addClass('required');
+               $('#text_requerido11').addClass('required');
+               $('#text_requerido12').addClass('required');
+              $('#text_requerido').val('').prop('readonly', false);
+              $('#text_requerido2').val('').prop('readonly', false);
+              $('#text_requerido3').val('').prop('readonly', false);
+              $('#text_requerido4').val('').prop('readonly', false);
+              $('#text_requerido5').val('').prop('readonly', false);
+              $('#text_requerido6').val('').prop('readonly', false);
+              $('#text_requerido7').val('').prop('readonly', false);
+              $('#text_requerido8').val('').prop('readonly', false);
+              $('#text_requerido9').val('').prop('readonly', false);
+              $('#text_requerido10').val('').prop('readonly', false);
+              $('#text_requerido11').val('').prop('readonly', false);
+              $('#text_requerido12').val('').prop('readonly', false);
+
+
+          }
+      });
+      $('#selecctall2').click(function(){
+          if($(this).prop("checked") == true){
+            $('#text_requerido').removeClass('required');
+            $('#text_requerido').removeClass('error');
+            $('#text_requerido-error').hide();
+            $('#text_requerido').val('');
+            $('#text_requerido2').removeClass('required');
+            $('#text_requerido2').removeClass('error');
+            $('#text_requerido2-error').hide();
+            $('#text_requerido2').val('');
+            $('#text_requerido3').removeClass('required');
+            $('#text_requerido3').removeClass('error');
+            $('#text_requerido3-error').hide();
+            $('#text_requerido3').val('');
+            $('#text_requerido4').removeClass('required');
+            $('#text_requerido4').removeClass('error');
+            $('#text_requerido4-error').hide();
+            $('#text_requerido4').val('');
+            $('#text_requerido5').removeClass('required');
+            $('#text_requerido5').removeClass('error');
+            $('#text_requerido5-error').hide();
+            $('#text_requerido5').val('');
+            $('#text_requerido6').removeClass('required');
+            $('#text_requerido6').removeClass('error');
+            $('#text_requerido6-error').hide();
+            $('#text_requerido6').val('');
+            $('#text_requerido7').removeClass('required');
+            $('#text_requerido7').removeClass('error');
+            $('#text_requerido7-error').hide();
+            $('#text_requerido7').val('');
+            $('#text_requerido8').removeClass('required');
+            $('#text_requerido8').removeClass('error');
+            $('#text_requerido8-error').hide();
+            $('#text_requerido8').val('');
+            $('#text_requerido9').removeClass('required');
+            $('#text_requerido9').removeClass('error');
+            $('#text_requerido9-error').hide();
+            $('#text_requerido9').val('');
+            $('#text_requerido10').removeClass('required');
+            $('#text_requerido10').removeClass('error');
+            $('#text_requerido10-error').hide();
+            $('#text_requerido10').val('');
+            $('#text_requerido11').removeClass('required');
+            $('#text_requerido11').removeClass('error');
+            $('#text_requerido11-error').hide();
+            $('#text_requerido11').val('');
+            $('#text_requerido12').removeClass('required');
+            $('#text_requerido12').removeClass('error');
+            $('#text_requerido12-error').hide();
+            $('#text_requerido12').val('');
+
+          }
+      });
+
+  });
+
+
+
+
+
+
+
+// Agrega y quita la clase required a los campos ampliar información uno a
+$('.no_requerido').change(function(){
+  if(this.checked){
+      $('#text_requerido').removeClass('required');
+      $('#text_requerido').removeClass('error');
+      $('#text_requerido-error').hide(); 
+       $('#text_requerido').val('N/A');             
+
+  }
+})
+$('.requerido').change(function(){
+if(this.checked){
+       $('#text_requerido').addClass('required');
+       $('#text_requerido').val('').prop('readonly', false);             
+
+  }  
+})
+
+$('.no_requerido2').change(function(){
+  if(this.checked){
+      $('#text_requerido2').removeClass('required');
+      $('#text_requerido2').removeClass('error');
+      $('#text_requerido2-error').hide(); 
+       $('#text_requerido2').val('N/A');             
+
+
+  }
+})
+$('.requerido2').change(function(){
+if(this.checked){
+       $('#text_requerido2').addClass('required');
+       $('#text_requerido2').val('').prop('readonly', false);             
+
+  }  
+})
+
+$('.no_requerido3').change(function(){
+  if(this.checked){
+      $('#text_requerido3').removeClass('required');
+      $('#text_requerido3').removeClass('error');
+      $('#text_requerido3-error').hide(); 
+       $('#text_requerido3').val('N/A');             
+
+
+  }
+})
+$('.requerido3').change(function(){
+if(this.checked){
+       $('#text_requerido3').addClass('required');
+       $('#text_requerido3').val('').prop('readonly', false);             
+
+  }  
+})
+
+$('.no_requerido4').change(function(){
+  if(this.checked){
+      $('#text_requerido4').removeClass('required');
+      $('#text_requerido4').removeClass('error');
+      $('#text_requerido4-error').hide(); 
+       $('#text_requerido4').val('N/A');             
+
+  }
+})
+$('.requerido4').change(function(){
+if(this.checked){
+       $('#text_requerido4').addClass('required');
+       $('#text_requerido4').val('').prop('readonly', false);             
+
+  }  
+})
+
+$('.no_requerido5').change(function(){
+  if(this.checked){
+      $('#text_requerido5').removeClass('required');
+      $('#text_requerido5').removeClass('error');
+      $('#text_requerido5-error').hide(); 
+       $('#text_requerido5').val('N/A');             
+
+  }
+})
+$('.requerido5').change(function(){
+if(this.checked){
+       $('#text_requerido5').addClass('required');
+       $('#text_requerido5').val('').prop('readonly', false);             
+
+  }  
+})
+
+$('.no_requerido6').change(function(){
+  if(this.checked){
+      $('#text_requerido6').removeClass('required');
+      $('#text_requerido6').removeClass('error');
+      $('#text_requerido6-error').hide(); 
+       $('#text_requerido6').val('N/A');             
+
+  }
+})
+$('.requerido6').change(function(){
+if(this.checked){
+       $('#text_requerido6').addClass('required');
+       $('#text_requerido6').val('').prop('readonly', false);             
+
+  }  
+})
+
+$('.no_requerido7').change(function(){
+  if(this.checked){
+      $('#text_requerido7').removeClass('required');
+      $('#text_requerido7').removeClass('error');
+      $('#text_requerido7-error').hide(); 
+       $('#text_requerido7').val('N/A');             
+
+  }
+})
+$('.requerido7').change(function(){
+if(this.checked){
+       $('#text_requerido7').addClass('required');
+       $('#text_requerido7').val('').prop('readonly', false);             
+
+  }  
+})
+
+$('.no_requerido8').change(function(){
+  if(this.checked){
+      $('#text_requerido8').removeClass('required');
+      $('#text_requerido8').removeClass('error');
+      $('#text_requerido8-error').hide(); 
+       $('#text_requerido8').val('N/A');             
+
+
+  }
+})
+$('.requerido8').change(function(){
+if(this.checked){
+       $('#text_requerido8').addClass('required');
+       $('#text_requerido8').val('').prop('readonly', false);             
+
+  }  
+})
+
+$('.no_requerido9').change(function(){
+  if(this.checked){
+      $('#text_requerido9').removeClass('required');
+      $('#text_requerido9').removeClass('error');
+      $('#text_requerido9-error').hide(); 
+       $('#text_requerido9').val('N/A');             
+
+
+  }
+})
+$('.requerido9').change(function(){
+if(this.checked){
+       $('#text_requerido9').addClass('required');
+       $('#text_requerido9').val('').prop('readonly', false);             
+
+  }  
+})
+
+
+
+
+
+</script>
+
+	<br/>
+
+	<br/>
+	<br/>
+
+	<%= f.hidden_field :s2_validation, :value =>
+	"TRUE" %>
+	<div class="well pie_form">
+		<% if not @historia_clinica.errors.any? %>
+
+		<div class="form-actions"  style = "text-align:center!important">
+			<%= link_to "Regresar", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.first), :class=>
+			"btn btn-info color_blanco custom" %>
+			<% end %>
+
+			<button type="reset" class="btn btn btn-info custom" style = "margin-right:20px;margin-left:20px;">Borrar</button>
+			<%= f.submit "Siguiente", :class =>'btn btn btn-info  custom' %></div>
+	</div>
+	<% end %></div>
+</div>
+
+</div>
+
+<style type="text/css">
+
+
+input {margin-bottom: 10px;}
+#signup label.error {
+  font-size: 0.8em;
+  color: #F00;
+  font-weight: bold;
+  display: block;
+    margin-bottom: 10px;
+}
+#signup  input.error, #signup select.error  {
+  background: #FFA9B8;
+  border: 1px solid red;
+}
+</style>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+ $('#signup').validate({
+
+   rules: {
+     email: {
+        required: true,
+        email: true
+     },
+     password: {
+        required: true,
+        rangelength:[8,16]
+     },
+     confirm_password: {equalTo:'#password'},
+     spam: "required"
+   }, //end rules
+   messages: {
+      email: {
+         required: "Please supply an e-mail address.",
+         email: "This is not a valid email address."
+       },
+      password: {
+        required: 'Please type a password',
+        rangelength: 'Password must be between 8 and 16 characters long.'
+      },
+      confirm_password: {
+        equalTo: 'The two passwords do not match.'
+      }
+   },
+   errorPlacement: function(error, element) {
+       if ( element.is(":radio") || element.is(":checkbox")) {
+          error.appendTo( element.parent());
+        } else {
+          error.insertAfter(element);
+        }
+    }
+
+  }); // end validate
+}); // end ready
+</script>

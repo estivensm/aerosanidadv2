@@ -1,0 +1,93 @@
+<%= simple_form_for(@aeropuerto, :html =>
+{ :class => 'contact-form', :id => 'contact-form',  multipart: true, :remote => true }) do |f| %>
+<% if @aeropuerto.errors.any? %>
+<div id="error_explanation">
+  <h2>Por Favor Verificar:</h2>
+
+  <ul>
+    <% @aeropuerto.errors.full_messages.each do |message| %>
+    <li>
+      <%= message %></li>
+    <% end %></ul>
+</div>
+<% end %>
+
+<div class="user" >
+  <div class="modal-header">
+    <h4 class="modal-title">
+      <h3>Datos Aeropuerto</h3>
+    </h4>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-4">Nombre:</div>
+    <div class="col-md-8">
+      <%= f.input :nombre,  placeholder: 'Campo Obligatorio', input_html: {class: "form-control new_blog"}, label: false,  :required =>true %></div>
+  </div>
+
+  <br/>
+
+  <div class="row">
+    <div class="col-md-4">Departamento:</div>
+    <div class="col-md-8">
+      <%= f.input :departamento,
+                              prompt:       'Campo Obligatorio',
+                              collection: @aeropuerto.select_departamento.sort,
+                              error: false, label: false, 
+                              input_html:   {class: 'chosen-select', placeholder: 'Campo Obligatorio'} %></div>
+  </div>
+
+  <br/>
+
+  <script type="text/javascript">
+  $(function() {
+  return $('.chosen-select').chosen({
+    allow_single_deselect: true,
+    no_results_text: 'No hay resultados',
+    width: '200px',
+    height: '30px'
+  });
+});
+
+</script>
+
+  <script>$( ".chosen-default" ).text( "Selecciona una Ciudad." );</script>
+
+  <div class="row">
+    <div class="col-md-4">Ciudad:</div>
+    <div class="col-md-8">
+
+      <%= f.select :ciudad_id, Ciudad.all.map { |u| ["#{u.nombre.capitalize}", u.id] }, { include_blank: true }, { class: 'chosen-select' } %></div>
+  </div>
+
+</div>
+<br/>
+
+<div class="modal-footer">
+  <%= f.submit "Guardar", :class =>
+  'btn btn-info color_blanco custom' %>
+  <a href="#" class="btn btn-default" onclick="$.lazybox.close()">Cerrar</a>
+</div>
+
+<% end %>
+
+<style type="text/css">
+  .modal-header{
+    background-color: #20B4BF !important;
+    color: #FFFFFF;
+  }
+
+  .custom{
+    background-color: #20B4BF !important;
+    color: #FFFFFF;
+  }
+
+
+  .panel{
+    border-color: #20B4BF;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+  }
+</style>

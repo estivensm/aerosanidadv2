@@ -1,0 +1,14 @@
+<%= simple_form_for(@diagnostico) do |f| %>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+  <%= f.input :familia %>
+  <%= f.input :codigo %>
+  <%= f.input :simbolo %>
+  <%= f.input :descripcion %>
+  <%= f.input :codigo %>
+  <%= f.association :historia_clinica %></div>
+
+<div class="form-actions">
+  <%= f.button :submit %></div>
+<% end %>

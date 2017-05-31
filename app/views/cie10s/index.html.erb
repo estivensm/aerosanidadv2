@@ -1,0 +1,37 @@
+<p id="notice">
+  <%= notice %></p>
+
+<h1>Listing Cie10s</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Familia</th>
+      <th>Codigo</th>
+      <th>Descripcion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cie10s.each do |cie10| %>
+    <tr>
+      <td>
+        <%= cie10.familia %></td>
+      <td>
+        <%= cie10.codigo %></td>
+      <td>
+        <%= cie10.descripcion %></td>
+      <td>
+        <%= link_to 'Show', cie10 %></td>
+      <td>
+        <%= link_to 'Edit', edit_cie10_path(cie10) %></td>
+      <td>
+        <%= link_to 'Destroy', cie10, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %></tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cie10', new_cie10_path %>

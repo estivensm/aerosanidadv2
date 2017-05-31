@@ -1,0 +1,1467 @@
+
+<% 
+
+# CAUSAS EXTERNAS HOMBRES
+
+  hombre_atencion_prehospitalaria = HistoriaClinica.where(:a_tipo_servicio =>
+  "Atención prehospitalaria").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  hombre_valoracion_aptitud_de_vuelo = HistoriaClinica.where(:a_tipo_servicio =>
+  "Valoración aptitud de vuelo").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  hombre_enfermedad_general = HistoriaClinica.where(:a_tipo_servicio =>
+  "Enfermedad general").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  hombre_accidente_de_trabajo = HistoriaClinica.where(:a_tipo_servicio =>
+  "Accidente laboral").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  hombre_accidente_de_transito = HistoriaClinica.where(:a_tipo_servicio =>
+  "Accidente de transito").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  hombre_traslado = HistoriaClinica.where(:a_tipo_servicio =>
+  "Traslado").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  hombre_otro_tipo_de_accidente = HistoriaClinica.where(:a_tipo_servicio =>
+  "Otro tipo de accidente").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  hombre_remision = HistoriaClinica.where(:a_tipo_servicio =>
+  "Remisión").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+
+# CAUSAS EXTERNAS MUJERES
+
+  mujer_atencion_prehospitalaria = HistoriaClinica.where(:a_tipo_servicio =>
+  "Atención prehospitalaria").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  mujer_valoracion_aptitud_de_vuelo = HistoriaClinica.where(:a_tipo_servicio =>
+  "Valoración aptitud de vuelo").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  mujer_enfermedad_general = HistoriaClinica.where(:a_tipo_servicio =>
+  "Enfermedad general").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  mujer_accidente_de_trabajo = HistoriaClinica.where(:a_tipo_servicio =>
+  "Accidente laboral").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  mujer_accidente_de_transito = HistoriaClinica.where(:a_tipo_servicio =>
+  "Accidente de transito").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  mujer_traslado = HistoriaClinica.where(:a_tipo_servicio =>
+  "Traslado").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  mujer_otro_tipo_de_accidente = HistoriaClinica.where(:a_tipo_servicio =>
+  "Otro tipo de accidente").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  mujer_remision = HistoriaClinica.where(:a_tipo_servicio =>
+  "Remisión").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  total_causa_externa_mujeres = mujer_atencion_prehospitalaria.to_i + mujer_valoracion_aptitud_de_vuelo.to_i + mujer_enfermedad_general.to_i + mujer_accidente_de_trabajo.to_i + mujer_accidente_de_transito.to_i + mujer_traslado.to_i + mujer_otro_tipo_de_accidente.to_i + mujer_remision.to_i
+
+
+  total_causa_externa_hombres = hombre_atencion_prehospitalaria.to_i + hombre_valoracion_aptitud_de_vuelo.to_i + hombre_enfermedad_general.to_i + hombre_accidente_de_trabajo.to_i + hombre_accidente_de_transito.to_i + hombre_traslado.to_i + hombre_otro_tipo_de_accidente.to_i + hombre_remision.to_i
+
+
+  total_causa_externa_1 = hombre_atencion_prehospitalaria.to_i + mujer_atencion_prehospitalaria.to_i 
+
+  total_causa_externa_2 = hombre_valoracion_aptitud_de_vuelo.to_i + mujer_valoracion_aptitud_de_vuelo.to_i 
+
+  total_causa_externa_3 = hombre_enfermedad_general.to_i + mujer_enfermedad_general.to_i 
+
+  total_causa_externa_4 = hombre_accidente_de_trabajo.to_i + mujer_accidente_de_trabajo.to_i 
+
+  total_causa_externa_5 = hombre_accidente_de_transito.to_i + mujer_accidente_de_transito.to_i 
+
+  total_causa_externa_6 = hombre_traslado.to_i + mujer_traslado.to_i 
+
+  total_causa_externa_7 = hombre_otro_tipo_de_accidente.to_i + mujer_otro_tipo_de_accidente.to_i 
+
+  total_causa_externa_8 = hombre_remision.to_i + mujer_remision.to_i 
+
+
+
+# CONDICIÓN HOMBRES
+
+  hombre_pasajero = HistoriaClinica.where(:a_condicion =>
+  "Pasajero").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  hombre_tripulante = HistoriaClinica.where(:a_condicion => "Tripulante").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  hombre_empleado = HistoriaClinica.where(:a_condicion => "Empleado").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  hombre_visitante = HistoriaClinica.where(:a_condicion => "Visitante").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  hombre_otro = HistoriaClinica.where(:a_condicion => "Otro").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+# CONDICIÓN MUJERES
+
+  mujer_pasajero = HistoriaClinica.where(:a_condicion => "Pasajero").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  mujer_tripulante = HistoriaClinica.where(:a_condicion => "Tripulante").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  mujer_empleado = HistoriaClinica.where(:a_condicion => "Empleado").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  mujer_visitante = HistoriaClinica.where(:a_condicion => "Visitante").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  mujer_otro = HistoriaClinica.where(:a_condicion => "Otro").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+  totalhombres = hombre_pasajero.to_i + hombre_tripulante.to_i + hombre_empleado.to_i + hombre_visitante.to_i + hombre_otro.to_i
+
+  totalmujeres = mujer_pasajero.to_i + mujer_tripulante.to_i + mujer_empleado.to_i + mujer_visitante.to_i + mujer_otro.to_i
+
+
+  totalpersonas1 = hombre_pasajero.to_i + mujer_pasajero.to_i
+
+  totalpersonas2 = hombre_tripulante.to_i + mujer_tripulante.to_i
+
+  totalpersonas3 = hombre_empleado.to_i + mujer_empleado.to_i
+
+  totalpersonas4 = hombre_visitante.to_i + mujer_visitante.to_i
+
+  totalpersonas5 = hombre_otro.to_i + mujer_otro.to_i
+
+  totalpersonas6 = totalhombres.to_i + totalmujeres.to_i
+
+
+
+# TIPO DE DOCUMENTO HOMBRES
+
+  hombre_cedula = HistoriaClinica.where(:p_tipo_documento => "Cedula de Ciudadania").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  hombre_tarjeta_identidad = HistoriaClinica.where(:p_tipo_documento => "Tarjeta de Identidad").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  hombre_pasaporte = HistoriaClinica.where(:p_tipo_documento => "Pasaporte")
+  .where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales)
+  .where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>
+                            $aeropuertoMensuales).count
+
+  hombre_registro_civil = HistoriaClinica.where(:p_tipo_documento => "Registro Civil").where(:p_genero => "Masculino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+# TIPO DE DOCUMENTO MUJERES
+
+  mujer_cedula = HistoriaClinica.where(:p_tipo_documento => "Cedula de Ciudadania").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  mujer_tarjeta_identidad = HistoriaClinica.where(:p_tipo_documento => "Tarjeta de Identidad").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  mujer_pasaporte = HistoriaClinica.where(:p_tipo_documento => "Pasaporte").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  mujer_registro_civil = HistoriaClinica.where(:p_tipo_documento => "Registro Civil").where(:p_genero => "Femenino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+  total_cedulas =  hombre_cedula.to_i + mujer_cedula.to_i
+
+  total_tarjetas_identidad =  hombre_tarjeta_identidad.to_i + mujer_tarjeta_identidad.to_i
+
+  total_pasaportes = hombre_pasaporte.to_i + mujer_pasaporte.to_i
+
+  total_registros_civil = hombre_registro_civil.to_i + mujer_registro_civil.to_i
+
+  total_tipo_documento_hombres = hombre_cedula.to_i + hombre_tarjeta_identidad.to_i + hombre_pasaporte.to_i + hombre_registro_civil.to_i
+
+  total_tipo_documento_mujeres = mujer_cedula.to_i + mujer_tarjeta_identidad.to_i + mujer_pasaporte.to_i + mujer_registro_civil.to_i
+
+  total_documentos = total_tipo_documento_hombres.to_i + total_tipo_documento_mujeres.to_i
+
+%>
+
+<style>
+
+  .table-bordered{
+    width: 100px;
+    height: 10px;
+    margin-left: -200px;
+  }
+
+  .aaa{
+    border: none;
+  }   
+
+</style>
+
+<br/>
+<div class="container-fluid  ">
+  <div class="row col-md-6 col-md-offset-2 custyle" >
+    <table cellspacing="0" cellpadding="0" class="aaa" style="width:1200px; margin-top: -32px;" >
+      <tbody>
+        <tr>
+          <th  style="width:0.1% !important;" rowspan="3">
+            <img src="http://www.aerosanidadvirtual.com/assets/Logo/logo.png" style="width: 150px;" alt=""></th>
+          <th class="text-center"  style="width:60%; position:absolute; margin-left: 320px; margin-top:20px;"  colspan="3">INFORME MENSUAL DE ACTIVIDADES MEDICAS</th>
+        </tr>
+        <tr>
+          <th  style="width:30%; text-align: center; margin-top: 37px; position: absolute; margin-left: 420px;">
+            FECHA:
+            <% t = Time.now %>
+            <%= t.strftime "%d-%m-%Y" %></th>
+        </tr>
+        <tr>
+          <th  style="width:40%; text-align: center; position: absolute; margin-left: 390px; margin-top: 55px;"> <b>PACIENTES ATENDIDOS:</b>
+            <%= Paciente.count %></th >
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" style="width:220% !important; margin-top: 1px; margin-left: -40px;">
+      <tbody>
+        <tr>
+          <th class="info" style="width:0.4% !important; text-align: center;">Causa Externa</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Atención Prehospitalaria</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Valoración Aptitud De Vuelo</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Enfermedad General </th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Accidente De Trabajo</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Accidente De Transito</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Hombre Traslado</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Otro Tipo De Accidente </th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Remisión</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Total</th>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Hombres</th>
+          <td style="text-align: center;">
+            <%= hombre_atencion_prehospitalaria %></td>
+          <td style="text-align: center;">
+            <%= hombre_valoracion_aptitud_de_vuelo %></td>
+          <td style="text-align: center;">
+            <%= hombre_enfermedad_general %></td>
+          <td style="text-align: center;">
+            <%= hombre_accidente_de_trabajo %></td>
+          <td style="text-align: center;">
+            <%= hombre_accidente_de_transito %></td>
+          <td style="text-align: center;">
+            <%= hombre_traslado %></td>
+          <td style="text-align: center;">
+            <%= hombre_otro_tipo_de_accidente %></td>
+          <td style="text-align: center;">
+            <%= hombre_remision %></td>            
+          <td style="text-align: center;">
+            <%= total_causa_externa_hombres %></td>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Mujeres</th>
+          <td style="text-align: center;">
+            <%= mujer_atencion_prehospitalaria %></td>
+          <td style="text-align: center;">
+            <%= mujer_valoracion_aptitud_de_vuelo %></td>
+          <td style="text-align: center;">
+            <%= mujer_enfermedad_general %></td>
+          <td style="text-align: center;">
+            <%= mujer_accidente_de_trabajo %></td>
+          <td style="text-align: center;">
+            <%= mujer_accidente_de_transito %></td>
+          <td style="text-align: center;">
+            <%= mujer_traslado %></td>
+          <td style="text-align: center;">
+            <%= mujer_otro_tipo_de_accidente %></td>
+          <td style="text-align: center;">
+            <%= mujer_remision %></td>            
+          <td style="text-align: center;">
+            <%= total_causa_externa_mujeres %></td>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Total</th>
+          <td style="text-align: center;">
+            <%= totalpersonas1 %></td>
+          <td style="text-align: center;">
+            <%= totalpersonas2 %></td>
+          <td style="text-align: center;">
+            <%= totalpersonas3 %></td>
+          <td style="text-align: center;">
+            <%= totalpersonas4 %></td>
+          <td style="text-align: center;">
+            <%= totalpersonas5 %></td>
+          <td style="text-align: center;">
+            <%= totalpersonas6 %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" style="width:220% !important; margin-top: 1px; margin-left: -40px;">
+      <tbody>
+        <tr>
+          <th class="info" style="width:0.4% !important; text-align: center;">Condición</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Pasajero</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Tripulante</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Empleado</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Visitante</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Otros</th>
+          <th class="info" style="width:0.4% !important; text-align: center;">Total</th>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Hombres</th>
+          <td style="text-align: center;">
+            <%= hombre_pasajero %></td>
+          <td style="text-align: center;">
+            <%= hombre_tripulante %></td>
+          <td style="text-align: center;">
+            <%= hombre_empleado %></td>
+          <td style="text-align: center;">
+            <%= hombre_visitante %></td>
+          <td style="text-align: center;">
+            <%= hombre_otro %></td>
+          <td style="text-align: center;">
+            <%= totalhombres %></td>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Mujeres</th>
+          <td style="text-align: center;">
+            <%= mujer_pasajero %></td>
+          <td style="text-align: center;">
+            <%= mujer_tripulante %></td>
+          <td style="text-align: center;">
+            <%= mujer_empleado %></td>
+          <td style="text-align: center;">
+            <%= mujer_visitante %></td>
+          <td style="text-align: center;">
+            <%= mujer_otro %></td>
+          <td style="text-align: center;">
+            <%= totalmujeres %></td>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Total</th>
+          <td style="text-align: center;">
+            <%= totalpersonas1 %></td>
+          <td style="text-align: center;">
+            <%= totalpersonas2 %></td>
+          <td style="text-align: center;">
+            <%= totalpersonas3 %></td>
+          <td style="text-align: center;">
+            <%= totalpersonas4 %></td>
+          <td style="text-align: center;">
+            <%= totalpersonas5 %></td>
+          <td style="text-align: center;">
+            <%= totalpersonas6 %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style type="text/css" media="screen">
+
+  th{
+    font-size: 12px;
+  }
+
+  td{
+    font-size: 12px;
+  }
+
+</style>
+
+<div class="container">
+  <div class="row col-md-6 col-md-offset-2 custyle" >
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" style="width:220% !important; margin-top: 1px; margin-left: -40px;">
+      <tbody>
+        <tr>
+          <th class="info" style="width:0.1% !important; text-align: center;">Identidad</th>
+          <th class="info" style="width:0.1% !important; text-align: center;">Cédula De Ciudadanía</th>
+          <th class="info" style="width:0.1% !important; text-align: center;">Tarjeta De Identidad</th>
+          <th class="info" style="width:0.1% !important; text-align: center;">Registro Civil</th>
+          <th class="info" style="width:0.1% !important; text-align: center;">Pasaporte</th>
+          <th class="info" style="width:0.1% !important; text-align: center;">Total</th>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Hombres</th>
+          <td style="text-align: center;">
+            <%= hombre_cedula %></td>
+          <td style="text-align: center;">
+            <%= hombre_tarjeta_identidad %></td>
+          <td style="text-align: center;">
+            <%= hombre_registro_civil %></td>
+          <td style="text-align: center;">
+            <%= hombre_pasaporte %></td>
+          <td style="text-align: center;">
+            <%= total_tipo_documento_hombres %></td>
+        </tr>
+        <tr>
+          <th  style="text-align: center;">Mujeres</th>
+          <td  style="text-align: center;">
+            <%= mujer_cedula %></td>
+          <td  style="text-align: center;">
+            <%= mujer_tarjeta_identidad %></td>
+          <td  style="text-align: center;">
+            <%= mujer_registro_civil %></td>
+          <td  style="text-align: center;">
+            <%= mujer_pasaporte %></td>
+          <td  style="text-align: center;">
+            <%= total_tipo_documento_mujeres %></td>
+        </tr>
+        <tr>
+          <th  style="text-align: center;">Total</th>
+          <td  style="text-align: center;">
+            <%= total_cedulas %></td>
+          <td  style="text-align: center;">
+            <%= total_tarjetas_identidad %></td>
+          <td  style="text-align: center;">
+            <%= total_registros_civil %></td>
+          <td  style="text-align: center;">
+            <%= total_pasaportes %></td>
+          <td  style="text-align: center;">
+            <%= total_documentos %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%
+ 
+  # PATOLOGIAS
+
+  infecciosas = HistoriaClinica.where(:patologias => "Enf. Infecciosas").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  parasit = HistoriaClinica.where(:patologias => "E. Parasit").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+  .where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  tumorales = HistoriaClinica.where(:patologias => "Tumorales").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  endocr = HistoriaClinica.where(:patologias => "E. Endocr. Nutr Metab").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  sangre_organ = HistoriaClinica.where(:patologias => "E. Sangre Organ H").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  transtornos = HistoriaClinica.where(:patologias => "Transtornos Mentales").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  sistema_nervioso = HistoriaClinica.where(:patologias => "Enf. Sist. Nervioso").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  sentidos = HistoriaClinica.where(:patologias => "E. Organos De Los Sentidos").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  aparato_circulatorio = HistoriaClinica.where(:patologias => "Aparato Circulatorio").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  aparato_respiratorio_alto = HistoriaClinica.where(:patologias => "Aparato Respiratorio Alto").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  aparato_respiratorio_bajo = HistoriaClinica.where(:patologias => "Aparato Respiratorio Bajo").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  aparato_digestivo = HistoriaClinica.where(:patologias => "E. Aparato Digestivo").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  genital = HistoriaClinica.where(:patologias => "E. Aparato Genital").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  aparato_urinario = HistoriaClinica.where(:patologias => "E. Aparato Urinario").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  piel_y_tos = HistoriaClinica.where(:patologias => "E. Piel Y T.O.S").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  sistema_oseo = HistoriaClinica.where(:patologias => "E. Sistema Oseo").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  sistema_muscular = HistoriaClinica.where(:patologias => "E. Sistema Muscular").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  congenitas = HistoriaClinica.where(:patologias => "E. Congenitas").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  signos_sintomas = HistoriaClinica.where(:patologias => "Signos Y Sintomas Mal Definidos").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  perinatal = HistoriaClinica.where(:patologias => "Enf. Perinatal").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  traumas = HistoriaClinica.where(:patologias => "Traumas").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  envenenamiento = HistoriaClinica.where(:patologias => "Envenenamiento").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  embarazo_sin_complicaciones = HistoriaClinica.where(:patologias => "Embarazo Sin Complicaciones").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  embarazo_coomplicado = HistoriaClinica.where(:patologias => "Embarazo Complicado")
+  .where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+%>                                                                                  
+<div class="row" style="width: 600px;">
+  <div class="col-md-12" >
+    <div class="container">
+      <table class="table table-striped table-bordered table-hover dataTable no-footer" style="width:94% !important; margin-top: 1px; margin-left: -40px;">
+        <tbody>
+          <tr>
+            <th class="info" style="text-align: center;" colspan="2">Patologias Mas Frecuentes</th>
+          </tr>
+          <tr>
+            <th  class="info" style="width:80% !important;">Descripción</th>
+            <th  class="info" style="width:20% !important; text-align:center;">Cantidad</th>
+          </tr>
+          <tr>
+            <td>Enf. Infecciosas</td>
+            <td style="text-align:center;"><%= infecciosas %></td>
+          </tr>
+          <tr>
+            <td>E. Parasit</td>
+            <td style="text-align:center;"><%= parasit %></td> 
+          </tr>
+          <tr>
+            <td>Tumorales</td>
+            <td style="text-align:center;"><%= tumorales %></td>
+          </tr>  
+          <tr>
+            <td>E. Endocr. Nutr Metab</td>
+            <td style="text-align:center;"><%= endocr %></td>
+          </tr>
+          <tr>
+            <td>E. Sangre Organ H</td>
+            <td  style="text-align:center;"><%= sangre_organ %></td>
+          </tr>
+          <tr>
+            <td>Transtornos Mentales</td>
+            <td style="text-align:center;"><%= transtornos %></td>
+          </tr>
+          <tr>
+            <td>Enf. Sist. Nervioso</td>
+            <td style="text-align:center;"><%= sistema_nervioso %></td>
+          </tr>
+          <tr>
+            <td>E. Organos De Los Sentidos</td>
+            <td  style="text-align:center;"><%= sentidos %></td>
+          </tr>
+          <tr>
+            <td>Aparato Circulatorio</td>
+            <td  style="text-align:center;"><%= aparato_circulatorio %></td>
+          </tr>
+          <tr>
+            <td>Aparato Respiratorio Alto</td>
+            <td  style="text-align:center;"><%= aparato_respiratorio_alto %></td>
+          </tr>
+          <tr>
+            <td>Aparato Respiratorio Bajo</td>
+            <td  style="text-align:center;"><%= aparato_respiratorio_bajo %></td>
+          </tr>
+          <tr>
+            <td>E. Aparato Digestivo</td>
+            <td style="text-align:center;"><%= aparato_digestivo %></td>
+          </tr>
+          <tr>
+            <td>E. Aparato Genital</td>
+            <td style="text-align:center;"><%= genital %></td>
+          </tr>
+          <tr>
+            <td>E. Aparato Urinario</td>
+            <td style="text-align:center;"><%= aparato_urinario %></td>
+          </tr>
+          <tr>
+            <td>E. Fiel Y T.O.S</td>
+            <td style="text-align:center;"><%= piel_y_tos %></td>
+          </tr>
+          <tr>
+            <td>E. Sistema Oseo</td>
+            <td  style="text-align:center;"><%= sistema_oseo %></td>
+          </tr>
+          <tr>
+            <td>E. Sistema Muscular</td>
+            <td  style="text-align:center;"><%= sistema_muscular %></td>
+          </tr>
+          <tr>
+            <td>E. Congenitas</td>
+            <td style="text-align:center;"><%= congenitas %></td> 
+          </tr> 
+          <tr>
+            <td>Signos Y Sintomas Mal Definidos</td>
+            <td style="text-align:center;"><%= signos_sintomas %></td>
+          </tr>
+          <tr>
+            <td>Enf. Perinatal</td>
+            <td style="text-align:center;"><%= perinatal %></td>
+          </tr>
+          <tr>
+            <td>Traumas</td>
+            <td style="text-align:center;"><%= traumas %></td>
+          </tr>
+          <tr>
+            <td>Envenenamiento</td>
+            <td style="text-align:center;"><%= envenenamiento %></td>
+          </tr>                
+          <tr>
+            <td>Embarazo Sin Complicaciones</td>
+            <td style="text-align:center;"><%= embarazo_sin_complicaciones %></td>
+          </tr>
+          <tr>
+            <td>Embarazo Complicado</td>
+            <td style="text-align:center;"><%= embarazo_coomplicado %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> 
+
+
+<%
+
+  # OTRAS PATOLOGIAS
+
+  accidente_cerebrales = HistoriaClinica.where(:otras_patologias => "Accidente Cerebral").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  cancer = HistoriaClinica.where(:otras_patologias => "Cancer").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  diabetes = HistoriaClinica.where(:otras_patologias => "Diabetes Mellitus").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  dolor_abdominal = HistoriaClinica.where(:otras_patologias => "Dolor Abdominal").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  dolor_precordial = HistoriaClinica.where(:otras_patologias => "Dolor Precordial/ Angina").where("date(created_at) >= ?", $varMensuales).where("date(created_at)  <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  diarreica = HistoriaClinica.where(:otras_patologias => "Enf. Diarreica Aguda").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  epoc =  HistoriaClinica.where(:otras_patologias => "Epoc").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  fracturas = HistoriaClinica.where(:otras_patologias => "Fracturas").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  corto_punzante = HistoriaClinica.where(:otras_patologias => "Heridas Por Corto Punzante").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  hipertension = HistoriaClinica.where(:otras_patologias => "Hipertension Arterial").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  intoxicacion = HistoriaClinica.where(:otras_patologias => "Intoxicacion").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  neumonia = HistoriaClinica.where(:otras_patologias => "Neumonia").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  quemaduras = HistoriaClinica.where(:otras_patologias => "Quemaduras").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+  recien_nacidos = HistoriaClinica.where(:otras_patologias => "Recien Nacidos").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  rinofaringitis = HistoriaClinica.where(:otras_patologias => "Rinofaringitis").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  odontalgias = HistoriaClinica.where(:otras_patologias => "Odontalgias (Barotrauma)").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  cefaleas = HistoriaClinica.where(:otras_patologias => "Cefalea").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  otalgias_barotrauma = HistoriaClinica.where(:otras_patologias => "Otalgias (Barotrauma)").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count  
+
+  psiquiatricas = HistoriaClinica.where(:otras_patologias => "Psiquiatricas").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  neurologicas = HistoriaClinica.where(:otras_patologias => "Neurologicas").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+%>
+
+<div class="row" style="width: 600px;">
+  <div class="col-md-12" >
+    <div class="container">
+      <table class="table table-striped table-bordered table-hover dataTable no-footer" style="width:94% !important; margin-top: 1px; margin-left: -40px;">
+        <tbody>
+          <tr>
+            <th class="info" style="text-align: center;" colspan="2">Otros</th>
+          </tr>
+          <tr>
+            <td>Accidente Cerebral</td>
+            <td style="text-align:center;"><%= accidente_cerebrales %></td>
+          </tr>
+          <tr>
+            <td>Cancer</td>
+            <td style="text-align:center;"><%= cancer %></td>
+          </tr>
+          <tr>
+            <td>Diabetes Mellitus</td>
+            <td style="text-align:center;"><%= diabetes %></td>
+          </tr>
+          <tr>
+            <td>Dolor Abdominal</td>
+            <td style="text-align:center;"><%= dolor_abdominal %></td>
+          </tr>
+          <tr>
+            <td>Dolor Precordial/ Angina</td>
+            <td style="text-align:center;"><%= dolor_precordial %></td>
+          </tr>
+          <tr>
+            <td>Enf. Diarreica Aguda</td>
+            <td style="text-align:center;"><%= diarreica %></td>
+          </tr>
+          <tr>
+            <td>Epoc</td>
+            <td style="text-align:center;"><%= epoc %></td>
+          </tr>
+          <tr>
+            <td>Fracturas</td>
+            <td  style="text-align:center;"><%= fracturas %></td>
+          </tr>
+          <tr>
+            <td>Heridas Por Corto Punzante</td>
+            <td  style="text-align:center;"><%= corto_punzante %></td>
+          </tr>
+          <tr>
+            <td>Hipertension Arterial</td>
+            <td style="text-align:center;"><%= hipertension %></td>
+          </tr>
+          <tr>
+            <td>Intoxicación</td>
+            <td  style="text-align:center;"><%= intoxicacion %></td>
+          </tr>
+          <tr>
+            <td>Neumonia</td>
+            <td style="text-align:center;"><%= neumonia %></td>
+          </tr>
+          <tr>
+            <td>Quemaduras</td>
+            <td style="text-align:center;"><%= quemaduras %></td>
+          </tr>
+          <tr>
+            <td>Recien Nacidos</td>
+            <td style="text-align:center;"><%= recien_nacidos %></td>
+          </tr>
+          <tr>
+            <td>Rinofaringitis</td>
+            <td style="text-align:center;"><%= rinofaringitis %></td>
+          </tr>
+          <tr>
+            <td>Odontalgias (Barotrauma)</td>
+            <td style="text-align:center;"><%= odontalgias %></td>
+          </tr> 
+          <tr>
+            <td>Cefaleas (Barotrauma)</td>
+            <td style="text-align:center;"><%= cefaleas %></td>
+          </tr> 
+          <tr>
+            <td>Otalgias (Barotrauma)</td>
+            <td style="text-align:center;"><%= otalgias_barotrauma %></td>
+          </tr> 
+          <tr>
+            <td>Psiquiatricas</td>
+            <td style="text-align:center;"><%= psiquiatricas %></td>
+          </tr> 
+          <tr>
+            <td>Neurologicas</td>
+            <td style="text-align:center;"><%= neurologicas %></td>
+          </tr> 
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<% 
+
+  # POST OPERATORIOS
+
+  cirugia_plastica = HistoriaClinica.where(:post_operatorios_varios => "Post Operatorios Cirugia Plastica").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  cardiovasculares = HistoriaClinica.where(:post_operatorios_varios => "Post Operatorios Cardiovasculares, Toracicas Y Abdominales").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ortopedicos = HistoriaClinica.where(:post_operatorios_varios => "Post Operatorios Ortopedicos").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  otorrino = HistoriaClinica.where(:post_operatorios_varios => "Post Operatorio Otorrino").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  oftalmologico = HistoriaClinica.where(:post_operatorios_varios => "Post Operatorio Oftalmologico").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  neurologico = HistoriaClinica.where(:post_operatorios_varios => "Post Operatorio Neurologico").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  otros_post_operatorios = HistoriaClinica.where(:post_operatorios_varios => "Otros Post Operatorios").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+%>
+
+<div class="row" style="width: 600px;">
+  <div class="col-md-12" >
+    <div class="container">
+      <table class="table table-striped table-bordered table-hover dataTable no-footer" style="width:94% !important; margin-top: 1px; margin-left: -40px;">
+        <tbody>
+          <tr>
+            <th class="info" style="text-align: center;" colspan="2">Post Operatorios Varios</th>
+          </tr>
+          <tr>
+            <td>P.O Cirugia Plastica</td>
+            <td style="text-align:center;"><%= cirugia_plastica %></td>
+          </tr>
+          <tr>
+            <td>P.O Cardiovasculares, Toracicas Y Abdominales</td>
+            <td style="text-align:center;"><%= cardiovasculares %></td>
+          </tr>
+          <tr>
+            <td>P.O Ortopedicos</td>
+            <td style="text-align:center;"><%= ortopedicos %></td>
+          </tr>
+          <tr>
+            <td>P.O Otorrino</td>
+            <td style="text-align:center;"><%= otorrino %></td>
+          </tr>
+          <tr>
+            <td>P.O Oftalmologico</td>
+            <td style="text-align:center;"><%= oftalmologico %></td>
+          </tr>
+          <tr>
+            <td>P.O Neurologico</td>
+            <td style="text-align:center;"><%= neurologico %></td>
+          </tr>
+          <tr>
+            <td>Otros Post Operatorios</td>
+            <td style="text-align:center;"><%= otros_post_operatorios %></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+                                                                           <br/>
+<br/>                                                                             
+
+<%
+
+  rabico_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Rabico").where("date(created_at) >= ?", $varMensuales)  .where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ofidico_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Ofidico").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  mordedura_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Mordedura Otro Tipo").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  accidente_laboral_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Accidente Laboral").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ninguno_hombres_accidentes = HistoriaClinica.where(:p_genero => "Masculino")
+  .where(:accidentes_especiales => "Ninguno").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  rabico_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Rabico").where("date(created_at) >= ?", $varMensuales).where("date(created_at)  <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+  ofidico_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Ofidico").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  mordedura_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Mordedura Otro Tipo").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  accidente_laboral_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Accidente Laboral").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ninguno_mujeres_accidentes = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Ninguno").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+  .where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+  total_rabicos = rabico_hombres.to_i + rabico_mujeres.to_i
+  total_ofidicos = ofidico_hombres.to_i + ofidico_mujeres.to_i
+  total_mordeduras = mordedura_hombres.to_i + mordedura_mujeres.to_i
+  total_accidente_laboral = accidente_laboral_hombres.to_i + accidente_laboral_mujeres.to_i
+  total_ninguno_accidentes = ninguno_hombres_accidentes.to_i + ninguno_mujeres_accidentes.to_i
+
+%>
+
+<div class="container" style="width:330px; margin-left: 290px; margin-top: -385px;">
+  <div class="row col-md-12 col-md-offset-2 custyle" >  
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" style="width:280%; margin-top:-1587px; margin-left:193px"> 
+      <tbody>
+        <tr>
+          <th class="info" style="width:20%; text-align: center;">Accidentes Especiales</th>
+          <th class="info" style="width:20%; text-align: center;">Hombres</th>
+          <th class="info" style="width:20%; text-align: center;">Mujeres</th>
+          <th class="info" style="width:20%; text-align: center;">Total</th>
+        </tr>
+        <tr>
+          <th>Rabico</th>
+          <td style="text-align: center;"><%= rabico_hombres %></td>
+          <td style="text-align: center;"><%= rabico_mujeres %></td>
+          <td style="text-align: center;"><%= total_rabicos %></td>
+        </tr>
+        <tr>
+          <th>Ofidico</th>
+          <td style="text-align: center;"><%= ofidico_hombres %></td>
+          <td style="text-align: center;"><%= ofidico_mujeres %></td>
+          <td style="text-align: center;"><%= total_ofidicos %></td>
+        </tr>
+        <tr>
+          <th>Mordedura Otro Tipo</th>
+          <td style="text-align: center;"><%= mordedura_hombres %></td>
+          <td style="text-align: center;"><%= mordedura_mujeres %></td>
+          <td style="text-align: center;"><%= total_mordeduras %></td>
+        </tr>
+        <tr>
+          <th>Accidente Laboral</th>
+          <td style="text-align: center;"><%= accidente_laboral_hombres %></td>
+          <td style="text-align: center;"><%= accidente_laboral_mujeres %></td>
+          <td style="text-align: center;"><%= total_accidente_laboral %></td>
+        </tr>
+        <tr>
+          <th>Ninguno</th>
+          <td style="text-align: center;"><%= ninguno_hombres_accidentes %></td>
+          <td style="text-align: center;"><%= ninguno_mujeres_accidentes %></td>
+          <td style="text-align: center;"><%= total_ninguno_accidentes %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<%
+
+#  ACCIDENTES ESPECIALES HOMBRES
+
+
+  accidente_ofidico_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Accidente Ofidico").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  rabia_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Rabia").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  chikungunya_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Chikungunya").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  colera_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Colera").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  dengue_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Denge").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ebola_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Ebola").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ira_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Esi - Ira Grave").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  eta_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Eta").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  malaria_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Malaria").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  sarampion_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Sarampion").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  rubeola_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Rubeola").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  varicela_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Varicela").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  zika_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Zika").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  tbc_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Tbc").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  intoxicaciones_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Intoxicaciones").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  evento_sin_establecer_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Evento Sin Establecer").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ninguno_hombres_notificacion = HistoriaClinica.where(:p_genero => "Masculino")
+  .where(:accidentes_especiales => "Ninguno").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+  .where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+#  ACCIDENTES ESPECIALES MUJERES
+
+  accidente_ofidico_mujeres = HistoriaClinica.where(:p_genero => "Femenino")
+  .where(:accidentes_especiales => "Paludismo").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+  .where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  rabia_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Rabia").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  chikungunya_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Chikungunya").where("date(created_at) >= ?", $varMensuales).where("date(created_at)  <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  colera_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Colera").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  dengue_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Denge").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ebola_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Ebola").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ira_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Esi - Ira Grave").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  eta_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Eta").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  malaria_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Malaria").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  sarampion_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Sarampion").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  rubeola_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Rubeola").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  varicela_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Varicela").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  zika_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Zika").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  tbc_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Tbc").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  intoxicaciones_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Intoxicaciones").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  evento_sin_establecer_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Evento Sin Establecer").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ninguno_mujeres_notificacion = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Ninguno").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+  total_ofidico = accidente_ofidico_hombres.to_i + accidente_ofidico_mujeres.to_i
+  total_rabia = rabia_hombres.to_i + rabia_mujeres.to_i
+  total_chikungunya = chikungunya_hombres.to_i + chikungunya_mujeres.to_i
+  total_colera = colera_hombres.to_i + colera_mujeres.to_i
+  total_dengue = dengue_hombres.to_i + dengue_mujeres.to_i
+  total_ebola = ebola_hombres.to_i + ebola_mujeres.to_i
+  total_ira = ira_hombres.to_i + ira_mujeres.to_i
+  total_eta = eta_hombres.to_i + eta_mujeres.to_i
+  total_malaria = malaria_hombres.to_i + malaria_mujeres.to_i
+  total_sarampion = sarampion_hombres.to_i + sarampion_mujeres.to_i
+  total_rubeola = rubeola_hombres.to_i + rubeola_mujeres.to_i
+  total_varicela = varicela_hombres.to_i + varicela_mujeres.to_i
+  total_zika = zika_hombres.to_i + zika_mujeres.to_i
+  total_tbc = tbc_hombres.to_i + tbc_mujeres.to_i
+  total_intoxicaciones = intoxicaciones_hombres.to_i + intoxicaciones_mujeres.to_i
+  total_evento_sin_establecer = evento_sin_establecer_hombres.to_i + evento_sin_establecer_mujeres.to_i
+  total_ninguno = ninguno_hombres_notificacion.to_i + ninguno_mujeres_notificacion.to_i
+
+
+
+%>
+
+<div class="container" style="width:330px; margin-left: 310px; margin-top: -207px;">
+  <div class="row col-md-12 col-md-offset-2 custyle" >
+    <table class="table table-striped table-bordered table-hover dataTable no-footer"
+        style="width:280%; margin-top:-1160px; margin-left:172px">
+      <tbody>
+        <tr>
+          <th class="info"  style="width:20%; text-align: center;">Notificación Obligatoria</th>
+          <th class="info"  style="width:20%; text-align: center;">Hombres</th>
+          <th class="info"  style="width:20%; text-align: center;">Mujeres</th>
+          <th class="info"  style="width:20%; text-align: center;">Total</th>
+        </tr>
+        <tr>
+          <th>Accidente Ofidico</th>
+          <td  style="text-align: center;"><%= accidente_laboral_hombres %></td>
+          <td  style="text-align: center;"><%= accidente_laboral_mujeres %></td>
+          <td  style="text-align: center;"><%= total_ofidico %></td>
+        </tr>
+        <tr>
+          <th>Rabia</th>
+          <td  style="text-align: center;">
+          <%= rabia_hombres %></td>
+          <td  style="text-align: center;">
+          <%= rabia_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_rabia %></td>
+        </tr>
+        <tr>
+          <th>Chikungunya</th>
+          <td  style="text-align: center;">
+          <%= chikungunya_hombres %></td>
+          <td  style="text-align: center;">
+          <%= chikungunya_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_chikungunya %></td>
+        </tr>
+
+        <tr>
+          <th>Colera</th>
+          <td  style="text-align: center;">
+          <%= colera_hombres %></td>
+          <td  style="text-align: center;">
+          <%= colera_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_colera %></td>
+        </tr>
+
+        <tr>
+          <th>Denge</th>
+          <td  style="text-align: center;">
+          <%= dengue_hombres %></td>
+          <td  style="text-align: center;">
+          <%= dengue_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_dengue %></td>
+        </tr>
+
+        <tr>
+          <th>Ebola</th>
+          <td  style="text-align: center;">
+          <%= ebola_hombres %></td>
+          <td  style="text-align: center;">
+          <%= ebola_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_ebola %></td>
+        </tr>
+
+        <tr>
+          <th>Esi - Ira Grave</th>
+          <td  style="text-align: center;">
+          <%= ira_hombres %></td>
+          <td  style="text-align: center;">
+          <%= ira_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_ira %></td>
+        </tr>
+
+        <tr>
+          <th>Eta</th>
+          <td  style="text-align: center;">
+          <%= eta_hombres %></td>
+          <td  style="text-align: center;">
+          <%= eta_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_eta %></td>
+        </tr>
+
+        <tr>
+          <th>Malaria</th>
+          <td  style="text-align: center;">
+          <%= malaria_hombres %></td>
+          <td  style="text-align: center;">
+          <%= malaria_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_malaria %></td>
+        </tr>
+
+        <tr>
+          <th>Sarampion</th>
+          <td  style="text-align: center;">
+          <%= sarampion_hombres %></td>
+          <td  style="text-align: center;">
+          <%= sarampion_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_sarampion %></td>
+        </tr>
+
+        <tr>
+          <th>Rubeola</th>
+          <td  style="text-align: center;">
+          <%= rubeola_hombres %></td>
+          <td  style="text-align: center;">
+          <%= rubeola_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_rubeola %></td>
+        </tr>
+
+        <tr>
+          <th>Varicela</th>
+          <td  style="text-align: center;">
+          <%= varicela_hombres %></td>
+          <td  style="text-align: center;">
+          <%= varicela_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_varicela %></td>
+        </tr>
+        <tr>
+          <th>Zika</th>
+          <td  style="text-align: center;">
+          <%= zika_hombres %></td>
+          <td  style="text-align: center;">
+          <%= zika_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_zika %></td>
+        </tr>
+
+        <tr>
+          <th>Tbc</th>
+          <td  style="text-align: center;">
+          <%= tbc_hombres %></td>
+          <td  style="text-align: center;">
+          <%= tbc_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_tbc %></td>
+        </tr>
+        
+        <tr>
+          <th>Intoxicaciones</th>
+          <td  style="text-align: center;">
+          <%= intoxicaciones_hombres %></td>
+          <td  style="text-align: center;">
+          <%= intoxicaciones_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_intoxicaciones %></td>
+        </tr>
+        
+        <tr>
+          <th>Evento Sin Establecer</th>
+          <td  style="text-align: center;">
+          <%= evento_sin_establecer_hombres %></td>
+          <td  style="text-align: center;">
+          <%= evento_sin_establecer_mujeres %></td>
+          <td  style="text-align: center;">
+          <%= total_evento_sin_establecer %></td>
+        </tr>
+
+
+    
+        <tr>
+          <th>Ninguno</th>
+          <td  style="text-align: center;">
+          <%= ninguno_hombres_notificacion %></td>
+          <td  style="text-align: center;"><%= ninguno_mujeres_notificacion %></td>   
+          <td  style="text-align: center;"><%= total_ninguno %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>     
+
+<%
+
+# ACCIDENTES ESPECIALES HOMBRES
+
+  alistamientos_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Alistamientos").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+  accidentes_aereos_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Accidentes Aereos").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  
+  contingencias_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Contingencias").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  salud_publica_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Emergencia Salud Publica").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ninguno_hombres_emergencias = HistoriaClinica.where(:p_genero => "Masculino").where(:accidentes_especiales => "Ninguno").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+# ACCIDENTES ESPECIALES MUJERES
+
+  alistamientos_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Alistamientos").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  accidentes_aereos_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Accidentes Aereos").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  contingencias_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Contingencias").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+  .where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  salud_publica_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:accidentes_especiales => "Emergencia Salud Publica").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+  .where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ninguno_mujeres_emergencias = HistoriaClinica.where(:p_genero => "Femenino")
+  .where(:accidentes_especiales => "Ninguno").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+  .where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+
+  total_alistamientos = alistamientos_hombres.to_i + alistamientos_mujeres.to_i
+  total_accidentes_aereos = accidentes_aereos_hombres.to_i + accidentes_aereos_mujeres.to_i
+  total_contingencias = contingencias_hombres.to_i + contingencias_mujeres.to_i
+  total_salud_publica = salud_publica_hombres.to_i + salud_publica_mujeres.to_i
+  total_ninguno_emergencias = ninguno_hombres_emergencias.to_i + ninguno_mujeres_emergencias.to_i
+
+%>
+
+<div class="container" style="width:330px; margin-left: 0px; margin-top: 405px;">
+  <div class="row col-md-12 col-md-offset-2 custyle" >
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" style="width:280%; margin-top:-938px; margin-left:482px">
+      <tbody>
+        <tr>
+          <th class="info" style="width:20%; text-align: center;">Emergencias</th><th class="info" style="width:20%; text-align: center;">Hombres</th> 
+          <th class="info" style="width:20%; text-align: center;">Mujeres</th>
+          <th class="info" style="width:20%; text-align: center;">Total</th>
+        </tr>
+        <tr>
+          <th>Alistamientos</th>
+          <td style="text-align: center;"><%= alistamientos_hombres %></td>
+          <td style="text-align: center;"><%= alistamientos_mujeres %></td>
+          <td style="text-align: center;"> <%= total_alistamientos %></td> 
+        </tr>
+        <tr>
+          <th>Accidentes Aereos</th>
+          <td style="text-align: center;"><%= accidentes_aereos_hombres %></td>
+          <td style="text-align: center;"><%= accidentes_aereos_mujeres %></td>
+          <td style="text-align: center;"><%= total_accidentes_aereos %></td> 
+        </tr>
+        <tr>
+          <th>Contingencias</th>
+          <td style="text-align: center;"><%= contingencias_hombres %></td>
+          <td style="text-align: center;"><%= contingencias_mujeres %></td>
+          <td style="text-align: center;"><%= total_contingencias %></td>
+        </tr>                                                                
+        <tr>
+          <th>Emergencia Salud Publica</th>
+          <td style="text-align: center;"><%= salud_publica_hombres %></td>
+          <td style="text-align: center;"><%= salud_publica_mujeres %></td>
+          <td style="text-align: center;"><%= total_salud_publica %></td>
+        </tr>                                                                     <tr>
+          <th>Ninguno</th>                                                       
+          <td style="text-align: center;"><%= ninguno_hombres_emergencias %></td> <td style="text-align: center;"><%= ninguno_mujeres_emergencias %></td> <td style="text-align: center;"><%= total_ninguno_emergencias %></td>
+        </tr>
+      </tbody>                                                                   
+    </table>
+  </div>                                                                         
+</div> 
+
+<%
+
+  vuelos_comerciales_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:tipo_de_vuelo => "Comercial").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ambulancia_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:tipo_de_vuelo => "Ambulancia").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+ charter_hombres = HistoriaClinica.where(:p_genero => "Masculino").where(:tipo_de_vuelo => "Charter").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+  vuelos_comerciales_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:tipo_de_vuelo => "Comercial").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+  ambulancia_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:tipo_de_vuelo => "Ambulancia").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+ charter_mujeres = HistoriaClinica.where(:p_genero => "Femenino").where(:tipo_de_vuelo => "Charter").where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+  total_vuelos_comerciales = vuelos_comerciales_hombres.to_i + vuelos_comerciales_mujeres.to_i
+  
+  total_ambulancias = ambulancia_hombres.to_i + ambulancia_mujeres.to_i
+  
+  total_charter = charter_hombres.to_i + charter_mujeres.to_i
+
+%>
+
+<div class="container" style="width:330px; margin-left: 0px;">
+  <div class="row col-md-12 col-md-offset-2 custyle" >
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" style="width:280%; margin-top:-716px; margin-left:480px">
+      <tbody>
+        <tr>
+          <th class="info"  style="width:10%; text-align: center;" >Tipos de Vuelo</th>
+          <th class="info"  style="width:10%; text-align: center;" >Hombres</th>
+          <th class="info"  style="width:10%; text-align: center;" >Mujeres</th>
+          <th class="info"  style="width:10%; text-align: center;" >Total</th>
+        </tr>
+        <tr>
+          <th>Comercial</th>
+          <td><%= vuelos_comerciales_hombres %></td>
+          <td><%= vuelos_comerciales_mujeres %></td>
+          <td><%= total_vuelos_comerciales %></td>
+        </tr>
+        <tr>
+          <th>Ambulancía</th>
+          <td><%= ambulancia_hombres %></td>
+          <td><%= ambulancia_mujeres %></td>
+          <td><%= total_ambulancias %></td>
+        </tr>
+        <tr>
+          <th>Charter</th>
+          <td><%= charter_hombres %></td>
+          <td><%= charter_mujeres %></td>
+          <td><%= total_charter %></td>
+        </tr>
+      </tbody>
+    </table>  
+  </div> 
+</div> 
+
+<div class="container" style=" margin-left: 0px;">
+  <div class="row col-md-12 col-md-offset-2 custyle">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" style="margin-top:-424px; margin-left:215px;">
+      <tbody  style="width: 1% !important;">
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<%
+
+menor_1_masculino = HistoriaClinica.where(:p_genero => "Masculino").where(:p_tipo_edad => [" meses", " mes"]).where("date(created_at) >= ?", $varMensuales)
+.where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+de_1_a_5_masculino =  HistoriaClinica.where(:p_genero => "Masculino").where(:p_edad => 1..5).where(:p_tipo_edad => [" años", " año"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+.where(:aeropuerto_id => $aeropuertoMensuales).count
+
+de_6_a_11_masculino =  HistoriaClinica.where(:p_genero => "Masculino").where(:p_edad => 6..11).where(:p_tipo_edad => [" años"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+de_12_a_29_masculino =  HistoriaClinica.where(:p_genero => "Masculino").where(:p_edad => 12..29).where(:p_tipo_edad => [" años"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+de_30_a_44_masculino =  HistoriaClinica.where(:p_genero => "Masculino").where(:p_edad => 30..44).where(:p_tipo_edad => [" años"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2).where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+de_45_a_60_masculino =  HistoriaClinica.where(:p_genero => "Masculino")
+.where(:p_edad => 45..60).where(:p_tipo_edad => [" años"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+.where(:aeropuerto_id => $aeropuertoMensuales).count
+
+mayor_a_60_masculino = HistoriaClinica.where(:p_genero => "Masculino")
+.where("p_edad > ?", 60).where(:p_tipo_edad => [" años"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+.where(:aeropuerto_id => $aeropuertoMensuales).count
+
+
+menor_1_femenino = HistoriaClinica.where(:p_genero => "Femenino")
+.where(:p_tipo_edad => [" meses", " mes"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+.where(:aeropuerto_id => $aeropuertoMensuales).count
+
+de_1_a_5_femenino =  HistoriaClinica.where(:p_genero => "Femenino")
+.where(:p_edad => 1..5).where(:p_tipo_edad => [" años", " año"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+.where(:aeropuerto_id =>  $aeropuertoMensuales).count
+
+de_6_a_11_femenino =  HistoriaClinica.where(:p_genero => "Femenino")
+.where(:p_edad => 6..11).where(:p_tipo_edad => [" años"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at)  <= ?", $varMensuales2)
+.where(:aeropuerto_id => $aeropuertoMensuales).count
+
+de_12_a_29_femenino =  HistoriaClinica.where(:p_genero => "Femenino")
+.where(:p_edad => 12..29).where(:p_tipo_edad => [" años"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+.where(:aeropuerto_id => $aeropuertoMensuales).count
+
+de_30_a_44_femenino =  HistoriaClinica.where(:p_genero => "Femenino")
+.where(:p_edad => 30..44).where(:p_tipo_edad => [" años"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+.where(:aeropuerto_id => $aeropuertoMensuales).count
+
+de_45_a_60_femenino =  HistoriaClinica.where(:p_genero => "Femenino")
+.where(:p_edad => 45..60).where(:p_tipo_edad => [" años"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+.where(:aeropuerto_id => $aeropuertoMensuales).count
+
+mayor_a_60_femenino = HistoriaClinica.where(:p_genero => "Femenino")
+.where("p_edad > ?", 60).where(:p_tipo_edad => [" años"]).where("date(created_at) >= ?", $varMensuales).where("date(created_at) <= ?", $varMensuales2)
+.where(:aeropuerto_id => $aeropuertoMensuales).count
+
+total_edades_masculinas =  menor_1_masculino.to_i + de_1_a_5_masculino.to_i + de_6_a_11_masculino.to_i + de_12_a_29_masculino.to_i + de_30_a_44_masculino.to_i + de_45_a_60_masculino.to_i + mayor_a_60_masculino.to_i
+
+total_edades_femeninas = menor_1_femenino.to_i + de_1_a_5_femenino.to_i +  de_6_a_11_femenino.to_i + de_12_a_29_femenino.to_i + de_30_a_44_femenino.to_i + de_45_a_60_femenino.to_i + mayor_a_60_femenino.to_i
+
+
+total_menores_año = menor_1_masculino.to_i + menor_1_femenino.to_i
+total_rango_1_a_5_años = de_1_a_5_masculino.to_i + de_1_a_5_femenino.to_i
+total_rango_6_a_11_años = de_6_a_11_masculino.to_i + de_6_a_11_femenino.to_i
+total_rango_12_a_29_años = de_12_a_29_masculino.to_i + de_12_a_29_femenino.to_i
+total_rango_30_a_44_años = de_30_a_44_masculino.to_i + de_30_a_44_femenino.to_i
+total_rango_45_a_60_años = de_45_a_60_masculino.to_i + de_45_a_60_femenino.to_i
+total_mayores_60_años = mayor_a_60_masculino.to_i + mayor_a_60_femenino.to_i
+
+
+ total_edades = total_edades_masculinas.to_i + total_edades_femeninas.to_i
+
+%>                                                                                                                                                                  <br/>
+<div class="container" style="width:330px; margin-left: 0px; margin-top: 35px;">
+  <div class="row col-md-12 col-md-offset-2 custyle" >
+    <table class="table table-striped table-bordered table-hover dataTable no-footer"
+        style="width: 840px; margin-left:480px; margin-top: -687px;">
+      <tbody>
+        <tr>
+          <th class="info" >Grupo Etario En Años</th>
+          <th class="info" >Hombres</th>
+          <th class="info" >Mujeres</th>
+          <th class="info" >Total</th>
+        </tr>
+        <tr>
+          <th>de 1 AÑO</th>
+          <td><%= menor_1_masculino %></td>
+          <td><%= menor_1_femenino %></td>
+          <td><%= total_menores_año %></td>
+        </tr>
+        <tr>
+          <th>de 1 a  5</th>
+          <td><%= de_1_a_5_masculino %></td>
+          <td><%= de_1_a_5_femenino %></td>
+          <td><%= total_rango_1_a_5_años %></td>
+        </tr>
+        <tr>
+          <th>de 6 a  11</th>
+          <td><%= de_6_a_11_masculino %></td>
+          <td><%= de_6_a_11_femenino %></td>
+          <td><%= total_rango_6_a_11_años %></td>
+        </tr>
+        <tr>
+          <th>de 12 a 29</th>
+          <td><%= de_12_a_29_masculino %></td>
+          <td><%= de_12_a_29_femenino %></td>
+          <td><%= total_rango_12_a_29_años %></td>
+        </tr>
+        <tr>
+          <th>de 30 a 44</th>
+          <td><%= de_30_a_44_masculino %></td>
+          <td><%= de_30_a_44_femenino %></td>
+          <td><%= total_rango_30_a_44_años %></td>
+        </tr>
+        <tr>
+          <th>de 45 a 60</th>
+          <td><%= de_45_a_60_masculino %></td>
+          <td><%= de_45_a_60_femenino %></td>
+          <td><%= total_rango_45_a_60_años %></td>
+        </tr>
+        <tr>
+          <th>> de 60</th>
+          <td><%= mayor_a_60_masculino %></td>
+          <td><%= mayor_a_60_femenino %></td>
+          <td><%= total_mayores_60_años %></td>
+        </tr>
+        <tr>
+          <th>Total</th>
+          <td><%= total_edades_masculinas %></td>
+          <td><%= total_edades_femeninas %></td>
+          <td><%= total_edades %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+
+  .custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+  }
+
+  .custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+  }
+
+</style>
+

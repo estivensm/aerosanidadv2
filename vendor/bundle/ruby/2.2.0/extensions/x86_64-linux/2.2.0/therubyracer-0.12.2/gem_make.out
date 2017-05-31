@@ -1,0 +1,39 @@
+/home/servidual/.rvm/rubies/ruby-2.2.3/bin/ruby -r ./siteconf20151108-8480-1c7am2l.rb extconf.rb
+checking for main() in -lpthread... yes
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling handles.cc
+compiling function.cc
+compiling constants.cc
+compiling signature.cc
+compiling script.cc
+compiling init.cc
+compiling trycatch.cc
+compiling string.cc
+compiling object.cc
+compiling exception.cc
+compiling message.cc
+compiling value.cc
+compiling context.cc
+compiling locker.cc
+compiling gc.cc
+compiling template.cc
+compiling constraints.cc
+compiling primitive.cc
+compiling heap.cc
+compiling array.cc
+compiling invocation.cc
+compiling v8.cc
+compiling date.cc
+compiling stack.cc
+compiling backref.cc
+compiling rr.cc
+compiling accessor.cc
+compiling external.cc
+linking shared-object v8/init.so
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 init.so ./.gem.20151108-8480-1rnaipe/v8

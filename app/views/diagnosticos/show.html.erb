@@ -1,0 +1,28 @@
+<p id="notice">
+  <%= notice %></p>
+
+<p> <strong>Familia:</strong>
+  <%= @diagnostico.familia %></p>
+
+<p> <strong>Codigo:</strong>
+  <%= @diagnostico.codigo %></p>
+
+<p>
+  <strong>Simbolo:</strong>
+  <%= @diagnostico.simbolo %></p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @diagnostico.descripcion %></p>
+
+<p>
+  <strong>Codigo:</strong>
+  <%= @diagnostico.codigo %></p>
+
+<p>
+  <strong>Historia clinica:</strong>
+  <%= @diagnostico.historia_clinica %></p>
+
+<%= link_to 'Edit', edit_diagnostico_path(@diagnostico) %>
+|
+<%= link_to 'Back', diagnosticos_path %>

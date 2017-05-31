@@ -1,0 +1,1 @@
+$(document).on("ready page:load",function(){$(".js-filter").on("ajax:success",function(n,e,o,t){$(".personal").html(e)}),$(".query").on("keyup",function(n){$(".js-filter").submit()})});

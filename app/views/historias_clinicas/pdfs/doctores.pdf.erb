@@ -1,0 +1,107 @@
+<div class="panel panel-default">
+  <br/>
+  <div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+      <table class="table table-bordered table-hover dataTable no-footer">
+        <tbody>
+          <tr>
+            <th  style="width:1%; " rowspan="3">
+              <img src="http://www.aerosanidadvirtual.com/assets/Logo/logo.png" style="width: 130px;" alt=""></th >
+            <th class="text-center"  style="width:38%; height::;0px !important;"  colspan="3">INFORME  DOCTORES</th>
+
+          </tr>
+
+          <% numero_doctores = User.where(:rol_id =>
+          2).count %>
+          <tr>
+            <th  style="width:20%; text-align: center;" colspan="2">
+              DOCTORES REGISTRADOS:
+              <%= numero_doctores %></th>
+          </tr>
+
+          <tr>
+            <th  style="width:10%; text-align: center;"> <b>FECHA:</b>
+              <% t = Time.now %>
+              <%= t.strftime "%d-%m-%Y" %></th >
+
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+      <table class="table table-striped table-bordered table-hover dataTable no-footer">
+        <tbody>
+
+          <tr>
+            <th class="info" width="4% !important;">Id</th>
+            <th class="info"  width="10% !important;">Aprobado Ingresar</th>
+            <th class="info"  width="40% !important;">Nombre Completo</th>
+            <th class="info"  width="15% !important;">Número de HC</th>
+            <th class="info"  width="18% !important;">Número de HC Cerradas</th>
+            <th class="info"  width="40% !important;">Número de HC Abiertas</th>
+            <th class="info"  width="28% !important;">Sin Completar</th>
+          </tr>
+
+          <% @users.order("nombres asc").each do |user| %>
+          <tr>
+            <td>
+              <%= user.id %></td>
+            <td>
+              <%= user.aprobado_login %></td>
+            <td>
+              <%= user.nombres.capitalize %>
+              <%= user.apellidos.capitalize %></td>
+            <td>
+              <%= User.joins(:historias_clinicas).where(:users =>{:rol_id => 2}).where(:users => {:id => user.id}).count %></td>
+            <td>
+              <%= User.joins(:historias_clinicas).where(:historias_clinicas =>
+              {:e_estado_historia_clinica => true}).where(:users => {:rol_id => 2}).where(:users => {:id => user.id}).count %>
+            </td>
+            <td>
+              <%= User.joins(:historias_clinicas).where(:historias_clinicas =>
+              {:e_estado_historia_clinica => false}).where(:users => {:rol_id => 2}).where(:users => {:id => user.id}).count %>
+            </td>
+            <td>
+              <%= User.joins(:historias_clinicas).where(:historias_clinicas =>
+              {:e_estado_historia_clinica => nil}).where(:users => {:rol_id => 2}).where(:users => {:id => user.id}).count %>
+            </td>
+          </tr>
+          <% end %></tbody>
+
+      </table>
+    </div>
+  </div>
+
+  <style type="text/css" media="screen">
+th{
+  font-size: 10px;
+} 
+
+td{
+  font-size: 10px;
+} 
+
+</style>
+
+</div>
+
+<style>
+
+.custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+    }
+.custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+    }
+
+</style>
