@@ -241,7 +241,7 @@ table {
     box-shadow: none!important;
 }
 a, a:visited {
-    text-decoration: underline;
+    /*text-decoration: underline;*/
 }
 a[href]:after {
     content: " (" attr(href) ")"}
@@ -324,7 +324,7 @@ a {
 }
 a:focus, a:hover {
     color: #2a6496;
-    text-decoration: underline;
+    /*text-decoration: underline;*/
 }
 a:focus {
     outline: dotted thin;
@@ -1612,7 +1612,7 @@ textarea.input-lg {
 }
 .btn-link:focus, .btn-link:hover {
     color: #2a6496;
-    text-decoration: underline;
+  /*text-decoration: underline;*/
     background-color: transparent;
 }
 .btn-link[disabled]:focus, .btn-link[disabled]:hover, fieldset[disabled] .btn-link:focus, fieldset[disabled] .btn-link:hover {

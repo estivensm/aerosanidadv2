@@ -95,8 +95,12 @@ $(document).ready(function() {
 
 				<% end %>
 
-				<%= link_to "5. Impresión Diagnostica", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.fifth), :class=>
-				"btn btn-info color_blanco mrg" %>
+				<% if @campo5 == true %>
+				<%= link_to "5. Impresión Diagnostica", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.fifth), :class=> "btn btn-info color_blanco mrg" %>
+				<% elsif @campo5 == false %>
+				<a class="btn btn-info color_blanco mrg"  disabled="disabled">5. Impresión Diagnostica</a>
+
+				<% end %>
 
 			</div>
 		</div>

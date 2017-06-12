@@ -73,12 +73,14 @@ $(document).ready(function() {
 
 				<%= link_to "1. Informacion General", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.first), :class=>
 				"btn btn-info color_blanco mrg" %>
+				
 				<% if @campo2 == true %>
 				<%= link_to "2. Antecedentes Personales", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.second), :class=>
 				"btn btn-info color_blanco mrg" %>
 				<% elsif @campo2 == false %>
 				<a class="btn btn-info color_blanco mrg" disabled="disabled">2. Antecedentes Personales</a>
 				<% end %>
+
 
 				<% if @campo3 == true %>
 				<%= link_to "3. Revisión por Sistemas", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.third), :class=>
@@ -88,6 +90,7 @@ $(document).ready(function() {
 
 				<% end %>
 
+
 				<% if @campo4 == true %>
 				<%= link_to "4. Examen Fisico", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.fourth), :class=>
 				"btn btn-default mrg" %>
@@ -96,7 +99,17 @@ $(document).ready(function() {
 
 				<% end %>
 
+
+
+
+				<% if @campo5 == true %>
 				<%= link_to "5. Impresión Diagnostica", paciente_historia_clinica_steps_path(@paciente, @historia_clinica, HistoriaClinica.form_steps.fifth), :class=> "btn btn-info color_blanco mrg" %>
+				<% elsif @campo5 == false %>
+				<a class="btn btn-info color_blanco mrg"  disabled="disabled">5. Impresión Diagnostica</a>
+
+				<% end %>
+
+				
 
 			</div>
 		</div>

@@ -33,7 +33,7 @@ td{
 
         <thead>
           <tr>
-            <th  colspan="6">
+            <th  colspan="5">
 
               <%= form_tag request.path, :method =>
               'get', :class => '' do %>
@@ -69,9 +69,9 @@ td{
             <th width="18% !important;">Nombres y Apellidos</th>
             <th width="10% !important;">Aprobado Ingresar</th>
             <th width="4% !important;">Email</th>
-            <th width="12% !important;">Tipo De Documento</th>
             <th width="8% !important;">Documento</th>
-            <th width="5% !important;">Opciones</th>
+            <th width="17% !important;">Opciones</th>
+           
           </tr>
         </thead>
         <tbody>
@@ -96,8 +96,7 @@ td{
 
             <td>
               <%= user.email %></td>
-            <td>
-              <%= user.tipo_documento %></td>
+            
             <td>
               <%= user.documento %></td>
 
@@ -117,8 +116,10 @@ color: #666;
               <% end %>
 
               <%= link_to edit_user_path(user), class: "btn btn-link btn-xs", title: "Editar Usuario" do %> <i class="glyphicon glyphicon-pencil icono"></i>
-              <% end %></td>
+              <% end %>    <%= link_to "Historias Clinicas (#{user.historias_clinicas.count})", users_historias_path(user.id,"todas"), :class =>'btn btn-link btn-xs ver_notas'  %></td>
+           
 
+            
           </tr>
 
           <% end %></table>

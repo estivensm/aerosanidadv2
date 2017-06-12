@@ -68,6 +68,9 @@ PetThing::Application.routes.draw do
   get 'pages/contact'
   get 'pages/help'
 
+
+  get 'users/historias/:id/:estado', to: "users#historias", as: "users_historias"
+
   resources :sessions
   resources :reset_passwords, only: [:new, :create, :update, :edit]
 

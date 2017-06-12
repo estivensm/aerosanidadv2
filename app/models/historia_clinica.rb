@@ -178,7 +178,7 @@ class HistoriaClinica < ActiveRecord::Base
   #belongs_to :origen_aeropuertos,  :primary_key => "id", :foreign_key => "a_orgien", :class_name  => "Aeropuerto"
   #belongs_to :destino_aeropuertos,  :primary_key => "id", :foreign_key => "a_destino", :class_name => "Aeropuerto"
 
-  has_many :diagnosticos
+  has_many :diagnosticos, dependent: :destroy
   has_many :procedimientos
   has_many :notas_progreso
 

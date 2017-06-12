@@ -104,6 +104,26 @@ class UsersController < ApplicationController
 =end
 
 
+ def historias
+    
+  @user = User.find(params[:id])
+   if params[:estado] == "abiertas"
+      #puts "aaaaaaaaaaaaaaaaa"
+         @historias_clinicas = @user.historias_clinicas.where(e_estado_historia_clinica: false).search(params[:search]).page(params[:page]).per_page(20)
+          @estado = "Abiertas"
+       elsif params[:estado] == "cerradas" 
+          #puts "cccccccccccccccccccc"
+                   @historias_clinicas = @user.historias_clinicas.where(e_estado_historia_clinica: true).search(params[:search]).page(params[:page]).per_page(20)
+          @estado = "Cerradas"
+  
+       else
+        #puts "ttttttttttttttttttttt"
+             @historias_clinicas = @user.historias_clinicas.search(params[:search]).page(params[:page]).per_page(20)
+            @estado = "Todas"
+  end  
+ end
+
+
   private
     def set_user
       @user = User.find(params[:id])
