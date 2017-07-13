@@ -607,23 +607,29 @@ function edValueKeyPress()
 {
 
   var tratamiento = document.getElementById("tratamiento");
+  
+    if (tratamiento != null )
+    {
   var s = tratamiento.value;
   if (s == '.'){
     $('#tratamiento').val('N/A');
   } 
 
-
+}
   var via_acceso = document.getElementById("via_acceso");
+    if (via_acceso != null ){
   var s = via_acceso.value;
   if (s == '.'){
     $('#via_acceso').val('N/A');
   } 
-
+ }
   var descripcion = document.getElementById("descripcion");
+  if (descripcion != null ){
   var s = descripcion.value;
   if (s == '.'){
     $('#descripcion').val('N/A');
   } 
+}
 
   var glucometria1 = document.getElementById("glucometria1");
   var s = glucometria1.value;

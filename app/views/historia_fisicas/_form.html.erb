@@ -40,7 +40,7 @@
                         <%= f.hidden_field :paciente_id, :value => @paciente.id %>
                         <%= f.hidden_field :historia_clinica_id, :value => @historia_clinica.id %>
                  <td>
-                     <%= f.select :tipo, [ 'Historia Clinica Fisica', 'Nota de Evolucion', 'Aptitud de Vuelo'], {},  {class: "form-control required", id: "myselect", title: "Campo Obligatorio"} %>
+                     <%= f.select :tipo, [ 'Historia Clinica Fisica', 'Nota de Evolucion', 'Aptitud de Vuelo', 'Examen medico','Consentimiento informado','Prescripcion', 'Autorizacion de tratamiento para datos personales'], {},  {class: "form-control required", id: "myselect", title: "Campo Obligatorio"} %>
 </td>
                       <td>
                         <%= f.text_area :descripcion, class: "form-control" %>
