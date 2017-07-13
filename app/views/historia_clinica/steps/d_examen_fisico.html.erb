@@ -574,34 +574,38 @@ $(document).ready(function() {
 						<thead>
 							<tr >
 
-								<th  colspan="10" style = "text-align:left!important;">ALTERACIÓN</th>
+								<th  colspan="11" style = "text-align:left!important;">ALTERACIÓN</th>
 							</tr>
 							<tr >
 								<th  colspan="1" style = "text-align:right!important;">
 									<%= label_tag 'alteration_de_sensibilidad', 'De Sensibilidad' %></th>
 								<th  colspan="1" >
-									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'De Sensibilidad', checked('De Sensibilidad'), id: 'alteration_de_sensibilidad', class: '', :title =>"Debes Seleccionar una Opción" %></th>
+									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'De Sensibilidad', checked('De Sensibilidad'), id: 'alteration_de_sensibilidad', class: 'required', :title =>"Debes Seleccionar una Opción" %></th>
 
 								<th  colspan="1" style = "text-align:right!important;">
 									<%= label_tag 'alteration_de_motricidad', 'De Motricidad', class: '' %></th>
 								<th  colspan="1" >
-									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'De Motricidad', checked('De Motricidad'), id: 'alteration_de_motricidad', class: '' %></th>
+									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'De Motricidad', checked('De Motricidad'), id: 'alteration_de_motricidad', class: 'required' %></th>
 
 								<th  colspan="1" style = "text-align:right!important;">
 									<%= label_tag 'alteration_cognitiva', 'Cognitiva' %></th>
 								<th  colspan="1" >
-									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'Cognitiva', checked('Cognitiva'), id: 'alteration_cognitiva', class: '' %></th>
+									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'Cognitiva', checked('Cognitiva'), id: 'alteration_cognitiva', class: 'required' %></th>
 
 								<th  colspan="1" style = "text-align:right!important;">
 									<%= label_tag 'alteration_sensorial', 'Sensorial', class: '' %></th>
 								<th  colspan="1" >
-									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'Sensorial', checked('Sensorial'), id: 'alteration_sensorial', class: '' %></th>
+									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'Sensorial', checked('Sensorial'), id: 'alteration_sensorial', class: 'required' %></th>
 
 								<th  colspan="1" style = "text-align:right!important;">
 									<%= label_tag 'alteration_del_lenguaje', 'Del Lenguaje', class: '' %></th>
 								<th  colspan="1" >
-									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'Del Lenguaje', checked('Del Lenguaje'), id: 'alteration_del_lenguaje', class: '' %></th>
+									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'Del Lenguaje', checked('Del Lenguaje'), id: 'alteration_del_lenguaje', class: 'required' %></th>
+										<th  colspan="1" style = "text-align:right!important;">
+									<%= label_tag 'Ninguna', 'Ninguna', class: '' %></th>
 
+<th  colspan="1" >
+									<%= check_box_tag 'historia_clinica[d_alteracion][]', 'Ninguna', checked('Del Lenguaje'), id: 'ninguna', class: 'required' %></th>
 							</tr>
 
 						</thead>
