@@ -567,6 +567,33 @@ function edValueKeyPress()
     $('#telefono').val('N/A');
   }
 
+  var adireccion = document.getElementById("a_direccion");
+  var s = adireccion.value;
+  if (s == '.'){
+    $('#a_direccion').val('N/A');
+  }
+
+var responsable = document.getElementById("responsable");
+  var s = responsable.value;
+  if (s == '.'){
+    $('#responsable').val('N/A');
+  }
+
+  var rparentesco = document.getElementById("rparentesco");
+  var s = rparentesco.value;
+  if (s == '.'){
+    $('#rparentesco').val('N/A');
+  }
+  var rtelefono = document.getElementById("rtelefono");
+  var s = rtelefono.value;
+  if (s == '.'){
+    $('#rtelefono').val('N/A');
+  }   
+var rdireccion = document.getElementById("rdireccion");
+  var s = rdireccion.value;
+  if (s == '.'){
+    $('#rdireccion').val('N/A');
+  }
  var arl = document.getElementById("arl_auto");
   var s = arl_auto.value;
   if (s == '.'){
@@ -603,18 +630,69 @@ var eps = document.getElementById("eps_auto");
 
     <div class="row">
 
-          <div class="col-md-4">
+          <div class="col-md-3">
               <label>Nombre Acompañante:</label>
                 <%= f.input :a_nombre_acompañante,  :input_html => { :class => 'form-control required', id: "acompañante", title: "Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" } , placeholder: 'Campo Obligatorio', label: false  %>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
               <label>Parentesco:</label>
                 <%= f.input :a_parentesco,  :input_html => { :class => 'form-control required', id: "parentesco", title: "Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" } , placeholder: 'Campo Obligatorio', label: false  %>
 
           </div>
-<div class="col-md-4">
+<div class="col-md-3">
               <label>Telefono Acompañante:</label>
                 <%= f.input :a_telefono,  :input_html => { :class => 'form-control required', id: "telefono", title: "Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" } , placeholder: 'Campo Obligatorio', label: false  %>
+
+
+
+
+
+
+
+          </div>
+
+           <div class="col-md-3">
+              <label>Direccion Acompañante:</label>
+                <%= f.input :a_direccion_acompanante,  :input_html => { :class => 'form-control required', id: "a_direccion", title: "Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" } , placeholder: 'Campo Obligatorio', label: false  %>
+
+
+
+
+
+
+
+          </div>
+
+
+        </div>
+<br/>
+
+         <div class="row">
+
+          <div class="col-md-3">
+              <label>Nombre Responsable:</label>
+                <%= f.input :a_nombre_responsable,  :input_html => { :class => 'form-control required', id: "responsable", title: "Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" } , placeholder: 'Campo Obligatorio', label: false  %>
+          </div>
+          <div class="col-md-3">
+              <label>Parentesco Responsable:</label>
+                <%= f.input :a_parentesco_responsable,  :input_html => { :class => 'form-control required', id: "rparentesco", title: "Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" } , placeholder: 'Campo Obligatorio', label: false  %>
+
+          </div>
+<div class="col-md-3">
+              <label>Telefono Responsable:</label>
+                <%= f.input :a_telefono_responsable,  :input_html => { :class => 'form-control required', id: "rtelefono", title: "Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" } , placeholder: 'Campo Obligatorio', label: false  %>
+
+
+
+
+
+
+
+          </div>
+
+           <div class="col-md-3">
+              <label>Direccion Responsable:</label>
+                <%= f.input :a_direccion_responsable,  :input_html => { :class => 'form-control required', id: "rdireccion", title: "Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" } , placeholder: 'Campo Obligatorio', label: false  %>
 
 
 

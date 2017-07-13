@@ -24,6 +24,7 @@
 //= require select2_locale_"es"
 //= require autocomplete-rails
 //= require lazybox
+//= require googledocviewer
 //= require turbolinks
 
 //= require_tree .

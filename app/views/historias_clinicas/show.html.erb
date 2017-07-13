@@ -239,11 +239,22 @@
       <%= link_to 'Volver a Historias Clinicas' , paciente_historias_clinicas_path(@paciente), :class => "btn btn-success color_blanco mrg" %>
         <div class="or"></div>
       <%= link_to 'Crear Nota de Evolución', new_paciente_historia_clinica_nota_progreso_path(@paciente,@historia_clinica,@nota_progreso), :class => "btn btn-primary color_blanco mrg" %>
+
     </div>
+   
   </div>
-  <div class="col-md-4" style="margin-left: 50px; margin-top: -20px;">
+  <div class="col-md-2" style="margin-left: 50px; margin-top: -20px;">
+  
+   <a href="pacientes/<%=@paciente%>/historias_clinicas/<%=@historia_clinica%>/historia_fisicas/new" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="adjuntar anexos como: valoración de vuelo, prescripción, notas de evolució">
+ <i class="fa fa-paperclip" aria-hidden="true" style="font-size:20px;"></i>  Adjuntar Anexo
+</a>
   </div>
 </div>
+
+
+
+
+
 
 
 <div id="page-wrapper" style="min-height: 343px;">
@@ -441,20 +452,35 @@
                       </tr>
 
                       <tr class="gradeA odd" role="row">
-                        <td class="sorting_1"><b>Acompañante:</b></td>
+                        <td class="sorting_1"><b> Acompañante:</b></td>
                         <td><%=  @historia_clinica.a_nombre_acompañante %></td>
-                        <td class="sorting_1"><b>Parentesco:</b></td>
+                        <td class="sorting_1"><b>Parentesco Acompañante:</b></td>
                         <td><%=  @historia_clinica.a_parentesco %></td>
                       </tr>
 
                       <tr class="gradeA odd" role="row">
                         <td class="sorting_1"><b>Telefono Acompañante:</b></td>
                         <td><%=  @historia_clinica.a_telefono %></td>
-                        <td class="sorting_1"><b>Arl:</b></td>
-                        <td><%=  @historia_clinica.arl %></td>
+                        <td class="sorting_1"><b>Dirección Acompañante:</b></td>
+                        <td><%=  @historia_clinica.a_direccion_acompanante %></td>
+                      </tr>
+                       <tr class="gradeA odd" role="row">
+                        <td class="sorting_1"><b>Responsable:</b></td>
+                        <td><%=  @historia_clinica.a_nombre_responsable %></td>
+                        <td class="sorting_1"><b>Parentesco Responsable:</b></td>
+                        <td><%=  @historia_clinica.a_parentesco_responsable %></td>
                       </tr>
 
                       <tr class="gradeA odd" role="row">
+                        <td class="sorting_1"><b>Telefono Responsable:</b></td>
+                        <td><%=  @historia_clinica.a_telefono_responsable %></td>
+                        <td class="sorting_1"><b>Dirección Responsable:</b></td>
+                        <td><%=  @historia_clinica.a_direccion_responsable %></td>
+                      </tr>
+
+                      <tr class="gradeA odd" role="row">
+                       <td class="sorting_1"><b>Arl:</b></td>
+                        <td><%=  @historia_clinica.arl %></td>
                         <td class="sorting_1"><b>Eps:</b></td>
                         <td colspan="3"><%=  @historia_clinica.eps %></td>
                       </tr>
@@ -1220,3 +1246,14 @@
 
 <br/><br/><br/>
 
+<script>
+   $(function () {
+   $('[data-toggle="popover"]').popover({
+     trigger: 'hover',
+     html: true
+     
+   
+   })
+   })
+   
+</script>

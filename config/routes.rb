@@ -1,6 +1,7 @@
 PetThing::Application.routes.draw do
 
   
+  
   resources :emergencias
   resources :procedimientos_medicos_y_de_enfermeria
   # Rutas para acceder a los informes
@@ -99,10 +100,12 @@ PetThing::Application.routes.draw do
 
 
 
-
+   
 
   resources :pacientes, :path => "pacientes",  only: [:new, :create, :index, :destroy, :show, :edit, :update]  do
+    
     resources :historias_clinicas,  :path => "historias_clinicas", only: [:new, :create, :index, :destroy, :show, :edit, :update] do
+      resources :historia_fisicas  ,  :path => "historia_fisicas", only: [:new, :create, :index, :destroy, :show, :edit, :update]
       resources :steps,  :path => "steps", only: [:show, :update, :edit], controller: 'historia_clinica/steps'
       resources :notas_progreso,  :path => "notas_progreso", only: [:new, :create, :index, :destroy, :show, :edit, :update]
     end
@@ -111,7 +114,7 @@ PetThing::Application.routes.draw do
 
   root to: 'pages#home'
 
-  match "*path" => redirect("/"), via: :get 
+ 
 
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -169,3 +172,4 @@ PetThing::Application.routes.draw do
   #     resources :products
   #   end
 end
+   

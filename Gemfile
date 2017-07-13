@@ -78,7 +78,7 @@ gem 'wkhtmltopdf-binary-edge', '~> 0.12.2.1'
 
 gem 'time_difference'
 
-
+gem 'googledocviewer'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'underscore-rails'

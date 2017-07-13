@@ -18,6 +18,7 @@
 
 class NotaProgreso < ActiveRecord::Base
   belongs_to :historia_clinica
+  belongs_to :historia_fisica
   belongs_to :user
 
 
@@ -30,3 +31,4 @@ class NotaProgreso < ActiveRecord::Base
 
 
 end
+

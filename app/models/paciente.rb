@@ -32,7 +32,7 @@ class Paciente < ActiveRecord::Base
   belongs_to :user
   has_many :historias_clinicas
    has_many :progress_notes
-
+ has_many :historia_fisicas, dependent: :destroy
   # accepts_nested_attributes_for :ciudad, :reject_if => lambda {|a| a[:nombre].blank?}
 
   validates :primer_nombre, :presence => { :message => " es un Campo Obligatorio"}

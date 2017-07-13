@@ -153,6 +153,8 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     gmaps4rails (2.1.2)
+    googledocviewer (1.7.5)
+      jquery-rails
     guard-compat (1.2.1)
     guard-minitest (2.4.4)
       guard-compat (~> 1.2)
@@ -404,6 +406,7 @@ DEPENDENCIES
   delayed_job_active_record
   geocoder
   gmaps4rails
+  googledocviewer
   guard-minitest
   jasny-bootstrap-rails
   jasny_bootstrap_extension_rails
@@ -452,4 +455,4 @@ DEPENDENCIES
   wkhtmltopdf-binary-edge (~> 0.12.2.1)
 
 BUNDLED WITH
-   1.10.6
+   1.12.4

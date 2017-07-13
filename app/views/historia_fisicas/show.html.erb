@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @historia_fisica.user_id %>
+</p>
+
+<p>
+  <strong>Paciente:</strong>
+  <%= @historia_fisica.paciente_id %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @historia_fisica.descripcion %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @historia_fisica.tipo %>
+</p>
+
+<p>
+  <strong>Adjunto:</strong>
+  <%= @historia_fisica.adjunto %>
+</p>
+
+<%= link_to 'Edit', edit_historia_fisica_path(@historia_fisica) %> |
+<%= link_to 'Back', historia_fisicas_path %>

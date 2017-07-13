@@ -6,7 +6,10 @@ class NotasProgresoController < ApplicationController
     # Normally you'd have more complex requirements about
     # when not to show rows, but we don't show any records that don't have a name
     @notas_progreso = @historia_clinica.notas_progreso.search(params[:search]).page(params[:page]).per_page(20)
+
   end
+
+
 
   def show
   end
@@ -58,6 +61,7 @@ class NotasProgresoController < ApplicationController
   private
     def set_nota_progreso
       @historia_clinica = HistoriaClinica.find(params[:historia_clinica_id])
+      
       @paciente = Paciente.find(params[:paciente_id])
       @nota_progreso = NotaProgreso.find(params[:id]) if params[:id]
     end

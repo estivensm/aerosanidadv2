@@ -17,6 +17,7 @@
 
     <span  class="btn btn-link btn-xs pull-right" style="margin-top: 18px;">
       <%= link_to 'Nueva Historia Clinica', new_paciente_historia_clinica_path(@paciente), :class =>"btn btn-info color_blanco " %></span>
+     
 
     <% end %>
 
@@ -57,10 +58,10 @@
 
       <tr class="header x1">
         <th  width="4% !important;">Id</th>
-        <th  width="20% !important;">Nombres y Apellidos</th>
-        <th  width="10% !important;">Identificación</th>
+        <th  width="15% !important;">Nombres y Apellidos</th>
+        <th  width="5% !important;">Identificación</th>
         <th  width="10% !important;">Fecha y Hora</th>
-        <th  width="10% !important;">Opciones</th>
+        <th  width="15% !important;">Opciones</th>
       </tr>
 
       <% @historias_clinicas.each do |historia_clinica| %>
@@ -94,6 +95,9 @@ color: #666;
           <%= link_to paciente_historia_clinica_path(@paciente,historia_clinica), class: "btn btn-link btn-xs", title: "Ver Historia Clinica" do %> <i class="glyphicon glyphicon-eye-open icono"></i>
           <% end %>
 
+        
+
+
           <% if historia_clinica.e_estado_historia_clinica != true %>
           <% if current_user.rol_id != 3 %>
           <%= link_to paciente_historia_clinica_steps_path(@paciente, historia_clinica, HistoriaClinica.form_steps.first), class: "btn btn-link btn-xs", title: "Editar Historia Clinica" do %> <i class="glyphicon glyphicon-pencil icono"></i>
@@ -101,11 +105,16 @@ color: #666;
           <% end %>
           <% end %>
 
-          <%= link_to 'Ver Notas de Evolución(' + historia_clinica.notas_progreso.count.to_s + ')' , paciente_historia_clinica_notas_progreso_path(@paciente, historia_clinica), :class =>'btn btn-link btn-xs ver_notas' %></td>
+          <%= link_to 'Notas de Evolución(' + historia_clinica.notas_progreso.count.to_s + ')' , paciente_historia_clinica_notas_progreso_path(@paciente, historia_clinica), :class =>'btn btn-link btn-xs ver_notas' %>
+
+          <%= link_to 'Adjuntos(' + historia_clinica.historia_fisicas.count.to_s + ')' , paciente_historia_clinica_historia_fisicas_path(@paciente, historia_clinica), :class =>'btn btn-link btn-xs ver_notas' %></td>
 
       </tr>
 
-      <% end %></table>
+      <% end %>
+       
+
+      </table>
 
     <style type="text/css">
 

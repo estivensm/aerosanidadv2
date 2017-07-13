@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   
   has_many :notas_progreso, dependent: :destroy
   has_many :historias_clinicas, dependent: :destroy
+  has_many :historia_fisicas, dependent: :destroy
   has_many :procedimientos_medicos_y_de_enfermeria
 
   before_save { self.email = email.downcase }

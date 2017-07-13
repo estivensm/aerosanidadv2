@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721163910) do
+ActiveRecord::Schema.define(version: 20170713013151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,17 @@ ActiveRecord::Schema.define(version: 20160721163910) do
     t.string   "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "historia_fisicas", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "paciente_id"
+    t.text     "descripcion"
+    t.string   "tipo"
+    t.string   "adjunto"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "historia_clinica_id"
   end
 
   create_table "historias_clinicas", force: :cascade do |t|
@@ -261,8 +272,14 @@ ActiveRecord::Schema.define(version: 20160721163910) do
     t.boolean  "s3_validation"
     t.boolean  "s4_validation"
     t.boolean  "s5_validation"
-    t.integer  "diagnostico_id"
     t.string   "post_operatorios_varios"
+    t.string   "a_direccion_acompanante"
+    t.string   "a_documento_acompanante"
+    t.string   "a_nombre_responsable"
+    t.string   "a_parentesco_responsable"
+    t.string   "a_telefono_responsable"
+    t.string   "a_direccion_responsable"
+    t.string   "a_documento_responsable"
   end
 
   add_index "historias_clinicas", ["aeropuerto_id"], name: "index_historias_clinicas_on_aeropuerto_id", using: :btree
@@ -334,6 +351,7 @@ ActiveRecord::Schema.define(version: 20160721163910) do
     t.datetime "updated_at",                              null: false
     t.string   "procedimientos_medicos_y_de_enfermeria2"
     t.string   "cantidad_procedimientos"
+    t.integer  "historia_fisica_id"
   end
 
   add_index "notas_progreso", ["historia_clinica_id"], name: "index_notas_progreso_on_historia_clinica_id", using: :btree

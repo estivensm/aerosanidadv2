@@ -820,6 +820,11 @@ function edValueKeyPress()
 												<%= f.label "No se otorga aptitud de vuelo" %></td>
 											<td>
 												<%= f.radio_button(:e_estado_paciente, "No se otorga aptitud de vuelo" , class: "calc")%></td>
+											<td  colspan="1" style = " text-align:right;">
+												<%= f.label "El paciente se niega a recibir atención medica, traslado o tratemientos especificos
+" %></td>	
+												<td>
+												<%= f.radio_button(:e_estado_paciente, "El paciente se niega a recibir atención medica, traslado o tratemientos especificos" , class: "calc")%></td>
 
 										</tr>
 

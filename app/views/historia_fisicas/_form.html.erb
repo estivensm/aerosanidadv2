@@ -1,0 +1,83 @@
+
+
+<div class="container-fluid">
+  <div id="loginbox" class="mainbox col-md-11 col-sm-11">
+    <div class="container-fluid navbar navbar-default" style = "margin-bottom:0px!important">
+      <div class="row">
+        <%= simple_form_for([@paciente ,@historia_clinica, @historia_fisica]) do |f| %>
+          <% if @historia_fisica.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@@historia_fisica.errors.count, "error") %> prohibited this pet from being saved:</h2>
+
+              <ul>
+              <% @historia_fisica.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="container-fluid"  style="margin: 10px;">
+            <br/><br/>
+
+            <%= link_to "Regresar", paciente_historias_clinicas_path, :class=>"btn btn-info color_blanco mrg" %>
+            <h3 style = "color: #22BDC8;">Historia Clinica Fisica</h3>
+            <div class="row">
+              <div class="container-fluid">
+                <table class="table">
+                  <thead>
+                    <tr>
+                     <th width="30%">Tipo:</th>
+                        <th width="30%">Descripción:</th>
+                        <th width="30%">Adjuntar Anexo:</th>
+                        
+                       
+                    </tr> 
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <%= f.hidden_field :user_id, :value => current_user.id %>
+                        <%= f.hidden_field :paciente_id, :value => @paciente.id %>
+                        <%= f.hidden_field :historia_clinica_id, :value => @historia_clinica.id %>
+                 <td>
+                     <%= f.select :tipo, [ 'Historia Clinica Fisica', 'Nota de Evolucion', 'Aptitud de Vuelo'], {},  {class: "form-control required", id: "myselect", title: "Campo Obligatorio"} %>
+</td>
+                      <td>
+                        <%= f.text_area :descripcion, class: "form-control" %>
+                      </td>
+                      <td> 
+                        <%= f.file_field :adjunto, class: "form-control" %>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+
+
+
+
+              
+
+                <style>
+                  thead tr th {
+                    font-size: 15px;
+                  }
+
+                </style>
+
+
+                <div class="well pie_form">
+                  <div class="form-actions"  style = "text-align:center!important">
+                    <%= f.submit "Guardar", :class => 'btn btn btn-info  custom' %>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>      
