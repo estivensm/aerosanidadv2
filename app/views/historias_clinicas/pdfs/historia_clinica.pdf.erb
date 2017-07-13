@@ -1452,6 +1452,21 @@
                     </table>
 
                       <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
+ <tr>
+                        <td style = "width:100%" colspan="2">
+                <%if @historia_clinica.e_estado_paciente == "El paciente se niega a recibir atención medica, traslado o tratemientos especificos" %>
+                Me niego a recibir atención médica, traslado o tratamientos especificos siendo informado de las consecuencias que esto pueda generar en mi estado  de salud o de mi familia:
+                <%else%>
+
+Por todo lo anterior acepto y asumo como paciente:
+
+
+
+                <%end%>
+
+                        </td>
+                      </tr>
+
 
                       <tr>
                         <td style = "width:100%" colspan="2">
