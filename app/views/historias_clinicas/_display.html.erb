@@ -107,7 +107,10 @@ color: #666;
 
           <%= link_to 'Notas de Evolución(' + historia_clinica.notas_progreso.count.to_s + ')' , paciente_historia_clinica_notas_progreso_path(@paciente, historia_clinica), :class =>'btn btn-link btn-xs ver_notas' %>
 
-          <%= link_to 'Anexos(' + historia_clinica.historia_fisicas.count.to_s + ')' , paciente_historia_clinica_historia_fisicas_path(@paciente, historia_clinica), :class =>'btn btn-link btn-xs ver_notas' %></td>
+          <%= link_to 'Anexos(' + historia_clinica.historia_fisicas.count.to_s + ')' , paciente_historia_clinica_historia_fisicas_path(@paciente, historia_clinica), :class =>'btn btn-link btn-xs ver_notas' %>
+           
+
+          </td>
 
       </tr>
 
