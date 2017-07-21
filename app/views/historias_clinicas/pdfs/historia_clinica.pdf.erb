@@ -1165,7 +1165,7 @@
                           <th  style="width:8%;">Codigo</th>
                           <th  colspan="2"  style="width:50%;">Descripción</th>
                         </tr>
-                        <%  unless @diagnosticos.blank? %>
+                       <% if @historia_clinica.cie10 %>
 
                        
                         <tr>
@@ -1211,7 +1211,7 @@
                         <tr>
                           <th  style="width:42%;">Familia</th>
                           <th  style="width:8%;">Codigo</th>
-                          <th  colspan="2"  style="width:50%;">Descripción></th>
+                          <th  colspan="2"  style="width:50%;">Descripción</th>
                         </tr>
 
            
