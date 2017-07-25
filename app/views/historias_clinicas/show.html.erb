@@ -1209,6 +1209,85 @@
       
       <br/>
 
+         <div class="widget-content">
+        <table class="flatTable">
+          <tbody>
+            <tr class="titleTr">
+              <td class="titleTd"> XII. CONSENTIMIENTO INFORMADO</td>
+              <td colspan="2"></td>
+            </tr>
+
+            <tr>
+                        <td colspan="2" style = "padding:20px;">
+                          Por medio del presente documento, yo <b><u><%= @historia_clinica.p_primer_nombre.capitalize %>
+                              <%= @historia_clinica.p_segundo_nombre.capitalize %>
+                              <%= @historia_clinica.p_primer_apellido.capitalize %>
+                              <%= @historia_clinica.p_segundo_apellido.capitalize %></u></b> 
+                          con documento de identificación tipo <b><u><%= @historia_clinica.p_tipo_documento %></u></b> 
+                          número
+                          <b>
+                            <u>
+                              <%= @historia_clinica.p_documento %></u>
+                          </b>
+                          , certifico que he recibido y entendido toda la información coorespondiente al diagnóstico, al tratamiento y medidas adicionales que se derivan de la atención recibida en materia de salud por parte del Médico tratante de AEROSANIDAD SAS y/o su equipo de trabajo. Acepto y entiendo que el tratamiento(s) recibido(s) puede(n) ocasionar efectos adversos no predecibles por el personal de salud que intervienen en mi proceso de atención y que he sido informado de esta situación y que en ningún momento tomaré medidas legales en contra de AEROSANIDAD DAD o sus empleados por cuanto entiendo y acepto que no obra de mala fe.
+                        </td>
+                      </tr>
+
+ <td style = "width:100%;padding:20px;" colspan="2">
+                <%if @historia_clinica.e_estado_paciente == "El paciente se niega a recibir atención medica, traslado o tratemientos especificos" %>
+                Me niego a recibir atención médica, traslado o tratamientos especificos siendo informado de las consecuencias que esto pueda generar en mi estado  de salud o de mi familia:
+                <%else%>
+
+Por todo lo anterior acepto y asumo como paciente:
+
+
+
+                <%end%>
+
+                        </td>
+                      </tr>
+
+
+                      <tr>
+                        <td style = "width:100%;padding:20px;" colspan="2">
+                          <span style = "font-size:12px;border-bottom:1px solid gray"><%=  @historia_clinica.user.nombres %> 
+                          <%=  @historia_clinica.user.apellidos %></span>  <br>              
+Firma médico Aerosanidad SAS<br>
+<strong>Registro médico:</strong> <%=@historia_clinica.user.registro_medico%><br>
+La firma digital aqui consignada, representa al usuario medico en el software de historias clínicas electrónicas de Aerosanidd SAS.
+
+                        </td>
+                         </tr>
+                          <tr>
+                        <td style = "width:50%;padding:20px;">
+                          <span style = "font-size:12px;border-bottom:1px solid gray">
+                          <%=  @historia_clinica.p_primer_nombre %>
+                          <%=  @historia_clinica.p_segundo_nombre %>
+                          <%=  @historia_clinica.p_primer_apellido %>
+                          <%=  @historia_clinica.p_segundo_apellido %>  
+                          </span>  <br>           
+Firma de paciente <br>
+
+Documento de identidad: <%=%>
+                        </td>
+                        <td style = "width:50%;padding:20px;">
+                          <span style = "font-size:12px;border-bottom:1px solid gray"><%=  @historia_clinica.a_nombre_responsable %> 
+                   </span>       <br>       
+Firma de Responsable<br>
+Documento de identidad: <%=%>
+                        </td>
+                      </tr>
+
+
+
+
+           
+          </tbody>
+        </table>
+      </div> 
+      
+      <br/>
+
       <div class="widget-content">
         <table class="flatTable">
           <tbody>

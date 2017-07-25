@@ -46,7 +46,9 @@
                         <%= f.text_area :descripcion, class: "form-control" %>
                       </td>
                       <td> 
-                        <%= f.file_field :adjunto, class: "form-control" %>
+                      <label class = "l_required" style = "display:none;color:red">campo requerido</label>
+                     
+                        <%= f.file_field :adjunto, class: "form-control file", required:"required" %>
                       </td>
 
                     </tr>
@@ -68,7 +70,7 @@
 
                 <div class="well pie_form">
                   <div class="form-actions"  style = "text-align:center!important">
-                    <%= f.submit "Guardar", :class => 'btn btn btn-info  custom' %>
+                    <%= f.submit "Guardar", :class => 'btn btn btn-info  custom button' %>
                   </div>
                 </div>
 
@@ -81,3 +83,51 @@
     </div>
   </div>
 </div>      
+
+<script>
+   var form = document.querySelector('form');
+  form.addEventListener( 'invalid',function(event){
+        event.preventDefault();
+  },true);
+
+
+var button = form.querySelector('.button');
+  button.addEventListener('click', function(){
+console.log("hoaaaq");
+$('.l_required').show();
+$('.file').css("border","1px solid red");
+    // Seleccionamos todos los errores existentes
+   
+    // Código para eliminar antiguos mensajes.
+  });
+
+
+
+
+</script>
+
+<style>
+
+.error {
+  position: relative;
+  z-index: 1;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  width: 235px;
+  text-align: center; 
+  font-size: 12px;
+  background: RGB(194, 46, 79);
+}
+
+.error::after {
+    content: 'HOLA';
+    border-bottom: 15px solid RGB(194, 46, 79);
+    border-right: 15px solid transparent;
+    border-left: 15px solid transparent;
+    position: absolute;
+    left: 45%;
+    top: -14px;
+}
+  
+</style>

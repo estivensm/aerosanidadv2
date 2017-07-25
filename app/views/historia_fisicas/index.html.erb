@@ -65,7 +65,7 @@
             <td>
               <%= historia_fisica.descripcion %></td>
                <td>
-               <%= historia_fisica.adjunto.file.filename %></td>
+               <%= historia_fisica.adjunto.file.filename if historia_fisica.adjunto? %></td>
               <td>
               
               <%= link_to "(Descargar)", historia_fisica.adjunto.url, style: "color:#828282" %> <a class="linka" href="https://docs.google.com/viewerng/viewer?url=http://aerosanidadvirtual.com<%=historia_fisica.adjunto_url%>" >(Ver )</a></td>
