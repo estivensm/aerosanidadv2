@@ -54,6 +54,49 @@
       </table>
 
     </div>
+
+
+<table class="table">
+  
+    <tr>
+      <th>Aeropuerto</th>
+      <th>Enero</th>
+      <th>Febrero</th>
+      <th>Marzo</th>
+      <th>Abril</th>
+      <th>Mayo</th>
+      <th>Junio</th>
+      <th>Julio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [196, 271, 309, 207, 184, 280, 217, 318, 308, 343, 221, 197, 191].each do |aero|%>
+    <tr>
+       <th><%= Aeropuerto.find(aero).nombre%></th>
+      <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @enero1).where("created_at <= ?", @enero2).count%></th>
+      <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @febrero1).where("created_at <= ?", @febrero2).count%></th>
+      <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @marzo1).where("created_at <= ?", @marzo2).count%></th>
+      <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @abril1).where("created_at <= ?", @abril2).count%></th>
+      <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?",@mayo1).where("created_at <= ?", @mayo2).count%></th>
+      <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @junio1).where("created_at <= ?", @junio2).count%></th>
+      <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @julio1).where("created_at <= ?", @julio2).count%></th>
+      
+    </tr>
+
+
+
+    <%end%>
+   
+       <tr>
+       <th>Total 2017</th>
+      <th><%= HistoriaClinica.where("created_at >= ?", @enero1).where("created_at <= ?", @julio2).count%></th>
+    
+      
+    </tr>
+  </tbody>
+</table>
+
+
 <style>
   .x td{
     padding: 5px 10px !important;
