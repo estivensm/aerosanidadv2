@@ -24,7 +24,6 @@ def index
 @julio1 = Date.new(2017,7,1)
 @julio2 = Date.new(2017,7,31)
 
- @hola = "hashadfadlñañfjdkl"
 
 
 

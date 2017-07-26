@@ -57,7 +57,12 @@
 
 
 <table class="table">
-  
+  <tr>
+       <th>Total 2017</th>
+      <th><%= HistoriaClinica.where("created_at >= ?", @enero1).where("created_at <= ?", @julio2).count%></th>
+    
+      
+    </tr>
     <tr>
       <th>Aeropuerto</th>
       <th>Enero</th>
@@ -87,12 +92,7 @@
 
     <%end%>
    
-       <tr>
-       <th>Total 2017</th>
-      <th><%= HistoriaClinica.where("created_at >= ?", @enero1).where("created_at <= ?", @julio2).count%></th>
-    
-      
-    </tr>
+       
   </tbody>
 </table>
 
