@@ -34,6 +34,13 @@ class PacientesController < ApplicationController
     end
   end
 
+
+  def get_pacientes
+
+    render :text => Paciente.where(documento: params[:cedula]).count
+
+  end  
+
   def update
 
     respond_to do |format|

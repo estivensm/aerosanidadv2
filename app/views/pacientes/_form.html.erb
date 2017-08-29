@@ -63,6 +63,9 @@ $(document).ready(function() {
     } 
 
   }); // end validate 
+
+
+
 }); // end ready
 </script>
 
@@ -167,6 +170,9 @@ function edValueKeyPress()
 
 
 }
+
+
+
 </script>
 
 				<div class="row sir">
@@ -191,7 +197,7 @@ function edValueKeyPress()
 					<div class="col-md-4">
 						<label class="label"><b>Documento</b></label>
 						<div class="form-group">
-							<%= f.text_field :documento, class: "form-control required",  id: 'document', :title =>"Es un Campo Obligatorio"  %></div>
+							<%= f.text_field :documento, class: "form-control required doc12",  id: 'document', :title =>"Es un Campo Obligatorio"  %></div>
 					</div>
 
 					<div class="col-md-6 sir">
@@ -268,6 +274,27 @@ $(function() {
     height: '0px'
   });
 });
+
+$('#document').change(function(){
+var doc = $('#document').val();
+
+$.ajax({
+  url: "/get_pacientes/" + doc
+}).done(function(html) {
+
+num = Number(html);
+if (num > 0 )
+{
+	alert("Ya existe un paciente con Documento " + doc )
+	$('#document').val("");
+}
+
+});
+
+
+
+});
+
 
 </script>
 
