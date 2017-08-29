@@ -27,6 +27,9 @@ PetThing::Application.routes.draw do
 
   get "reportes", :to => "pages#reportes"
 
+  
+  get "get_pacientes/:cedula", to: "pacientes#get_pacientes", as: "get_pacientes"
+
   resources :paises
   resources :cie10s , :defaults => { :format => :json }
 
