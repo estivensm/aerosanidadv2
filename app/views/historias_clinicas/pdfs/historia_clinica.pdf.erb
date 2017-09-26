@@ -284,37 +284,37 @@
                       </tr>
 
                       <tr role="row">
-                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">Nacionalidad:</th>
-
-                        <td class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">
-                          <%= @historia_clinica.p_nacionalidad %></td>
-
-                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">Ciudad:</th>
-
-                        <td class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">
-                          <%= @historia_clinica.p_ciudad %></td>
-
-                      </tr>
-
-                      <tr>
-
-                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">Dirección</th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">Direccion Domicilio:</th>
 
                         <td class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">
                           <%= @historia_clinica.p_direccion %></td>
 
-                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">Fecha de nacimiento:</th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">Pais / Ciudad (Domicilio): </th>
 
                         <td class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">
-                          <%= @historia_clinica.p_fecha_nacimiento.strftime("%d-%m-%Y") %></td>
+                          <%= @historia_clinica.p_nacionalidad %> / <%= @historia_clinica.p_ciudad %>  </td>
 
                       </tr>
 
-                      <tr>
-                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">Edad:</th>
+                      <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">Direccion Residencia:</th>
 
                         <td class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">
-                          <%= @historia_clinica.p_edad %>
+                          <%= @historia_clinica.direccion_residencia %></td>
+
+                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">Pais / Ciudad (Residencia): </th>
+
+                        <td class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">
+                          <%= @historia_clinica.pais_residencia %> / <%= @historia_clinica.ciudad_residencia %>  </td>
+
+                      </tr>
+
+               
+                      <tr>
+                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">Fecha de Nacimiento / Edad:</th>
+
+                        <td class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">
+                          <%= @historia_clinica.p_fecha_nacimiento.strftime("%d-%m-%Y") %> / <%= @historia_clinica.p_edad %>
                           <%= @historia_clinica.p_tipo_edad %></td>
 
                         <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 158px;">Condición:</th>

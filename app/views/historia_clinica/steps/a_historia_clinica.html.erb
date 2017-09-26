@@ -723,11 +723,54 @@ var eps = document.getElementById("eps_auto");
     $('#movil').val('N/A');
   }
 
-
-
+ var direccionr = document.getElementById("direccion_residencia");
+  var s = direccionr.value;
+  if (s == '.'){
+    $('#direccion_residencia').val('N/A');
+  }
 
 }
 </script>
+<br>
+<div class="row">
+ <div class="col-md-12">
+           <strong>Direccion de Residencia</strong> Lugar de paso ejemplo: Hotel
+
+          </div>
+          </div>
+<br/>
+    <div class="row">
+
+          <div class="col-md-3">
+              <label>Direccion:</label>
+                <%= f.input :direccion_residencia,  :input_html => { :class => 'form-control required', id: "direccion_residencia", title: "Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" } , placeholder: 'Campo Obligatorio', label: false  %>
+          </div>
+          <div class="col-md-3">
+              <label>Ciudad:</label>
+                
+                
+                <%= f.autocomplete_field :ciudad_residencia, autocomplete_ciudad_nombre_ciudades_path, class: 'form-control required', placeholder: "Campo Obligatorio" %>
+                </div>
+
+
+<div class="col-md-3">
+              <label>Pais:</label>
+              
+
+
+<%= f.select :pais_residencia, Pais.order('nombre ASC').collect { |u| ["#{u.nombre}", u.nombre] }, { :include_blank => 'Selecciona un pais'},  { class: 'chosen-select2 form-control required', id: "pais_residencia" } %>
+
+
+
+
+
+
+          </div>
+
+         
+
+
+        </div>
   <br/>
 
 <div class="row">

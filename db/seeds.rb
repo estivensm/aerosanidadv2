@@ -1,4 +1,4 @@
-Cie102.create!([
+Cie10.create!([
   {familia: "Enfermedades infecciosas y parasitarias.", codigo: "A000", descripcion: "COLERA DEBIDO A VIBRIO CHOLERAE O1, BIOTIPO CHOLERAE"},
   {familia: "Enfermedades infecciosas y parasitarias.", codigo: "A001", descripcion: "COLERA DEBIDO A VIBRIO CHOLERAE O1, BIOTIPO EL TOR"},
   {familia: "Enfermedades infecciosas y parasitarias.", codigo: "A009", descripcion: "COLERA NO ESPECIFICADO"},
@@ -115,5 +115,5 @@ Cie102.create!([
   {familia: "Enfermedades infecciosas y parasitarias.", codigo: "A222", descripcion: "CARBUNCO GASTROINTESTINAL"},
   {familia: "Enfermedades infecciosas y parasitarias.", codigo: "A227", descripcion: "CARBUNCO SEPTICEMICO"},
   {familia: "Neoplasias", codigo: "C12X", descripcion: "TUMOR MALIGNO DEL SENO PIRIFORME"},
-  {familia: "Enfermedades infecciosas y parasitarias.", codigo: "A229", descripcion: "CARBUNCO, NO ESPECIFICADO"},
+  {familia: "Enfermedades infecciosas y parasitarias.", codigo: "A229", descripcion: "CARBUNCO, NO ESPECIFICADO"}])
 

@@ -240,25 +240,27 @@ function edValueKeyPress()
 				</div>
 
 				<div class="row sir">
-
-					<div class="col-md-4">
-						<label class="label"><b>Profesion</b></label>
-						<div class="form-group">
-
-							<%= f.text_field :profesion, class: "form-control required",  id: 'profesion', :title =>
-							"Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" %>
-						</div>
-					</div>
-
-					<div class="col-md-4">
+<p style = "margin-left:20px;font-weight:bold; font-size:13px;" >Informacion de Domicilio (Lugar donde vive)</p>
+	<div class="col-md-4">
 						<label class="label"><b>Direccion</b></label>
 						<div class="form-group">
 							<%= f.text_field :direccion, class: 'form-control fontf required', :title =>"Es un Campo Obligatorio" %></div>
 					</div>
+                            
+                 					<div class="col-md-4">
+						<label class="label"><b>Ciudad</b></label>
+						<div class="form-group aa">
+
+							<%= f.autocomplete_field :ciudad, autocomplete_ciudad_nombre_ciudades_path, class: 'form-control required', title: "Campo Obligatorio" %></div>
+					</div>   
+
+
+
+				
 
 					<div class="col-md-4">
 						<div class="form-group">
-							<label class="label"><b>Nacionalidad</b></label>
+							<label class="label"><b>Pais</b></label>
 
 							<%= f.select :nacionalidad, Pais.order('nombre ASC').collect { |u| ["#{u.nombre}", u.nombre] }, { include_blank: true },  { class: 'chosen-select required', :date =>
 							{:placeholder => 'Choose a Country...'} } %>
@@ -302,11 +304,14 @@ if (num > 0 )
 
 				<div class="row sir">
 
-					<div class="col-md-4">
-						<label class="label"><b>Ciudad</b></label>
-						<div class="form-group aa">
 
-							<%= f.autocomplete_field :ciudad, autocomplete_ciudad_nombre_ciudades_path, class: 'form-control required', title: "Campo Obligatorio" %></div>
+					<div class="col-md-4">
+						<label class="label"><b>Profesion</b></label>
+						<div class="form-group">
+
+							<%= f.text_field :profesion, class: "form-control required",  id: 'profesion', :title =>
+							"Es un Campo Obligatorio", :onkeypress => "edValueKeyPress()", :onkeyup => "edValueKeyPress()" %>
+						</div>
 					</div>
 
 				</div>

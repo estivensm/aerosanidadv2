@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713013151) do
+ActiveRecord::Schema.define(version: 20170926151705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -280,6 +280,9 @@ ActiveRecord::Schema.define(version: 20170713013151) do
     t.string   "a_telefono_responsable"
     t.string   "a_direccion_responsable"
     t.string   "a_documento_responsable"
+    t.string   "direccion_residencia"
+    t.string   "ciudad_residencia"
+    t.string   "pais_residencia"
   end
 
   add_index "historias_clinicas", ["aeropuerto_id"], name: "index_historias_clinicas_on_aeropuerto_id", using: :btree

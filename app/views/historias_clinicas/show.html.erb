@@ -422,34 +422,44 @@
                         </td>
                       </tr>
 
-                      <tr role="row">
-                        <td><b>Nacionalidad:</b></td>
-                        <td>
-                          <%= @historia_clinica.p_nacionalidad %>
-                        </td>
-                        <td><b>Ciudad:</b></td>
-                        <td>
-                          <%= @historia_clinica.p_ciudad %>
-                        </td>
-                      </tr>
 
-                      <tr>
-                        <td><b>Dirección</b></td>
+                      
+                      <tr role="row">
+
+                      <td><b>Dirección de Domicilo</b></td>
                         <td>
                           <%= @historia_clinica.p_direccion %>
                         </td>
-                        <td><b>Fecha de nacimiento:</b></td>
+                     
+                        <td><b>Pais / Ciudad (Domicilio):</b></td>
                         <td>
-                          <%= @historia_clinica.p_fecha_nacimiento.strftime("%d-%m-%Y") %>
+                          <%= @historia_clinica.p_nacionalidad %> / <%= @historia_clinica.p_ciudad %>
                         </td>
                       </tr>
 
-                      <tr class="gradeA odd" role="row">
-                        <td class="sorting_1"><b>Condición:</b></td>
-                        <td><%=  @historia_clinica.a_condicion %></td>
-                        <td class="sorting_1"><b>Edad:</b></td>
-                        <td><%= @historia_clinica.p_edad %> <%= @historia_clinica.p_tipo_edad %></td>
+                      <tr role="row">
+                      <td><b>Dirección de Residencia</b></td>
+                        <td>
+                          <%= @historia_clinica.direccion_residencia %>
+                        </td>
+                     
+                        <td><b>Pais / Ciudad (Residencia):</b></td>
+                        <td>
+                          <%= @historia_clinica.pais_residencia %> / <%= @historia_clinica.ciudad_residencia %>
+                        </td>
                       </tr>
+
+
+                      <tr>
+                      <td ><b>Condición:</b></td>
+                        <td><%=  @historia_clinica.a_condicion %></td>
+                        <td><b>Fecha de nacimiento / Edad:</b></td>
+                        <td>
+                          <%= @historia_clinica.p_fecha_nacimiento.strftime("%d-%m-%Y") %> / <%= @historia_clinica.p_edad %> <%= @historia_clinica.p_tipo_edad %>
+                        </td>
+                      </tr>
+
+                    
 
                       <tr class="gradeA odd" role="row">
                         <td class="sorting_1"><b> Acompañante:</b></td>
