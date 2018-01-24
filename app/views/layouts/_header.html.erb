@@ -121,13 +121,15 @@
                   Pacientes
                   <% end %>
                </li>
-               <% if current_user.rol_id == 1 %>
+               <% end %>
+               <% if current_user.rol_id == 1 || current_user.rol.nombre == "Dashboard" %>
                <li class="color-negro">
                   <%= link_to  info_link_path, class: "color-negro", method: :get  do %>
                   <i class="fa fa-fw fa-bar-chart"></i>
                   Informes
                   <% end %>
                </li>
+                <%if current_user.rol.nombre != "Dashboard"%>
                <li>
                   <%= link_to  reportes_path, class: "color-negro" do %>
                   <i class="fa fa-file-text" aria-hidden="true"></i> 

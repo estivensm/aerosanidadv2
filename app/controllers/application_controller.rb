@@ -9,17 +9,27 @@ class ApplicationController < ActionController::Base
   helper_method :admin?
 
 
+
   protected
   # Permisos Admin
   def admin?
-    if current_user && current_user.rol_id === 1
+    if current_user && current_user.rol_id === 1 
      flash[:notice] = "Bienvenido #{current_user.email}"
     end
   end
 
 
+  
+  def admin_dash?
+    if current_user.rol.nombre == "Dashboard"
+     flash[:notice] = "Bienvenido #{current_user.email}"
+    end
+  end
+
+
+
   def authorize
-    unless admin?
+    unless admin? || admin_dash?
       flash[:error] = "Acceso no Permitido"
       redirect_to root_path
       false
