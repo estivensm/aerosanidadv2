@@ -63,13 +63,14 @@
          <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                <li class="active">
-                  <% if current_user.rol_id == 1 %>
+                  <% if current_user.rol_id == 1 || current_user.rol.nombre == "Dashboard"%>
                   <%= link_to  graficas_path, class: "color-negro" do %>
                   <i class="fa fa-fw fa-home"></i>
                   Dashboard
                   <% end %>
                   <% end %>
                </li>
+               <%if current_user.rol.nombre != "Dashboard"%>
                <li>
                   <%= link_to  root_path, class: "color-negro" do %>
                   <i class="fa fa-fw fa-home"></i>
@@ -147,6 +148,7 @@
                   <% end %>
                </li>
                <% end %>
+               <%end%>
                <% end %>
                <li class="my-logo">
                   <%= link_to image_tag('Logo/logo.png',:size =>"140x70", :class =>"ember-view"), root_path %>
