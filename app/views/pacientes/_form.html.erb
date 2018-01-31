@@ -262,7 +262,7 @@ function edValueKeyPress()
 						<div class="form-group">
 							<label class="label"><b>Pais</b></label>
 
-							<%= f.select :nacionalidad, Pais.order('nombre ASC').collect { |u| ["#{u.nombre}", u.nombre] }, { include_blank: true },  { class: 'chosen-select', :date =>
+							<%= f.select :nacionalidad, Pais.order('nombre ASC').collect { |u| ["#{u.nombre}", u.nombre] }, { include_blank: true },  { class: '', :date =>
 							{:placeholder => 'Choose a Country...'} } %>
 							<%= f.hidden_field :user_id, :value =>current_user.id %></div>
 					</div>
