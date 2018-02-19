@@ -9,20 +9,20 @@ def index
   
 @elements = [196, 271, 309, 207, 184, 280, 217, 318, 308, 343, 221, 197, 191]
 
-@enero1 = Date.new(2017,1,1)
-@enero2 = Date.new(2017,1,31)
-@febrero1 = Date.new(2017,2,1)
-@febrero2 = Date.new(2017,2,28)
-@marzo1 = Date.new(2017,3,1)
-@marzo2 = Date.new(2017,3,31)
-@abril1 = Date.new(2017,4,1)
-@abril2 = Date.new(2017,4,30)
-@mayo1 = Date.new(2017,5,1)
-@mayo2 = Date.new(2017,5,31)
-@junio1 = Date.new(2017,6,1)
-@junio2 = Date.new(2017,6,30)
-@julio1 = Date.new(2017,7,1)
-@julio2 = Date.new(2017,7,31)
+@enero1 = Date.new(2018,1,1)
+@enero2 = Date.new(2018,1,31)
+@febrero1 = Date.new(2018,2,1)
+@febrero2 = Date.new(2018,2,28)
+@marzo1 = Date.new(2018,3,1)
+@marzo2 = Date.new(2018,3,31)
+@abril1 = Date.new(2018,4,1)
+@abril2 = Date.new(2018,4,30)
+@mayo1 = Date.new(2018,5,1)
+@mayo2 = Date.new(2018,5,31)
+@junio1 = Date.new(2018,6,1)
+@junio2 = Date.new(2018,6,30)
+@julio1 = Date.new(2018,7,1)
+@julio2 = Date.new(2018,7,31)
 
 
 
