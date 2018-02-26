@@ -2,6 +2,7 @@ class InformesController < ApplicationController
   before_action :authorize
 
   def index
+    @aeropuertos = Aeropuerto.where(state: true)
   end
 
   def show
