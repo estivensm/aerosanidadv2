@@ -5,9 +5,12 @@ class AeropuertosController < ApplicationController
 
 def index
      @aeropuertos = Aeropuerto.search(params[:search]).page(params[:page]).all
-     @aeropuertos = Aeropuerto.where("id = ? OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?", 196, 271, 309, 207, 184, 280, 217, 318, 308, 343, 221, 197, 191)
-  
-@elements = [196, 271, 309, 207, 184, 280, 217, 318, 308, 343, 221, 197, 191]
+
+@elements = Aeropuerto.where(state:true).ids
+     @aeropuertos = Aeropuerto.where("id = ? OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?", 196, 271, 309, 207, 184, 280, 217, 318, 308, 343, 221, 197, 191,1099)
+
+
+
 
 @enero1 = Date.new(2018,1,1)
 @enero2 = Date.new(2018,1,31)

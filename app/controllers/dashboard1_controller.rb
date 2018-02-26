@@ -8,7 +8,7 @@ class Dashboard1Controller < ApplicationController
 
 
   @aeropuerto_activo = Aeropuerto.where(state:true).ids
-  puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
   puts @aeropuerto_activo   
   @nombre_aeropuerto = HistoriaClinica.joins(:aeropuerto)
   .group("aeropuertos.nombre")
@@ -40,3 +40,5 @@ class Dashboard1Controller < ApplicationController
 
   end
 end
+
+
