@@ -193,7 +193,7 @@
           <th  style="width:30%; text-align: center; margin-top: 37px; position: absolute; margin-left: 420px;">
             FECHA:
             <% t = Time.now %>
-            <%= t.strftime "%d-%m-%Y" %></th>
+            <%= t.strftime "%d-%m-%Y" %> PERIODO <%= @Mensuales "%d-%m-%Y" %> - <%= @Mensuales2 "%d-%m-%Y" %></th>
         </tr>
         <tr>
           <th  style="width:40%; text-align: center; position: absolute; margin-left: 390px; margin-top: 55px;"> <b>PACIENTES ATENDIDOS:</b>

@@ -68,6 +68,8 @@ end
 
     $varMensuales = params[:searchbox3]
     $varMensuales2 = params[:searchbox33]
+    @Mensuales = params[:searchbox3]
+    @Mensuales2 = params[:searchbox33]
     dadasdas = params[:nombre]
     $aeropuertoMensuales = dadasdas[:id]
 
