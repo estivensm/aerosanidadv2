@@ -4,10 +4,13 @@ class Dashboard1Controller < ApplicationController
   def graficas
   @historias_clinicas = HistoriaClinica.all
   @aeropuertos = Aeropuerto.all
-       
+  
+
+
+  @aeropuerto_activo = Aeropuerto.where(state:true)     
   @nombre_aeropuerto = HistoriaClinica.joins(:aeropuerto)
   .group("aeropuertos.nombre")
-  .where(:aeropuertos => { :id => [193, 196, 271, 309, 207, 184, 280, 217, 318, 308, 343, 221, 197, 191]} ).count
+  .where(:aeropuertos => { :id => @aeropuerto_activo} ).count
 
 	@aaa = HistoriaClinica.group("id").count
 
