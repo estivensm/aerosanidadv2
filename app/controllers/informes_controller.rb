@@ -72,6 +72,8 @@ end
     @Mensuales2 = params[:searchbox33].to_date
     @total_pacientes = Aeropuerto.where("date(created_at) >= ? ",@Mensuales ).where("date(created_at) <= ? ", @Mensuales2 ).where
     dadasdas = params[:nombre]
+    @adasdas1 = params[:nombre]
+    @adasdas2 = dadasdas[:id]
     $aeropuertoMensuales = dadasdas[:id]
 
 
