@@ -75,7 +75,7 @@
     </tr>
   </thead>
   <tbody>
-    <% [196, 271, 309, 207, 184, 280, 217, 318, 308, 343, 221, 197, 191,193].each do |aero|%>
+    <% @elements.each do |aero|%>
     <tr>
        <th><%= Aeropuerto.find(aero).nombre%></th>
       <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @enero1).where("created_at <= ?", @enero2).count%></th>
