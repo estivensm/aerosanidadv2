@@ -7,7 +7,7 @@ def index
      @aeropuertos = Aeropuerto.search(params[:search]).page(params[:page]).all
 
 @elements = Aeropuerto.where(state:true).ids
-     @aeropuertos = Aeropuerto.where("id = ? OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ? OR id = ?", 196, 184, 217, 221, 309, 280, 318, 343, 193, 271, 207, 308, 197, 191, 1099)
+     @aeropuertos = Aeropuerto.where("id = ? OR id = ? OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ?  OR id = ? OR id = ?", 196, 184, 217, 221, 309, 280, 318, 343, 193, 271, 207, 308, 197, 191, 1099)
 
 
 
