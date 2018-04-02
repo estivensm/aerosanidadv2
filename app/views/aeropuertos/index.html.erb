@@ -77,7 +77,7 @@
   <tbody>
     <% @elements.each do |aero|%>
     <tr>
-       <th><%= Aeropuerto.find(aero).nombre%></th>
+       <th><%= Aeropuerto.find(aero).nombre.upcase%></th>
       <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @enero1).where("created_at <= ?", @enero2).count%></th>
       <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @febrero1).where("created_at <= ?", @febrero2).count%></th>
       <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @marzo1).where("created_at <= ?", @marzo2).count%></th>
