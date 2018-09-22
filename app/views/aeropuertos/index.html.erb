@@ -59,7 +59,7 @@
 <table class="table">
   <tr>
        <th>Total 2018</th>
-      <th><%= HistoriaClinica.where("created_at >= ?", @enero1).where("created_at <= ?", @julio2).count%></th>
+      <th><%= HistoriaClinica.where("created_at >= ?", @enero1).where("created_at <= ?", @agosto2).count%></th>
     
       
     </tr>
@@ -72,6 +72,7 @@
       <th>Mayo</th>
       <th>Junio</th>
       <th>Julio</th>
+      <th>Agosto</th>
     </tr>
   </thead>
   <tbody>
@@ -85,6 +86,7 @@
       <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?",@mayo1).where("created_at <= ?", @mayo2).count%></th>
       <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @junio1).where("created_at <= ?", @junio2).count%></th>
       <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @julio1).where("created_at <= ?", @julio2).count%></th>
+        <th><%= HistoriaClinica.where(aeropuerto_id: aero).where("created_at >= ?", @agosto1).where("created_at <= ?", @agosto2).count%></th>
       
     </tr>
 

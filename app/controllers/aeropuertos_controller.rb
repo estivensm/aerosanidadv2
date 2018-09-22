@@ -26,6 +26,8 @@ def index
 @junio2 = Date.new(2018,6,30)
 @julio1 = Date.new(2018,7,1)
 @julio2 = Date.new(2018,7,31)
+@agosto1 = Date.new(2018,8,1)
+@agosto2 = Date.new(2018,8,31)
 
 
 
